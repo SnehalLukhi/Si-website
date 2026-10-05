@@ -1,0 +1,51 @@
+/* Scroll-triggered reveals for the service detail pages (see useServiceScrollAnimations.js).
+   Plain fade + translate: no scale, blur, bounce or parallax. */
+.sa-item {
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
+}
+
+.sa-item:not(.sa-in) {
+  opacity: 0;
+}
+
+.sa-up:not(.sa-in) {
+  transform: translateY(32px);
+}
+
+.sa-left:not(.sa-in) {
+  transform: translateX(64px);
+}
+
+.sa-item.sa-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* The hero title previously used a scale "grow" keyframe; the scroll reveal replaces it.
+   .sa-page stays on the page root for good, so the keyframe cannot replay when .sa-item is removed. */
+.sa-page .service-title-reveal--grow {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sa-item {
+    transition: none;
+  }
+
+  .sa-item:not(.sa-in) {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* "Send Your Message" while the message is being sent */
+.qa__submit:disabled,
+.uiux__submit:disabled,
+.webdev__submit:disabled,
+.appdev__submit:disabled,
+.marketing__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

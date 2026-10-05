@@ -1,0 +1,1122 @@
+.careers-page {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #232525;
+}
+
+.careers-page .header.is-sticky.is-pinned {
+  animation: none;
+}
+
+/*
+  Job Opportunities + Life At Sahajanand: desktop 80% centered (10% gutters).
+  Hero / Quote keep their own widths. Tablet/mobile overridden below 992px.
+*/
+
+.careers-page__job-swiper,
+.careers-page__jobs-title,
+.careers-page__culture-inner {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.careers-page__hero-copy {
+  width: min(72rem, 80%);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.careers-page__quote-frame {
+  width: min(80.875rem, 90%);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* ===== Hero ===== */
+.careers-page__hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: -4.75rem;
+  padding: calc(4.75rem + 3.5rem) 0 3.5rem;
+  background: #ffffff;
+}
+
+.careers-page__hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+}
+
+.careers-page__hero-title {
+  margin: 0 0 0.65rem;
+  color: #232525;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: clamp(1.5rem, 3.9vw, 4.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.21;
+}
+
+.careers-page__hero-lead {
+  margin: 0 0 2.5rem;
+  color: #232525;
+  font-size: clamp(1.25rem, 2.8vw, 2.15rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+.careers-page__hero-lead span {
+  color: #0085e4;
+}
+
+.careers-page__hero-text {
+  margin: 0;
+  max-width: 38.25rem;
+  padding: 0 2rem;
+  color: #232525;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* ===== Jobs ===== */
+.careers-page__jobs {
+  width: 100%;
+  padding: 0 0 10rem;
+  background: #ffffff;
+}
+
+.careers-page__jobs-title {
+  margin-top: 0;
+  margin-bottom: 5rem;
+  color: #111827;
+  font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.careers-page__job-swiper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 0;
+}
+
+.careers-page__job-track {
+  display: grid;
+  grid-template-columns: repeat(3, 21.625rem);
+  gap: 3rem;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem 0 0;
+  list-style: none;
+}
+
+.careers-page__job-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 21.625rem;
+  max-width: 100%;
+  height: 31.25rem;
+  min-height: 31.25rem;
+  padding: 2.25rem 2.25rem 3.25rem;
+  border: 1px solid #dddddd;
+  border-radius: 1.25rem;
+  background: #ffffff;
+  box-shadow: none;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.careers-page__job-card:hover {
+  box-shadow: 0 14px 32px rgba(15, 61, 115, 0.1);
+}
+
+.careers-page__job-hot {
+  position: absolute;
+  top: 1.25rem;
+  right: 0;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 2.25rem;
+  border-radius: 0.625rem 0 0 0.625rem;
+  background: linear-gradient(180deg, #f78a23 0%, #ff9d00 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.careers-page__job-card:hover .careers-page__job-hot {
+  transform: scale(1.05) translateY(-2px);
+}
+
+.careers-page__job-name {
+  margin: 0 0 1.5rem;
+  min-height: 3.125rem;
+  color: #232525;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.33;
+}
+
+.careers-page__job-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.careers-page__job-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.careers-page__job-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #0085e4;
+}
+
+.careers-page__job-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.careers-page__job-meta-inline,
+.careers-page__job-meta-label {
+  color: #717479;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.75;
+}
+
+.careers-page__job-meta-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.careers-page__job-meta-value {
+  margin: 0;
+  padding-left: 2rem;
+  color: #232525;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.careers-page__job-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+  height: 3.625rem;
+  margin-top: auto;
+  padding: 0;
+  border: 2px solid #0085e4;
+  border-radius: 1.25rem;
+  background: #ffffff;
+  color: #0085e4;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.careers-page__job-btn:hover,
+.careers-page__job-btn:focus-visible {
+  background: #0085e4;
+  color: #ffffff;
+  outline: none;
+}
+
+.careers-page__job-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.careers-page__job-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #d1d5db;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.careers-page__job-dot.is-active {
+  background: #0085e4;
+  transform: scale(1.15);
+}
+
+.careers-page__view-all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 12.75rem;
+  height: 4rem;
+  border-radius: 0.77rem;
+  background: linear-gradient(90deg, #4db3f5 0%, #0085e4 100%);
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.23;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(0, 133, 228, 0.28);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.careers-page__view-all svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.careers-page__view-all:hover,
+.careers-page__view-all:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0, 133, 228, 0.34);
+  outline: none;
+}
+
+/* ===== Culture ===== */
+.careers-page__culture {
+  width: 100%;
+  padding: 0 0 4rem;
+  background: #ffffff;
+}
+
+.careers-page__culture-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.careers-page__culture-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: 50rem;
+  margin: 0 auto 2.75rem;
+  text-align: center;
+}
+
+.careers-page__culture-title {
+  margin: 0 0 4rem;
+  color: #111827;
+  font-size: clamp(1.75rem, 3.2vw, 3.9rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.careers-page__culture-intro {
+  margin: 0;
+  max-width: 50rem;
+  padding: 0 2rem;
+  color: #717479;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.careers-page__culture-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.careers-page__culture-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  width: 100%;
+  max-width: 80.875rem;
+  min-height: 25rem;
+  padding: 1.25rem 1.75rem;
+  border-radius: 1.25rem;
+  background: #eff1f5;
+}
+
+.careers-page__culture-image {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.625rem;
+  aspect-ratio: 16 / 9;
+}
+
+.careers-page__culture-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.careers-page__culture-copy {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.75rem;
+  width: 100%;
+}
+
+.careers-page__culture-emoji {
+  flex-shrink: 0;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.careers-page__culture-copy p {
+  margin: 0;
+  color: #3a3f47;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+/* ===== Quote ===== */
+.careers-page__quote {
+  width: 100%;
+  padding: 3.5rem 0 4.5rem;
+  overflow: visible;
+  background: #ffffff;
+}
+
+.careers-page__quote-frame {
+  height: clamp(12.5rem, 28vw, 20rem);
+  animation: careers-quote-in 0.65s ease-out both;
+}
+
+@keyframes careers-quote-in {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .careers-page__quote-frame {
+    animation: none;
+  }
+}
+
+.careers-page__quote-skew {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  border: 2px dashed #0085e4;
+  border-radius: 1.25rem;
+  background: #ffffff;
+  box-shadow: 0 4px 25px rgba(206, 206, 206, 0.25);
+  transform: skewX(10deg);
+}
+
+/* Counter-skew text only — quote marks stay skewed with the box */
+.careers-page__quote-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 5rem; /* ~80px desktop */
+  transform: skewX(-10deg);
+}
+
+.careers-page__quote-text {
+  width: min(100%, 62.5rem);
+  margin: 0;
+  padding: 0 clamp(1rem, 4vw, 4rem);
+  color: #232525;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.careers-page__quote-text span {
+  color: #0085e4;
+  font-weight: 600;
+}
+
+/*
+  Same quote-mark.svg on both corners.
+  SVG glyph is top-heavy (66); Image 2 opening is bottom-heavy —
+  so LEFT uses rotate(180deg), RIGHT uses the unrotated glyph
+  (equivalent to a further 180° from the left mark).
+*/
+.careers-page__quote-mark {
+  position: absolute;
+  z-index: 2;
+  width: 7.625rem; /* +~17% from 6.5rem */
+  height: 7.625rem;
+  pointer-events: none;
+  user-select: none;
+  line-height: 0;
+}
+
+.careers-page__quote-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Opening “ — match Image 2 top-left (bulbs toward border / bottom-heavy look) */
+.careers-page__quote-mark--left {
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+/* Closing ” — match Image 2 bottom-right (180° from the opening mark) */
+.careers-page__quote-mark--right {
+  right: 0;
+  bottom: 0;
+  transform: translate(50%, 50%);
+}
+
+/* 992–1500: shrink marks ~18% so they stay inside the viewport */
+@media (min-width: 992px) and (max-width: 1500px) {
+  .careers-page__quote-mark {
+    width: 6.25rem;
+    height: 6.25rem;
+  }
+}
+
+/* 992–1440: quote frame 80% wide → 10% gutter each side */
+@media (min-width: 992px) and (max-width: 1440px) {
+  .careers-page__quote-frame {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.careers-page__top {
+  position: fixed;
+  right: 1.35rem;
+  bottom: 1.35rem;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 999px;
+  background: #0085e4;
+  color: #ffffff;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.5rem);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    background-color 0.2s ease;
+}
+
+.careers-page__top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.careers-page__top:hover,
+.careers-page__top:focus-visible {
+  background: #1a92e9;
+  outline: none;
+}
+
+/* ===== Desktop ===== */
+@media (min-width: 992px) {
+  .careers-page .header.is-sticky {
+    width: 70%;
+    max-width: none;
+  }
+
+  .careers-page__job-swiper,
+  .careers-page__jobs-title {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .careers-page__culture-inner {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .careers-page__culture-head,
+  .careers-page__culture-intro {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* Life At Sahajanand: side-by-side from 1141px up — 70% centered (15% gutters) */
+@media (min-width: 1141px) {
+  .careers-page__culture-inner {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .careers-page__culture-card {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: center;
+    gap: 1.75rem;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 0;
+    padding: 1.75rem 3.3125rem;
+    border-radius: 3.125rem;
+  }
+
+  .careers-page__culture-card.is-reversed {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  }
+
+  .careers-page__culture-card.is-reversed .careers-page__culture-image {
+    order: 2;
+  }
+
+  .careers-page__culture-card.is-reversed .careers-page__culture-copy {
+    order: 1;
+  }
+
+  /* Image fills the full 60% column; no shrinking max-width */
+  .careers-page__culture-image {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    justify-self: stretch;
+    overflow: hidden;
+    border-radius: 0.625rem;
+    aspect-ratio: 16 / 9;
+  }
+
+  .careers-page__culture-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .careers-page__culture-copy {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    gap: 1.75rem;
+  }
+
+  .careers-page__culture-copy p {
+    max-width: 26rem;
+  }
+
+  .careers-page__culture-emoji {
+    font-size: 2.25rem;
+  }
+}
+
+/* Life At Sahajanand: stacked image-over-content at 1140px and below */
+@media (max-width: 1140px) {
+  .careers-page__culture-card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+    height: auto;
+    min-height: 0;
+    padding: 1.5rem 2rem;
+  }
+
+  .careers-page__culture-card.is-reversed {
+    flex-direction: column;
+  }
+
+  .careers-page__culture-card.is-reversed .careers-page__culture-image,
+  .careers-page__culture-card.is-reversed .careers-page__culture-copy {
+    order: 0;
+  }
+
+  .careers-page__culture-image {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    align-self: stretch;
+    aspect-ratio: 16 / 9;
+  }
+
+  .careers-page__culture-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .careers-page__culture-copy {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .careers-page__culture-copy p {
+    max-width: none;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .careers-page .header.is-sticky {
+    width: 80%;
+  }
+
+  .careers-page__job-swiper,
+  .careers-page__jobs-title {
+    width: 80%;
+  }
+
+  .careers-page__job-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .careers-page__job-card {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+@media (min-width: 1141px) and (max-width: 1199px) {
+  .careers-page__culture-card {
+    gap: 1.75rem;
+    height: auto;
+    min-height: 0;
+    padding: 1.75rem 2rem;
+    border-radius: 2.5rem;
+  }
+}
+
+/* 70% boundary starts at 1281: narrower card, so keep the copy at 3–4 lines */
+@media (min-width: 1281px) and (max-width: 1399px) {
+  .careers-page__culture-card {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .careers-page__culture-copy {
+    gap: 1.25rem;
+  }
+}
+
+/* Desktop ≥1200: 3 job cards fluidly fill the 80% content row */
+@media (min-width: 1200px) {
+  .careers-page__job-track {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.75rem, 2.2vw, 3rem);
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .careers-page__job-card {
+    container-type: inline-size;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 346 / 500;
+    padding: 10.4% 10.4% 15%;
+    box-sizing: border-box;
+  }
+
+  .careers-page__job-hot {
+    top: 5.8cqi;
+    width: 16.2cqi;
+    height: 10.4cqi;
+    font-size: 4.6cqi;
+    border-radius: 2.9cqi 0 0 2.9cqi;
+  }
+
+  .careers-page__job-name {
+    margin-bottom: 7cqi;
+    min-height: 14.5cqi;
+    font-size: 7cqi;
+  }
+
+  .careers-page__job-meta-list {
+    gap: 7cqi;
+    margin-bottom: 7cqi;
+  }
+
+  .careers-page__job-meta-row {
+    gap: 2.3cqi;
+  }
+
+  .careers-page__job-icon {
+    width: 6.9cqi;
+    height: 6.9cqi;
+  }
+
+  .careers-page__job-icon svg {
+    width: 6.9cqi;
+    height: 6.9cqi;
+  }
+
+  .careers-page__job-meta-inline,
+  .careers-page__job-meta-label {
+    font-size: 4.6cqi;
+  }
+
+  .careers-page__job-meta-block {
+    gap: 4.6cqi;
+  }
+
+  .careers-page__job-meta-value {
+    padding-left: 9.2cqi;
+    font-size: 4.85cqi;
+  }
+
+  .careers-page__job-btn {
+    height: 16.8cqi;
+    border-radius: 5.8cqi;
+    font-size: 5.8cqi;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .careers-page .header.is-sticky {
+    width: 80%;
+  }
+
+  .careers-page__job-track {
+    gap: clamp(1.5rem, 2vw, 2.5rem);
+  }
+}
+
+/* ===== Tablet — ref @768: 2×346 cards, gap ~22px, culture r40 pad 24/40 ===== */
+@media (max-width: 991px) {
+  .careers-page__hero-copy,
+  .careers-page__jobs-title,
+  .careers-page__job-swiper {
+    width: min(45.5rem, 90%);
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  .careers-page__culture-inner {
+    width: min(45rem, 94%);
+  }
+
+  .careers-page__quote-frame {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .careers-page__hero {
+    padding: calc(4.75rem + 2.5rem) 0 2.75rem;
+  }
+
+  .careers-page__hero-title {
+    font-size: clamp(1.75rem, 5.2vw, 2.5rem);
+  }
+
+  .careers-page__hero-lead {
+    margin-bottom: 1.5rem;
+    font-size: clamp(1.15rem, 3.2vw, 1.5rem);
+  }
+
+  .careers-page__jobs {
+    padding-bottom: 5rem;
+  }
+
+  .careers-page__jobs-title {
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
+  }
+
+  .careers-page__job-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.375rem;
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .careers-page__job-card {
+    width: 100%;
+    max-width: none;
+    height: 31.25rem;
+    min-height: 31.25rem;
+  }
+
+  .careers-page__culture {
+    padding-bottom: 3rem;
+  }
+
+  .careers-page__culture-title {
+    margin-bottom: 2rem;
+  }
+
+  .careers-page__culture-card {
+    flex-direction: column;
+    gap: 1.5rem;
+    height: auto;
+    min-height: 0;
+    padding: 1.5rem 2.5rem;
+    border-radius: 2.5rem;
+  }
+
+  .careers-page__culture-card.is-reversed {
+    flex-direction: column;
+  }
+
+  .careers-page__culture-image {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .careers-page__culture-copy {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .careers-page__quote {
+    padding: 2.5rem 0 3.25rem;
+  }
+
+  .careers-page__quote-inner {
+    padding: 2.5rem 1.5rem;
+  }
+
+  /* ~35% of tablet quote frame height */
+  .careers-page__quote-mark {
+    width: 5.625rem;
+    height: 5.625rem;
+  }
+}
+
+/* ===== Mobile — ref ~390: 1×346×500 card, H1/H2 24px, culture r20 pad 16/20 ===== */
+@media (max-width: 676px) {
+  .careers-page__hero-copy,
+  .careers-page__jobs-title,
+  .careers-page__job-swiper {
+    width: calc(100% - 2rem);
+    max-width: 22.625rem;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  .careers-page__quote-frame {
+    width: 80%;
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .careers-page__hero {
+    padding: calc(4.25rem + 1.5rem) 0 2rem;
+  }
+
+  .careers-page__hero-title {
+    font-size: 1.5rem;
+  }
+
+  .careers-page__hero-lead {
+    margin-bottom: 1.25rem;
+    font-size: 1.15rem;
+  }
+
+  .careers-page__hero-text {
+    padding: 0;
+    font-size: 0.9375rem;
+  }
+
+  .careers-page__jobs-title {
+    margin-bottom: 1.75rem;
+    font-size: 1.5rem;
+  }
+
+  .careers-page__job-track {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: none;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .careers-page__job-card {
+    width: 100%;
+    max-width: none;
+    height: 31.25rem;
+    min-height: 31.25rem;
+    padding: 2.25rem 2.25rem 3.25rem;
+  }
+
+  .careers-page__job-name {
+    font-size: 1.5rem;
+    min-height: 3.125rem;
+  }
+
+  .careers-page__job-btn {
+    height: 3.625rem;
+    font-size: 1.25rem;
+  }
+
+  .careers-page__view-all {
+    width: 100%;
+    max-width: 12.75rem;
+    height: 3.5rem;
+    font-size: 1.1rem;
+  }
+
+  .careers-page__culture-title {
+    font-size: 1.5rem;
+  }
+
+  .careers-page__culture-intro {
+    font-size: 1rem;
+  }
+
+  .careers-page__quote-skew {
+    transform: skewX(6deg);
+  }
+
+  .careers-page__quote-inner {
+    padding: 2rem 1.25rem;
+    transform: skewX(-6deg);
+  }
+
+  /* ~35% of mobile quote frame height (~200px) */
+  .careers-page__quote-mark {
+    width: 4.75rem;
+    height: 4.75rem;
+  }
+
+  .careers-page__quote-mark--left {
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%) rotate(180deg);
+  }
+
+  .careers-page__quote-mark--right {
+    right: 0;
+    bottom: 0;
+    transform: translate(50%, 50%);
+  }
+}
+
+/* 992–1280: every section matches the Job Opportunities width (80%) */
+@media (min-width: 992px) and (max-width: 1280px) {
+  .careers-page__culture-inner {
+    width: 80%;
+  }
+
+  /* Frame narrowed by the skew + corner-mark overhang (see ≥1281 note below) */
+  .careers-page__quote-frame {
+    width: calc(80% - 2 * (3.125rem + (clamp(12.5rem, 28vw, 20rem) / 2 + 3.125rem) * 0.1763));
+  }
+}
+
+/* ≥1281: one 70% content boundary (15% gutters) for the whole page */
+@media (min-width: 1281px) {
+  .careers-page .header.is-sticky {
+    width: 70%;
+    max-width: none;
+  }
+
+  .careers-page__hero-copy,
+  .careers-page__jobs-title,
+  .careers-page__job-swiper,
+  .careers-page__culture-inner,
+  .careers-page .site-footer__inner {
+    width: 70%;
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /*
+    The skewed box (10deg) and the corner marks paint outside the frame by
+    mark/2 + (frame height/2 + mark/2) * tan(10deg) on each side, so the frame
+    is narrowed by that overhang to keep the whole quote inside 70%.
+  */
+  .careers-page__quote-frame {
+    width: calc(70% - 2 * (3.125rem + (10rem + 3.125rem) * 0.1763));
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 1501px) {
+  .careers-page__quote-frame {
+    width: calc(70% - 2 * (3.8125rem + (10rem + 3.8125rem) * 0.1763));
+  }
+}

@@ -1,0 +1,632 @@
+﻿.products-page {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #232525;
+}
+
+/* Shared content boundary: matches the Footer at every breakpoint */
+.products-page__container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 677px) and (max-width: 991px) {
+  .products-page__container {
+    width: 84%;
+    max-width: 46rem;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1399px) {
+  .products-page__container,
+  .products-page .header.is-sticky {
+    width: 80%;
+    max-width: none;
+  }
+}
+
+@media (min-width: 1400px) {
+  .products-page__container,
+  .products-page .header.is-sticky {
+    width: 70%;
+    max-width: none;
+  }
+}
+
+/* ===== Hero ===== */
+.products-page__hero {
+  display: flex;
+  align-items: stretch;
+  min-height: clamp(34rem, 50vw, 50rem);
+  padding: 5rem 0 3.5rem;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.35) 100%),
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.10) 100%
+    ),
+    url('../../assets/images/our-product/hero.png') center / cover no-repeat;
+}
+
+/* Desktop header is fixed: pull the hero background up behind its 4.75rem flow space */
+@media (min-width: 992px) {
+  .products-page__hero {
+    margin-top: -4.75rem;
+    padding-top: calc(4.75rem + 5rem);
+  }
+}
+
+.products-page__hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.products-page__hero-copy {
+  max-width: 44rem;
+  margin: auto;
+  text-align: center;
+}
+
+.products-page__eyebrow {
+  margin: 0 0 1rem;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  font-size: clamp(1rem, 0.9rem + 0.35vw, 1.1875rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.products-page__hero-title {
+  margin: 0 0 1.5rem;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  font-size: clamp(2rem, 1.2rem + 2.6vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.products-page__hero-title span {
+  color: inherit;
+}
+
+.products-page__hero-text {
+  margin: 0 auto;
+  max-width: 32rem;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  font-size: clamp(1rem, 0.9rem + 0.35vw, 1.1875rem);
+  line-height: 1.6;
+}
+
+.products-page__hero-actions {
+  margin-top: 2.25rem;
+}
+
+.products-page__hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  padding: 0.9rem 1.9rem;
+  border-radius: 0.5rem;
+  background: #0085e4;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.15;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    transform 0.3s ease-out,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.products-page__hero-cta:hover,
+.products-page__hero-cta:focus-visible {
+  background: #0077cc;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px);
+}
+
+.products-page__hero-cta:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* Glass stat cards: light tint + soft blur keeps the photo visible behind them */
+.products-page__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.products-page__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  text-align: center;
+  position: relative;
+  transition:
+    translate 0.3s ease-out,
+    box-shadow 0.3s ease;
+}
+
+/* Same lift, shadow and timing as the Home Latest Blog cards */
+.products-page__stat:hover {
+  translate: 0 -4px;
+  box-shadow: 0 14px 32px rgba(15, 61, 115, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .products-page__stat {
+    transition: none;
+  }
+}
+
+.products-page__stat-value {
+  color: #ffffff;
+  font-size: clamp(1.5rem, 2.2vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.products-page__stat-label {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* ===== Section headings ===== */
+.products-page__section-title {
+  margin: 0 0 3.5rem;
+  color: #111827;
+  font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* ===== Our Notable Products ===== */
+.products-page__notable {
+  padding: 5.5rem 0 4rem;
+}
+
+.products-page__carousel {
+  --gap: 2rem;
+  --card-w: calc((100% - 2 * var(--gap)) / 3);
+  overflow-x: clip;
+}
+
+.products-page__stage {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--gap);
+  margin: 0;
+  padding: 1.5rem 0 2rem;
+  list-style: none;
+  will-change: transform;
+}
+
+/*
+  All cards sit on one horizontal row. The row is moved by script (continuous loop),
+  so cards keep a fixed width and never shrink, overlap or change height individually.
+*/
+.products-page__card {
+  --focus: 1;
+  position: relative;
+  flex: 0 0 var(--card-w);
+  width: var(--card-w);
+  will-change: transform;
+  container-type: inline-size;
+}
+
+.products-page__card-inner {
+  display: grid;
+  /* Image area 53% / text area 47% of the card height at every screen size */
+  grid-template-rows: 53fr 47fr;
+  /* Compact proportions (height about 0.94 x width); taller only if the text needs it, keeping the same 53/47 split */
+  min-height: calc(100cqw * 393 / 418);
+  height: 100%;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 calc(8px + 8px * var(--focus, 1)) calc(24px + 16px * var(--focus, 1)) rgba(15, 23, 42, calc(0.08 + 0.06 * var(--focus, 1)));
+}
+
+/* Image area scales with the card width (same proportions as the original 311px x 220px area), so every card shows its image in an equally sized frame at any screen size */
+.products-page__card-media {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: #eff1f5;
+}
+
+/* The image fills the whole image area (scaled proportionally, overflow trimmed evenly from the centre) */
+.products-page__card-media img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+/* AI Lab image keeps its existing behavior */
+.products-page__ai-card-media {
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.products-page__ai-card-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s ease;
+}
+
+.products-page__card-inner:hover .products-page__card-media img {
+  transform: scale(1.03);
+}
+
+.products-page__ai-card-media:hover img {
+  transform: scale(1.08);
+}
+
+.products-page__card-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 1.25rem 1.4rem 1.2rem;
+}
+
+.products-page__card-name {
+  margin: 0 0 0.6rem;
+  color: #232525;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.products-page__card-text {
+  display: -webkit-box;
+  margin: 0 0 1.1rem;
+  overflow: hidden;
+  color: #717479;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.products-page__card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.products-page__card-downloads {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #717479;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.products-page__card-downloads svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: #34a853;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.products-page__card-link {
+  color: #717479;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.products-page__card-link:hover,
+.products-page__card-link:focus-visible {
+  color: #0085e4;
+}
+
+.products-page__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.products-page__dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #d1d5db;
+  cursor: pointer;
+  transition:
+    width 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.products-page__dot.is-active {
+  width: 1.5rem;
+  background: #0085e4;
+}
+
+/* ===== AI Lab ===== */
+.products-page__ai {
+  padding: 3rem 0 6rem;
+}
+
+.products-page__ai-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.products-page__ai .products-page__section-title {
+  margin-bottom: 1.25rem;
+}
+
+.products-page__ai-text {
+  margin: 0;
+  max-width: 40rem;
+  color: #717479;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.products-page__ai-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: stretch;
+  width: 100%;
+  margin-top: 2.75rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+  text-align: left;
+}
+
+/* The image fills the whole media box edge to edge (no white bars); it is cropped, never stretched */
+.products-page__ai-card-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 320px;
+  min-height: 320px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.products-page__ai-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  transition: transform 0.5s ease;
+}
+
+.products-page__ai-card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 2.25rem 1.75rem;
+}
+
+.products-page__ai-card-name {
+  margin: 0 0 0.75rem;
+  color: #232525;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.products-page__ai-card-text {
+  margin: 0 0 1.5rem;
+  color: #717479;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.products-page__ai-card-link {
+  align-self: flex-end;
+  margin-top: auto;
+  font-size: 0.9375rem;
+}
+
+/* ===== Tablet ===== */
+@media (max-width: 991px) {
+  /* Header overlays the hero here too (same approach as the service pages) */
+  .products-page .header__shell.is-sticky {
+    height: 0 !important;
+  }
+
+  .products-page .header.is-sticky {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 100;
+  }
+
+  /* Image fills the hero from the top, anchored right so only its left side is trimmed; height follows the content */
+  .products-page__hero {
+    min-height: 0;
+    padding: calc(var(--products-header-h) + 3.5rem) 0 3rem;
+    background-position: 0 0, 0 0, right top;
+    background-size: 100% 100%, 100% 100%, cover;
+    --products-header-h: 4.95rem;
+  }
+
+  .products-page__hero-inner {
+    gap: 3rem;
+  }
+
+  .products-page__hero-copy {
+    margin: 0 auto;
+  }
+
+  .products-page__stats {
+    gap: 0.75rem;
+  }
+
+  .products-page__stat {
+    padding: 1rem 1.1rem;
+  }
+
+  .products-page__stat-label {
+    font-size: 0.875rem;
+  }
+
+  .products-page__notable {
+    padding: 4rem 0 3rem;
+  }
+
+  .products-page__section-title {
+    margin-bottom: 2.5rem;
+  }
+
+  .products-page__carousel {
+    --gap: 1.25rem;
+  }
+
+  .products-page__card-body {
+    padding: 1rem 1.1rem 1rem;
+  }
+
+  .products-page__card-name {
+    font-size: 1.05rem;
+  }
+
+  .products-page__card-text {
+    font-size: 0.875rem;
+  }
+}
+
+/* Below 1200px the card narrows: keep the text column close to the image height so the image isn't letterboxed */
+@media (max-width: 1199px) {
+  .products-page__ai-card-body {
+    padding: 1.1rem 1.4rem 1rem;
+  }
+
+  .products-page__ai-card-name {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .products-page__ai-card-text {
+    display: -webkit-box;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+}
+
+/* ===== Mobile: one card at a time ===== */
+@media (max-width: 767px) {
+  /* Centre card plus a slice of the previous and next card on each side */
+  .products-page__carousel {
+    --gap: 1rem;
+    --card-w: 68%;
+  }
+
+  .products-page__stage {
+    padding: 0.5rem 0 1.5rem;
+  }
+
+  .products-page__ai-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .products-page__ai-card-body {
+    padding: 1.25rem 1.4rem 1.2rem;
+  }
+
+  .products-page__ai-card-text {
+    display: block;
+    margin-bottom: 1.1rem;
+  }
+
+  .products-page__card-name {
+    font-size: 1.15rem;
+  }
+
+}
+
+@media (max-width: 676px) {
+  .products-page__hero {
+    padding: calc(var(--products-header-h) + 3rem) 0 2.5rem;
+  }
+
+  .products-page__hero-actions {
+    margin-top: 1.75rem;
+  }
+
+  .products-page__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .products-page__eyebrow,
+  .products-page__hero-text,
+  .products-page__ai-text {
+    font-size: 1rem;
+  }
+
+  .products-page__section-title {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+  }
+
+  .products-page__ai {
+    padding: 2rem 0 4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .products-page__hero-cta,
+  .products-page__card,
+  .products-page__card-media img,
+  .products-page__ai-card-media img {
+    transition: none;
+  }
+}

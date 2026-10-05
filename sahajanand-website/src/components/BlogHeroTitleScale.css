@@ -1,0 +1,37 @@
+/* Hero title scale-up (Blog Detail + Contact Us) */
+.blog-appdev__hero-title.service-title-reveal,
+.blog-webdev__hero-title.service-title-reveal,
+.blog-marketing__hero-title.service-title-reveal,
+.contact-page__hero-title.service-title-reveal {
+  overflow: visible;
+}
+
+.blog-appdev__hero-title .service-title-reveal__text,
+.blog-webdev__hero-title .service-title-reveal__text,
+.blog-marketing__hero-title .service-title-reveal__text,
+.contact-page__hero-title .service-title-reveal__text {
+  clip-path: none;
+  transform-origin: center center;
+  animation: blog-hero-title-scale-up 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes blog-hero-title-scale-up {
+  from {
+    transform: scale(0.72);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-appdev__hero-title .service-title-reveal__text,
+  .blog-webdev__hero-title .service-title-reveal__text,
+  .blog-marketing__hero-title .service-title-reveal__text,
+  .contact-page__hero-title .service-title-reveal__text {
+    clip-path: none;
+    transform: none;
+    animation: none;
+  }
+}

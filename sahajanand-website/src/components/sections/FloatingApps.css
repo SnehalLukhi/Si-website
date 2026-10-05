@@ -1,0 +1,367 @@
+.floating-apps {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: calc(100vh + var(--floating-apps-scroll, 300px));
+  background: #ffffff;
+}
+
+.floating-apps__stage {
+  position: sticky;
+  top: 4.5rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 4.5rem);
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.floating-apps__cluster {
+  position: relative;
+  top: 4.5rem;
+  width: 796px;
+  height: 815px;
+  flex: 0 0 auto;
+}
+
+.floating-apps__glow-scale,
+.floating-apps__icons-scale {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.floating-apps__glow-scale {
+  z-index: 1;
+}
+
+.floating-apps__icons-scale {
+  z-index: 2;
+}
+
+.floating-apps__glow {
+  position: absolute;
+  top: 184px;
+  left: 178px;
+  z-index: 1;
+  display: block;
+  width: 439px;
+  height: 439px;
+  pointer-events: none;
+}
+
+.floating-apps__phone-slot {
+  --phone-width: clamp(286px, 28.5vw, 456px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 30%;
+  height: 62%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.floating-apps__phone-title {
+  --title-reveal: 100%;
+  position: absolute;
+  top: calc(var(--phone-width) * -0.255);
+  left: calc(50% - 18px);
+  z-index: 0;
+  display: block;
+  color: #f0f0f0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: calc(var(--phone-width) * 0.374);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-align: center;
+  white-space: nowrap;
+  transform: translateX(-50%) scaleX(1.104);
+  transform-origin: center;
+  pointer-events: auto;
+}
+
+.floating-apps__phone-title-text {
+  position: relative;
+  z-index: 1;
+  display: block;
+  clip-path: inset(0 calc(100% - var(--title-reveal)) 0 0);
+  transition: clip-path 90ms linear;
+  will-change: clip-path;
+}
+
+.floating-apps__phone-title::after {
+  content: '';
+  position: absolute;
+  top: 0.08em;
+  left: var(--title-reveal);
+  width: max(1px, 0.012em);
+  height: 0.82em;
+  background: currentColor;
+  opacity: 1;
+  transform: translateX(-50%);
+  transition: left 90ms linear;
+  will-change: left;
+}
+
+.floating-apps__phone {
+  --phone-width: clamp(286px, 28.5vw, 456px);
+  --phone-radius: calc(var(--phone-width) * 32 / 268);
+  --phone-bezel: calc(var(--phone-width) * 6 / 268);
+  position: relative;
+  left: calc(50% - clamp(143px, 14.25vw, 228px));
+  width: var(--phone-width);
+  height: clamp(605px, 60.28vw, 964px);
+  overflow: hidden;
+  transform-origin: center bottom;
+  border: var(--phone-bezel) solid #242424;
+  border-bottom: 0;
+  border-radius: var(--phone-radius) var(--phone-radius) 0 0;
+  background: #ffffff;
+  z-index: 1;
+  -webkit-mask-image: linear-gradient(to bottom, #000000 0%, #000000 55%, transparent 65%);
+  mask-image: linear-gradient(to bottom, #000000 0%, #000000 55%, transparent 65%);
+  will-change: transform, opacity;
+}
+
+.floating-apps__status-bar {
+  position: absolute;
+  top: calc(var(--phone-width) * 12 / 268);
+  right: calc(var(--phone-width) * 16 / 268);
+  left: calc(var(--phone-width) * 23 / 268);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(var(--phone-width) * 12 / 268);
+  color: #000000;
+  pointer-events: none;
+}
+
+.floating-apps__status-time {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: calc(var(--phone-width) * 11 / 268);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.floating-apps__status-icons {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--phone-width) * 4 / 268);
+}
+
+.floating-apps__status-icons svg {
+  display: block;
+  flex: 0 0 auto;
+  fill: currentColor;
+}
+
+.floating-apps__status-signal rect,
+.floating-apps__status-wifi path {
+  stroke: #ffffff;
+  stroke-width: 0.35px;
+  paint-order: stroke fill;
+}
+
+.floating-apps__status-signal {
+  width: calc(var(--phone-width) * 16 / 268);
+  height: calc(var(--phone-width) * 10 / 268);
+}
+
+.floating-apps__status-wifi {
+  width: calc(var(--phone-width) * 15 / 268);
+  height: calc(var(--phone-width) * 11 / 268);
+}
+
+.floating-apps__status-battery {
+  width: calc(var(--phone-width) * 22 / 268);
+  height: calc(var(--phone-width) * 11 / 268);
+}
+
+.floating-apps__status-battery-cap {
+  fill: #b9b9b9;
+}
+
+.floating-apps__status-battery text {
+  fill: #ffffff;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 6.4px;
+  font-weight: 600;
+  letter-spacing: -0.35px;
+}
+
+.floating-apps__icon {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 128.6px;
+  height: 128.6px;
+  aspect-ratio: 1;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.floating-apps__icon::before {
+  content: "";
+  position: absolute;
+  top: 4.2%;
+  left: 2.2%;
+  z-index: 1;
+  width: 6.7%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #73ff09;
+  opacity: var(--icon-dot-opacity, 1);
+  pointer-events: none;
+}
+
+.floating-apps__icon-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.floating-apps__icon-image--phone {
+  position: absolute;
+  inset: 0;
+}
+
+.floating-apps__icon--app-two {
+  top: 82px;
+  left: 242px;
+}
+
+.floating-apps__icon--app-three-top {
+  top: 82px;
+  left: 444px;
+}
+
+.floating-apps__icon--app-one {
+  top: 252px;
+  left: 64px;
+}
+
+.floating-apps__icon--app-four {
+  top: 252px;
+  left: 608px;
+}
+
+.floating-apps__icon--app-seven {
+  top: 450px;
+  left: 64px;
+}
+
+.floating-apps__icon--app-three-lower {
+  top: 450px;
+  left: 608px;
+}
+
+.floating-apps__icon--app-six {
+  top: 642px;
+  left: 240px;
+}
+
+.floating-apps__icon--app-five {
+  top: 642px;
+  left: 442px;
+}
+
+@media (min-width: 992px) {
+  .floating-apps__phone-slot {
+    top: calc(50% + 252.5px - 31.8vh);
+    left: calc(50% + 7.5px);
+  }
+
+  .floating-apps__phone-title {
+    left: calc(50% - 22.5px);
+  }
+
+  .floating-apps__icon {
+    width: 128.6px;
+    height: 128.6px;
+    aspect-ratio: 1;
+  }
+}
+
+@media (max-width: 991px) {
+  .floating-apps__cluster {
+    --apps-scale: calc(min(796px, 92vw, calc(88vh * 796 / 815)) / 796px);
+    transform: translate(
+      clamp(-20px, calc((390px - 100vw) * 0.056), 0px),
+      calc(252.5px - 30.15vh)
+    );
+  }
+
+  .floating-apps__glow-scale,
+  .floating-apps__icons-scale {
+    transform: scale(var(--apps-scale));
+    transform-origin: 50% 50%;
+  }
+
+  .floating-apps__phone-slot,
+  .floating-apps__phone {
+    --phone-width: min(
+      286px,
+      66vw,
+      calc(100vw - 48px),
+      calc((100vh - 5rem) * 0.62)
+    );
+  }
+
+  .floating-apps__phone-slot {
+    top: calc(50% + max(0px, 4.4rem + var(--phone-width) * 0.255 - 19.85vh));
+    left: calc(50% + clamp(0px, calc((100vw - 390px) * 0.056), 20px));
+  }
+
+  .floating-apps__phone {
+    left: calc(50% - var(--phone-width) / 2);
+    height: calc(var(--phone-width) * 605 / 286);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000000 0%,
+      #000000 55%,
+      transparent 65%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000000 0%,
+      #000000 55%,
+      transparent 65%
+    );
+  }
+}
+
+@media (max-width: 605px) {
+  .floating-apps__phone-title {
+    font-size: min(
+      calc(var(--phone-width) * 0.374),
+      calc((100vw - 24px) / 5.45)
+    );
+  }
+}
+
+@media (max-width: 991px) and (max-height: 600px) {
+  .floating-apps__cluster {
+    --apps-scale: calc(min(796px, 92vw, calc(72vh * 796 / 815)) / 796px);
+  }
+}
+
+@media (max-width: 319px) {
+  .floating-apps__phone-slot,
+  .floating-apps__phone {
+    --phone-width: calc(100vw - 20px);
+  }
+
+  .floating-apps__phone {
+    left: calc(50% - var(--phone-width) / 2);
+    height: calc(var(--phone-width) * 605 / 286);
+  }
+}
+
+

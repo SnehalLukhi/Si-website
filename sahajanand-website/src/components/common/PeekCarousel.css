@@ -1,0 +1,63 @@
+/*
+ * --peek-slide: card width; --peek-gap: space between cards.
+ * The centred card keeps exactly --peek-slide; neighbours show whatever is left on each side.
+ */
+.peek-carousel {
+  --peek-slide: 76cqw;
+  --peek-gap: 4cqw;
+  container-type: inline-size;
+  width: 100%;
+}
+
+.peek-carousel__scroller {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: var(--peek-gap);
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* Vertical room for card shadows and hover lift; the negative margin keeps the section spacing unchanged */
+  margin: -24px 0 -72px;
+  padding: 24px calc((100cqw - var(--peek-slide)) / 2) 72px;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.peek-carousel__scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.peek-carousel__slide {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 0 0 var(--peek-slide);
+  min-width: 0;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  transform-origin: center center;
+  /* Position is driven from the scroll offset so a class swap cannot jump the card */
+  transition: none;
+  opacity: 1;
+  filter: none;
+}
+
+.peek-carousel__slide.is-active {
+  z-index: 3;
+}
+
+.peek-carousel__scroller.is-animating {
+  scroll-snap-type: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .peek-carousel__slide {
+    transition: none;
+  }
+}
+
+.peek-carousel__slide > * {
+  flex: 1 1 auto;
+  min-width: 0;
+}

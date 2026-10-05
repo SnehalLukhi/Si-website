@@ -1,0 +1,55 @@
+.service-title-reveal {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.service-title-reveal__text {
+  display: block;
+  clip-path: inset(100% 0 0 0);
+  animation: service-title-text-reveal 0.9s cubic-bezier(0.77, 0, 0.175, 1) both;
+}
+
+@keyframes service-title-text-reveal {
+  0% {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.service-title-reveal--grow {
+  animation: service-title-grow 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* The grow variant replaces the text wipe, which would otherwise hide the text while it scales */
+.service-title-reveal--grow .service-title-reveal__text {
+  clip-path: none;
+  animation: none;
+}
+
+@keyframes service-title-grow {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-title-reveal__text {
+    clip-path: none;
+    animation: none;
+  }
+
+  .service-title-reveal--grow {
+    animation: none;
+  }
+}
