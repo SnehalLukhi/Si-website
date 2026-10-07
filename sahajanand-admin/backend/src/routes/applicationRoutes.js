@@ -2,7 +2,7 @@ import express from 'express'
 import multer from 'multer'
 import mongoose from 'mongoose'
 import Job from '../models/Job.js'
-import { getMailFrom, getMailTo, getTransporter } from '../services/mailer.js'
+import { sendWithResend } from '../services/resendMailer.js'
 
 const router = express.Router()
 
@@ -96,9 +96,7 @@ router.post('/', parseApplication, async (req, res) => {
       })
     }
 
-    await getTransporter().sendMail({
-      from: getMailFrom(),
-      to: getMailTo(),
+    await sendWithResend({
       replyTo: email,
       subject: `New Job Application - ${job.title}`.replace(/[\r\n]+/g, ' ').trim(),
       text: [
@@ -115,7 +113,6 @@ router.post('/', parseApplication, async (req, res) => {
         {
           filename: req.file.originalname.split(/[\\/]/).pop(),
           content: req.file.buffer,
-          contentType: req.file.mimetype,
         },
       ],
     })

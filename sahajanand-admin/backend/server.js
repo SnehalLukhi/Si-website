@@ -7,6 +7,7 @@ import applicationRoutes from './src/routes/applicationRoutes.js'
 import serviceInquiryRoutes from './src/routes/serviceInquiryRoutes.js'
 import jobRoutes from './src/routes/jobRoutes.js'
 import productRoutes from './src/routes/productRoutes.js'
+import blogRoutes from './src/routes/blogRoutes.js'
 import aiLabRoutes from './src/routes/aiLabRoutes.js'
 import authRoutes from './src/routes/authRoutes.js'
 import { getJwtSecret, protectReads, protectWrites } from './src/middleware/auth.js'
@@ -41,6 +42,7 @@ app.use('/api/service-inquiries', serviceInquiryRoutes)
 // Anyone can read these (the website does); adding, editing and deleting needs an admin login
 app.use('/api/jobs', protectWrites, jobRoutes)
 app.use('/api/products', protectWrites, productRoutes)
+app.use('/api/blogs', protectWrites, blogRoutes)
 app.use('/api/ai-lab', protectWrites, aiLabRoutes)
 
 const PORT = process.env.PORT || 5000

@@ -5,7 +5,7 @@ import multer from 'multer'
 import Admin from '../models/Admin.js'
 import { requireAdmin, signToken } from '../middleware/auth.js'
 import { createLimiter } from '../middleware/rateLimit.js'
-import { getMailFrom, getTransporter } from '../services/mailer.js'
+import { sendWithResend } from '../services/resendMailer.js'
 
 const router = express.Router()
 
@@ -100,8 +100,7 @@ router.post('/forgot-password', async (req, res) => {
     const link = `${adminAppUrl()}/reset-password?token=${token}`
 
     try {
-      await getTransporter().sendMail({
-        from: getMailFrom(),
+      await sendWithResend({
         to: admin.email,
         subject: 'Reset your Sahajanand Admin password',
         text: [

@@ -1,5 +1,5 @@
 import express from 'express'
-import { getMailFrom, getMailTo, getTransporter } from '../services/mailer.js'
+import { sendWithResend } from '../services/resendMailer.js'
 
 const router = express.Router()
 
@@ -9,7 +9,7 @@ const SERVICE_PAGES = ['UI/UX Design', 'QA Tester', 'Web Development', 'App Deve
 const text = (value, max) =>
   typeof value === 'string' ? value.trim().slice(0, max) : ''
 
-// Nothing is saved: the message is only emailed through the shared Nodemailer setup
+// Nothing is saved: the message is only emailed through Resend
 router.post('/', async (req, res) => {
   try {
     const name = text(req.body.name, 100)
@@ -32,9 +32,7 @@ router.post('/', async (req, res) => {
       })
     }
 
-    await getTransporter().sendMail({
-      from: getMailFrom(),
-      to: getMailTo(),
+    await sendWithResend({
       replyTo: email,
       subject: `${service ? `[${service}] ` : ''}${subject || `New message from ${name}`}`
         .replace(/[\r\n]+/g, ' ')

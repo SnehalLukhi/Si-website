@@ -1,12 +1,14 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { AppsIcon, BotIcon, BriefcaseIcon, LogoutIcon } from '../components/Icons'
+import { AppsIcon, BlogIcon, BotIcon, BriefcaseIcon, LogoutIcon, MailIcon } from '../components/Icons'
 import { clearToken } from '../services/auth'
 import logo from '../aseets/images/logo.png'
 
 const NAV_ITEMS = [
-  { to: '/careers', label: 'Careers', Icon: BriefcaseIcon },
+  { to: '/careers', label: 'Jobs', Icon: BriefcaseIcon },
   { to: '/products', label: 'Products', Icon: AppsIcon },
+  { to: '/blogs', label: 'Blogs', Icon: BlogIcon },
   { to: '/ai-lab', label: 'AI Lab', Icon: BotIcon },
+  { to: '/contact-inquiries', label: 'Contact Inquiries', Icon: MailIcon },
 ]
 
 export default function AdminLayout() {

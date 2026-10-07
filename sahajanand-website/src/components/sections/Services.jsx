@@ -6,7 +6,8 @@ import './Services.css'
 
 const PEEK_QUERY = '(max-width: 991px)'
 
-const SERVICES = [
+/* Exported so the header Careers > Services dropdown lists exactly these services and links */
+export const SERVICES = [
   {
     id: 'uiux',
     href: '/services/ui-ux',

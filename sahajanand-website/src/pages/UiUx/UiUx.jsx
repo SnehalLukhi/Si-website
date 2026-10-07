@@ -14,13 +14,85 @@ import { useServiceInquiry } from '../../hooks/useServiceInquiry'
 import ServiceFormStatus from '../../components/common/ServiceFormStatus'
 
 const UI_SERVICES = [
-  'User Interface (UI) Design',
-  'User Experience (UX) Design',
-  'Wireframing & Prototyping',
-  'Mobile App UI/UX Design',
-  'Website Redesign & Revamp',
-  'Design System & Style Guide Creation',
-  'Usability Testing & UX Audit',
+  {
+    name: 'UX Research & User Analysis',
+    text: 'We study your audience, competitors and existing data to find out what people really need before any design begins.',
+  },
+  {
+    name: 'Information Architecture',
+    text: 'Content, features and navigation are organised into a clear structure, so users always know where they are and where to go next.',
+  },
+  {
+    name: 'User Journey & Experience Design',
+    text: 'We map every step a user takes, from first visit to final goal, and remove the points where they hesitate or drop off.',
+  },
+  {
+    name: 'Wireframing',
+    text: 'Low-fidelity layouts let us agree on structure, priorities and flow quickly, long before visual details are added.',
+  },
+  {
+    name: 'UI Design',
+    text: 'Clean, modern interfaces with carefully chosen typography, colour and spacing that reflect your brand and stay easy to read.',
+  },
+  {
+    name: 'Interactive Prototyping',
+    text: 'Clickable prototypes show how the product will behave, so ideas can be tried and approved before development starts.',
+  },
+  {
+    name: 'Mobile App UI/UX',
+    text: 'Touch-friendly Android and iOS experiences designed around small screens, quick tasks and familiar platform patterns.',
+  },
+  {
+    name: 'Website UI/UX',
+    text: 'Responsive websites that guide visitors clearly, load comfortably on every device and turn interest into action.',
+  },
+  {
+    name: 'Dashboard & SaaS Design',
+    text: 'Data-heavy screens, admin panels and SaaS products made simple to scan, navigate and use every day.',
+  },
+  {
+    name: 'Design Systems',
+    text: 'Reusable components, styles and guidelines that keep every screen consistent and speed up future design and development.',
+  },
+  {
+    name: 'Usability Testing',
+    text: 'We watch real users work through your product and use what we learn to refine the experience with evidence, not guesswork.',
+  },
+  {
+    name: 'UX Audit & Improvement',
+    text: 'A structured review of your existing product that highlights usability problems and gives clear, prioritised fixes.',
+  },
+]
+
+const DESIGN_APPROACH = [
+  {
+    name: 'Understand the business goals',
+    text: 'We begin by learning what your product must achieve, so every design decision supports a real business outcome.',
+  },
+  {
+    name: 'Understand the real users',
+    text: 'We identify who will use the product, what they need and what slows them down today.',
+  },
+  {
+    name: 'Plan the user journeys',
+    text: 'Key tasks are mapped from start to finish, giving each screen a clear purpose.',
+  },
+  {
+    name: 'Create the wireframes',
+    text: 'Simple layouts set the structure and content priorities before any styling is applied.',
+  },
+  {
+    name: 'Design the visual interface',
+    text: 'Colour, typography, imagery and components are shaped into a polished interface that matches your brand.',
+  },
+  {
+    name: 'Build interactive prototypes',
+    text: 'Realistic, clickable prototypes let you and your users experience the product before it is built.',
+  },
+  {
+    name: 'Test and improve the experience',
+    text: 'Feedback and test results guide the final refinements, so the product is ready for launch.',
+  },
 ]
 
 const TOOLS = [
@@ -31,6 +103,26 @@ const TOOLS = [
   'Illustrator',
   'InVision',
   'Zeplin',
+]
+
+const BUSINESS_VALUE = [
+  'Better usability, so people complete their tasks without confusion.',
+  'Higher engagement, because clear and pleasant products keep users coming back.',
+  'Less friction, with fewer steps, errors and abandoned journeys.',
+  'More trust, built through a professional and dependable interface.',
+  'Improved conversions, as clear paths and calls to action guide users to act.',
+  'A consistent brand experience across your website, app and dashboard.',
+  'Digital products that stay organised and easy to extend as your business grows.',
+]
+
+const WHY_US = [
+  'User-centered design: every screen starts from what your users need.',
+  'Business-focused decisions: design choices are tied to your goals and results.',
+  'Clean, modern interfaces that are simple to understand and pleasant to use.',
+  'Responsive experiences that work smoothly on mobile, tablet and desktop.',
+  'Consistent design systems that keep your product uniform as it grows.',
+  'Close collaboration with development teams for accurate, smooth hand-off.',
+  'Scalable, future-ready design that supports new features without a redesign.',
 ]
 
 const EXPERTISE = [
@@ -83,76 +175,79 @@ function UiUx() {
         <div className="uiux__grid">
           <div className="uiux__content">
             <p>
-              We deliver exceptional{' '}
-              <strong>UI/UX design solutions</strong> that blend creativity,
-              usability, and functionality to create seamless digital
-              experiences. Our approach focuses on understanding user behavior
-              and crafting intuitive interfaces that enhance satisfaction and
-              boost conversions.
+              At Sahajanand Infotech, we create{' '}
+              <strong>user-centered digital experiences</strong> for websites,
+              mobile apps, dashboards, SaaS products and business applications.
+              Every interface we design is built to be clear, intuitive and
+              visually refined, so people can reach their goals without effort.
             </p>
             <p>
-              Your users matter the most.{' '}
-              <strong>
-                We design experiences that meet 100% of your audience’s needs.
-              </strong>{' '}
-              That’s how we stand apart – by creating human-centered designs
-              that prioritize clarity, consistency, and impact.
+              By combining research, thoughtful structure and modern visual
+              design, we turn your ideas into products that users enjoy and
+              your business can rely on.
             </p>
 
             <h2>Our UI/UX Services</h2>
             <ul>
               {UI_SERVICES.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item.name}>
+                  <strong>{item.name}:</strong> {item.text}
+                </li>
               ))}
             </ul>
 
-            <h2>Tools & Technologies We Use</h2>
+            <h2>Our Design Approach</h2>
+            <p>
+              Good design is a process, not a guess. We follow a clear, step by
+              step approach that keeps your goals and your users at the centre.
+            </p>
+            <ul>
+              {DESIGN_APPROACH.map((item) => (
+                <li key={item.name}>
+                  <strong>{item.name}:</strong> {item.text}
+                </li>
+              ))}
+            </ul>
+
+            <h2>Design Tools We Work With</h2>
+            <p>
+              We use industry-standard tools for design, prototyping and
+              developer hand-off, so our work is easy to review, share and build.
+            </p>
             <ul>
               {TOOLS.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
 
-            <h2>Grow Your Business With Our UI/UX Expertise</h2>
-            <ul>
-              <li>Pixel-perfect modern UI designs</li>
-              <li>Human-centered UX strategy</li>
-              <li>Research-backed design approach</li>
-            </ul>
+            <h2>How Good UI/UX Helps Your Business</h2>
             <p>
-              We help you create interfaces that leave a strong impression and
-              deliver flawless interactions. Hire our dedicated UI/UX designers
-              to work exclusively on your project and bring your ideas to life
-              with exceptional design precision.
-            </p>
-
-            <h2>Perks You Get:</h2>
-            <ul>
-              <li>Dedicated designers focused entirely on your project.</li>
-              <li>Flexible pricing — hourly or monthly.</li>
-              <li>Daily design updates and progress reports.</li>
-            </ul>
-
-            <h2>Why Choose Sahajanand Infotech for UI/UX Design?</h2>
-            <p>
-              Our team of expert UI/UX designers has crafted modern,
-              high-performing digital experiences for mobile apps, websites,
-              dashboards, SaaS products, and enterprise applications.
+              A well-designed product is more than good looks. It directly
+              affects how people use, trust and recommend your business.
             </p>
             <ul>
-              <li>Affordable and premium-quality UI/UX solutions.</li>
-              <li>Complete UI/UX process — from research to prototype.</li>
-              <li>Tailored design strategy for your business goals.</li>
-              <li>Highly skilled designers with years of experience.</li>
-              <li>Designs optimized for conversions and user engagement.</li>
-              <li>Future-ready and scalable design systems.</li>
+              {BUSINESS_VALUE.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
 
-            <h2>Let’s Discuss Your Requirement</h2>
+            <h2>Why Sahajanand Infotech?</h2>
             <p>
-              Share your design vision with us. We’ll help you refine your
-              ideas and create an exceptional user experience that aligns with
-              your brand and goals.
+              We treat design as part of your business strategy. Our designers
+              work closely with you from the first idea to the final hand-off.
+            </p>
+            <ul>
+              {WHY_US.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+
+            <h2>Let’s Create Better Digital Experiences</h2>
+            <p>
+              Have a website, mobile app, dashboard or digital product idea?
+              Tell us about it. We will listen, understand your goals and help
+              you shape an experience that your users will love. Use the form to
+              start the conversation.
             </p>
           </div>
 

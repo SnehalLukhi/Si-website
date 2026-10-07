@@ -26,14 +26,44 @@ function getFixedHeaderBottom() {
     : 0
 }
 
-export function scrollToSection(section) {
+function getSectionScrollTop(section) {
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight
   const top = section.getBoundingClientRect().top + window.scrollY - getFixedHeaderBottom()
 
-  window.scrollTo({
-    top: Math.min(Math.max(top, 0), Math.max(maxScroll, 0)),
-    behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-  })
+  return Math.min(Math.max(top, 0), Math.max(maxScroll, 0))
+}
+
+export function scrollToSection(section, behavior = prefersReducedMotion() ? 'auto' : 'smooth') {
+  window.scrollTo({ top: getSectionScrollTop(section), behavior })
+}
+
+// While a page opens on "/#section" (e.g. a refresh), images and other content are still loading and the page height
+// keeps changing, which would leave the section off its position. Re-align it after each such change until the
+// visitor scrolls themselves (or a few seconds pass). Returns a cleanup function.
+const HOLD_ALIGN_MS = 4000
+const USER_SCROLL_EVENTS = ['wheel', 'touchstart', 'keydown', 'mousedown']
+
+function holdSectionInPlace(section) {
+  const align = () => {
+    const top = getSectionScrollTop(section)
+
+    if (Math.abs(window.scrollY - top) > 1) window.scrollTo({ top, behavior: 'auto' })
+  }
+
+  const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(align)
+  const stop = () => {
+    observer?.disconnect()
+    window.removeEventListener('load', align)
+    USER_SCROLL_EVENTS.forEach((name) => window.removeEventListener(name, stop))
+    window.clearTimeout(timer)
+  }
+  const timer = window.setTimeout(stop, HOLD_ALIGN_MS)
+
+  observer?.observe(document.documentElement)
+  window.addEventListener('load', align)
+  USER_SCROLL_EVENTS.forEach((name) => window.addEventListener(name, stop, { passive: true }))
+
+  return stop
 }
 
 // Footer quick-link click.
@@ -75,6 +105,12 @@ export function handleHashOnArrival() {
 
   if (!id || id === 'blog') return () => {}
 
+  // A refresh keeps the browser's own scroll position (e.g. still at the top of the hero): a "#about" left in the
+  // address from an earlier click must not pull the page down to that section again.
+  const navigation = window.performance?.getEntriesByType?.('navigation')?.[0]
+
+  if (navigation?.type === 'reload') return () => {}
+
   const section = document.getElementById(id)
 
   if (!section) {
@@ -83,7 +119,14 @@ export function handleHashOnArrival() {
     return () => {}
   }
 
-  const frameId = window.requestAnimationFrame(() => scrollToSection(section))
+  let stopHolding = () => {}
+  const frameId = window.requestAnimationFrame(() => {
+    scrollToSection(section, 'auto')
+    stopHolding = holdSectionInPlace(section)
+  })
 
-  return () => window.cancelAnimationFrame(frameId)
+  return () => {
+    window.cancelAnimationFrame(frameId)
+    stopHolding()
+  }
 }

@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { ViewportReveal } from '../motion/Reveal'
 import PeekCarousel from '../common/PeekCarousel'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
-import { BLOG_POSTS as POSTS } from '../../data/blogPosts'
+import { useBlogPosts } from '../../hooks/useBlogPosts'
 import './Blog.css'
 
 const PEEK_QUERY = '(max-width: 991px)'
 
-function BlogCard({ post }) {
+export function BlogCard({ post }) {
   return (
     <article className="blog__card">
       <div className="blog__media">
@@ -43,6 +43,7 @@ function getVisibleCount() {
 }
 
 function Blog() {
+  const { posts: POSTS } = useBlogPosts()
   const isPeek = useMediaQuery(PEEK_QUERY)
   const [page, setPage] = useState(0)
   const [animate, setAnimate] = useState(true)
@@ -50,6 +51,8 @@ function Blog() {
   const sectionRef = useRef(null)
   const snapTimeout = useRef(0)
   const autoplayRef = useRef(0)
+  /* With fewer blogs than visible cards there is nothing to slide, so the row stays still */
+  const canSlide = POSTS.length >= visible
 
   useEffect(() => {
     const section = sectionRef.current
@@ -105,18 +108,24 @@ function Blog() {
     }
   }, [])
 
+  /* The list can change while the page is open (Admin edits); start from the first card again */
   useEffect(() => {
-    if (isPeek) return undefined
+    setAnimate(true)
+    setPage(0)
+  }, [POSTS.length])
+
+  useEffect(() => {
+    if (isPeek || !canSlide) return undefined
     autoplayRef.current = window.setInterval(() => {
       setAnimate(true)
       setPage((current) => current + 1)
     }, AUTOPLAY_MS)
 
     return () => window.clearInterval(autoplayRef.current)
-  }, [isPeek])
+  }, [isPeek, canSlide])
 
   useEffect(() => {
-    if (page < POSTS.length) return undefined
+    if (!canSlide || page < POSTS.length) return undefined
 
     window.clearTimeout(snapTimeout.current)
     snapTimeout.current = window.setTimeout(() => {
@@ -128,9 +137,9 @@ function Blog() {
     }, SLIDE_MS)
 
     return () => window.clearTimeout(snapTimeout.current)
-  }, [page])
+  }, [page, canSlide, POSTS.length])
 
-  const trackItems = [...POSTS, ...POSTS]
+  const trackItems = canSlide ? [...POSTS, ...POSTS] : POSTS
   const cardStep = `calc(100% / ${visible})`
 
   return (
@@ -173,8 +182,9 @@ function Blog() {
           threshold={0.1}
           transition={{ duration: 0.6, delay: 0.05, ease: [0.33, 1, 0.68, 1] }}
         >
-          {isPeek ? (
+          {POSTS.length === 0 ? null : isPeek ? (
             <PeekCarousel
+              key={POSTS.length}
               items={POSTS}
               getKey={(post) => post.id}
               label="Latest blog"

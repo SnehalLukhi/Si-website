@@ -454,17 +454,21 @@
   box-shadow: 0 0 0 3px rgba(0, 133, 228, 0.14);
 }
 
-/* Browsers paint autofilled fields light blue; keep the phone field white like the other inputs */
+/* Browsers paint autofilled fields light blue; keep the phone and email fields white like the other inputs */
 .contact-page__field input[name='phone']:-webkit-autofill,
 .contact-page__field input[name='phone']:-webkit-autofill:hover,
-.contact-page__field input[name='phone']:-webkit-autofill:focus {
+.contact-page__field input[name='phone']:-webkit-autofill:focus,
+.contact-page__field input[name='email']:-webkit-autofill,
+.contact-page__field input[name='email']:-webkit-autofill:hover,
+.contact-page__field input[name='email']:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
   box-shadow: 0 0 0 1000px #ffffff inset;
   -webkit-text-fill-color: #0f172a;
   caret-color: #0f172a;
 }
 
-.contact-page__field input[name='phone']:-webkit-autofill:focus {
+.contact-page__field input[name='phone']:-webkit-autofill:focus,
+.contact-page__field input[name='email']:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 1000px #ffffff inset, 0 0 0 3px rgba(0, 133, 228, 0.14);
   box-shadow: 0 0 0 1000px #ffffff inset, 0 0 0 3px rgba(0, 133, 228, 0.14);
 }

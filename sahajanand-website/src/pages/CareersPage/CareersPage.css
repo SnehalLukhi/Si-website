@@ -1,0 +1,839 @@
+.car {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #0f172a;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.car .header.is-sticky.is-pinned {
+  animation: none;
+}
+
+/* Same content column as the other pages: 70% wide screens, 80% laptops, 90% tablets, 86% phones */
+.car__container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+  .car .header.is-sticky {
+    width: 70%;
+    max-width: none;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1399px) {
+  .car__container,
+  .car .header.is-sticky {
+    width: 80%;
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 991px) {
+  .car {
+    overflow-x: clip;
+  }
+
+  .car__container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 675px) {
+  .car__container {
+    width: 86%;
+  }
+}
+
+/* ---------- Shared text styles ---------- */
+.car__label {
+  margin: 0 0 0.85rem;
+  color: #1a7fe6;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.car__heading {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(1.75rem, 2.6vw, 2.375rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.car__text {
+  max-width: 42rem;
+  margin: 1.1rem 0 0;
+  color: #475569;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.car__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 46rem;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.car__icon {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+
+.car__section {
+  padding: 5rem 0;
+}
+
+.car__section--soft {
+  background: #f4f8fc;
+}
+
+.car__section--cta {
+  padding-bottom: 6rem;
+}
+
+@media (max-width: 991px) {
+  .car__section {
+    padding: 4rem 0;
+  }
+
+  .car__section--cta {
+    padding-bottom: 4.5rem;
+  }
+}
+
+@media (max-width: 675px) {
+  .car__section {
+    padding: 3.25rem 0;
+  }
+
+  .car__intro {
+    margin-bottom: 2.25rem;
+  }
+}
+
+/* The site's button, in the blue used on the Home hero */
+.car .car__button {
+  min-width: max-content;
+  padding: 0.95rem 2rem;
+  border-radius: 0.5rem;
+  background: #0085e4;
+  box-shadow: 0 12px 26px -12px rgba(0, 133, 228, 0.6);
+  font-size: 1rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.2s ease;
+}
+
+.car .car__button:hover,
+.car .car__button:focus-visible {
+  background: #0077cc;
+  box-shadow: 0 16px 30px -12px rgba(0, 133, 228, 0.65);
+  transform: translateY(-3px);
+}
+
+/* ---------- 1. Hero ---------- */
+.car__hero {
+  margin-top: -4.75rem;
+  padding: calc(4.75rem + 3.25rem) 0 4.5rem;
+  background: linear-gradient(180deg, #eaf3fc 0%, #f7fafd 62%, #ffffff 100%);
+}
+
+.car__hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.car__hero-title {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+.car__hero-text {
+  max-width: 34rem;
+  margin: 1.4rem 0 0;
+  color: #475569;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.car__hero-actions {
+  margin-top: 2.1rem;
+}
+
+.car__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 2rem;
+  color: #64748b;
+  font-size: 0.9375rem;
+  line-height: 1;
+}
+
+.car__breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.car__breadcrumb a:hover,
+.car__breadcrumb a:focus-visible {
+  color: #1a7fe6;
+  outline: none;
+}
+
+.car__breadcrumb [aria-current='page'] {
+  color: #0f172a;
+  font-weight: 500;
+}
+
+.car__breadcrumb-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.car__hero-media {
+  position: relative;
+}
+
+.car__hero-media::before {
+  content: '';
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  right: -1.25rem;
+  bottom: -1.25rem;
+  border-radius: 1.5rem;
+  background: rgba(0, 133, 228, 0.12);
+}
+
+.car__hero-media img {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 1.5rem;
+  box-shadow: 0 24px 48px -20px rgba(15, 61, 115, 0.35);
+  object-fit: cover;
+}
+
+@media (max-width: 991px) {
+  .car__hero {
+    margin-top: 0;
+    padding: 3rem 0 3.5rem;
+  }
+
+  .car__hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .car__hero-media {
+    max-width: 34rem;
+    margin-right: 1.25rem;
+  }
+}
+
+@media (max-width: 675px) {
+  .car__hero {
+    padding: 2.5rem 0 3rem;
+  }
+
+  .car__hero-text {
+    font-size: 1.0625rem;
+  }
+
+  .car__hero-media {
+    margin-right: 0.9rem;
+  }
+
+  .car__hero-media::before {
+    top: 0.9rem;
+    left: 0.9rem;
+    right: -0.9rem;
+    bottom: -0.9rem;
+  }
+}
+
+/* ---------- 2. Why work with us ---------- */
+.car__benefits {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.car__benefit {
+  position: relative;
+  padding: 1.9rem 1.6rem 1.8rem;
+  border: 1px solid #e6edf6;
+  border-radius: 1.125rem;
+  background: #ffffff;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.car__benefit:hover {
+  transform: translateY(-5px);
+  border-color: rgba(26, 127, 230, 0.35);
+  box-shadow: 0 18px 36px -14px rgba(15, 61, 115, 0.25);
+}
+
+.car__benefit-number {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.4rem;
+  color: #d4e6f8;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.car__benefit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  margin-bottom: 1.2rem;
+  border-radius: 0.9rem;
+  background: #eaf3fc;
+  color: #0f3d73;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.car__benefit:hover .car__benefit-icon {
+  background: #1a7fe6;
+  color: #ffffff;
+}
+
+.car__card-title {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.car__card-text {
+  margin: 0.55rem 0 0;
+  color: #64748b;
+  font-size: 0.96875rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 1199px) {
+  .car__benefits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 675px) {
+  .car__benefits {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+/* ---------- 3. Life at Sahajanand Infotech (photo rows) ---------- */
+.car__life {
+  overflow: hidden;
+}
+
+.car__life-row {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.car__life-row:last-child {
+  margin-bottom: 0;
+}
+
+/* Row 2 moves the other way via mirror; both tracks animate 0 -> -50% */
+.car__life-row--ltr,
+.car__life-row--ltr .car__life-tile {
+  transform: scaleX(-1);
+}
+
+.car__life-track {
+  display: flex;
+  align-items: stretch;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: car-life-scroll 36s linear infinite;
+}
+
+.car__life-group {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 1.5rem;
+  padding-right: 1.5rem;
+  box-sizing: content-box;
+}
+
+.car__life-tile {
+  flex: 0 0 auto;
+  width: 360px;
+  height: 225px;
+  overflow: hidden;
+  border-radius: 1.15rem;
+  background: #eff1f5;
+}
+
+.car__life-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes car-life-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (max-width: 991px) {
+  .car__life-row {
+    margin-bottom: 1.15rem;
+  }
+
+  .car__life-group {
+    gap: 1.15rem;
+    padding-right: 1.15rem;
+  }
+
+  .car__life-tile {
+    border-radius: 1rem;
+  }
+
+  .car__life-track {
+    animation-duration: 30.4s;
+  }
+}
+
+@media (max-width: 676px) {
+  .car__life-row {
+    margin-bottom: 0.9rem;
+  }
+
+  .car__life-group {
+    gap: 0.9rem;
+    padding-right: 0.9rem;
+  }
+
+  .car__life-tile {
+    border-radius: 0.85rem;
+  }
+
+  .car__life-track {
+    animation-duration: 25.6s;
+  }
+}
+
+/* ---------- 4. Our culture ---------- */
+.car__culture {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.car__culture-item {
+  padding-top: 1.4rem;
+  border-top: 2px solid #d4e6f8;
+  transition: border-color 0.35s ease;
+}
+
+.car__culture-item:hover {
+  border-top-color: #1a7fe6;
+}
+
+.car__culture-number {
+  color: #1a7fe6;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.car__culture-title {
+  margin: 0.7rem 0 0;
+  color: #0f172a;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.car__culture-text {
+  margin: 0.6rem 0 0;
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 991px) {
+  .car__culture {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.25rem 1.75rem;
+  }
+}
+
+@media (max-width: 675px) {
+  .car__culture {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+/* ---------- 5. Open positions ---------- */
+/* The buttons scroll here: stop a little below the top so the heading is not hidden by the fixed header */
+.car__positions {
+  scroll-margin-top: 2.5rem;
+}
+
+.car__jobs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.car__job {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.75rem 1.6rem 1.6rem;
+  border: 1px solid #e6edf6;
+  border-radius: 1.125rem;
+  background: #ffffff;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.car__job:hover {
+  transform: translateY(-5px);
+  border-color: rgba(26, 127, 230, 0.35);
+  box-shadow: 0 18px 36px -14px rgba(15, 61, 115, 0.25);
+}
+
+.car__job-tag {
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(30, 155, 255, 0.1);
+  color: #1a7fe6;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.car__job-title {
+  margin: 1rem 0 0;
+  color: #0f172a;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.car__job-meta {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 1.1rem 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.car__job-meta li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #475569;
+  font-size: 0.96875rem;
+  line-height: 1.4;
+  text-transform: capitalize;
+}
+
+.car__job-meta-icon {
+  flex: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: #1a7fe6;
+}
+
+.car__job-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  border-radius: 0.5rem;
+  background: #eaf3fc;
+  color: #0f3d73;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* The whole card is clickable (the link stretches over it) */
+.car__job-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1.125rem;
+}
+
+.car__job-link-icon {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.25s ease;
+}
+
+.car__job-link:hover,
+.car__job-link:focus-visible {
+  outline: none;
+  background: #1a7fe6;
+  color: #ffffff;
+}
+
+.car__job-link:hover .car__job-link-icon,
+.car__job-link:focus-visible .car__job-link-icon {
+  transform: translateX(3px);
+}
+
+.car__state {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  border: 1px dashed #c9dcf0;
+  border-radius: 1rem;
+  background: #ffffff;
+  color: #64748b;
+  font-size: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 991px) {
+  .car__jobs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 675px) {
+  .car__jobs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- 6. How we hire ---------- */
+.car__hiring {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.car__step {
+  position: relative;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.car__step-number {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: #1a7fe6;
+  box-shadow: 0 0 0 6px #eaf3fc;
+  color: #ffffff;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+/* Connecting line from this step to the next one */
+.car__step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 1.75rem;
+  left: calc(50% + 2.6rem);
+  right: calc(-50% + 2.6rem);
+  height: 2px;
+  background: linear-gradient(90deg, #8fc1f1, #cfe3f8);
+}
+
+.car__step-title {
+  margin: 1.25rem 0 0;
+  color: #0f172a;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.car__step-text {
+  max-width: 14rem;
+  margin: 0.45rem auto 0;
+  color: #64748b;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 675px) {
+  .car__hiring {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .car__step {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    column-gap: 1.1rem;
+    padding: 0 0 1.9rem;
+    text-align: left;
+  }
+
+  .car__step:last-child {
+    padding-bottom: 0;
+  }
+
+  .car__step-number {
+    grid-row: span 2;
+    align-self: start;
+  }
+
+  /* Vertical line between the steps */
+  .car__step:not(:last-child)::after {
+    top: 3.5rem;
+    bottom: 0.2rem;
+    left: 1.7rem;
+    right: auto;
+    width: 2px;
+    height: auto;
+    background: linear-gradient(180deg, #8fc1f1, #cfe3f8);
+  }
+
+  .car__step-title {
+    margin-top: 0.35rem;
+  }
+
+  .car__step-text {
+    margin: 0.4rem 0 0;
+    max-width: none;
+  }
+}
+
+/* ---------- 7. Final CTA ---------- */
+.car__cta {
+  padding: 4rem 2rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, #0f3d73 0%, #1a7fe6 100%);
+  box-shadow: 0 28px 56px -28px rgba(15, 61, 115, 0.6);
+  text-align: center;
+}
+
+.car__cta-title {
+  max-width: 40rem;
+  margin: 0 auto;
+  color: #ffffff;
+  font-size: clamp(1.625rem, 2.8vw, 2.375rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.car__cta-text {
+  max-width: 34rem;
+  margin: 1.1rem auto 2rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+/* White button on the blue panel */
+.car .car__cta .car__button {
+  background: #ffffff;
+  box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.35);
+  color: #0f3d73;
+}
+
+.car .car__cta .car__button:hover,
+.car .car__cta .car__button:focus-visible {
+  background: #eef5fc;
+  box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 675px) {
+  .car__cta {
+    padding: 2.75rem 1.4rem;
+    border-radius: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .car__benefit,
+  .car__benefit-icon,
+  .car__job,
+  .car .car__button {
+    transition: none;
+  }
+
+  .car__life-track {
+    animation: none;
+  }
+
+  .car__benefit:hover,
+  .car__job:hover,
+  .car .car__button:hover {
+    transform: none;
+  }
+}

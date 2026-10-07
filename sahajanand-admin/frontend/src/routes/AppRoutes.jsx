@@ -2,7 +2,9 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import AdminLayout from '../layouts/AdminLayout'
 import Jobs from '../pages/careers/Jobs'
 import OurProducts from '../pages/products/OurProducts'
+import Blogs from '../pages/blogs/Blogs'
 import AiLab from '../pages/ai-lab/AiLab'
+import ContactInquiries from '../pages/contact/ContactInquiries'
 import RequireAuth from '../components/RequireAuth'
 import Login from '../pages/auth/Login'
 import ForgotPassword from '../pages/auth/ForgotPassword'
@@ -23,7 +25,11 @@ export default function AppRoutes() {
 
           <Route path="products/*" element={<OurProducts />} />
 
+          <Route path="blogs/*" element={<Blogs />} />
+
           <Route path="ai-lab/*" element={<AiLab />} />
+
+          <Route path="contact-inquiries" element={<ContactInquiries />} />
 
           <Route path="*" element={<Navigate to="/careers" replace />} />
         </Route>

@@ -1,55 +1,42 @@
 import { useEffect, useState } from 'react'
 import logoMark from '../../assets/images/logo.png'
 import logoMarkLight from '../../assets/images/logo1.png'
-import { handleBlogLinkClick } from '../../utils/scrollToBlog'
+import { handleSectionLinkClick } from '../../utils/homeSections'
+import { SERVICES } from '../sections/Services'
 import './Header.css'
 
 const NAV_ITEMS = [
-  { label: 'About Us', href: '#about' },
-  { label: 'Our Products', href: '/our-product' },
-  { label: 'Blog', href: '/#blog' },
-  { label: 'Careers', href: '/careers' },
+  { label: 'Home', href: '/' },
+  { label: 'Our Services', dropdown: 'services' },
+  { label: 'About Us', dropdown: 'about' },
   { label: 'Contact Us', href: '/contact-us' },
 ]
 
-const API_URL = 'http://localhost:5000'
+/* Our Services is only a dropdown. It lists every card of the home Services section (same names and links, imported
+   from that section), and each one opens that service's existing page.
+
+   About Us is only a dropdown too (it has no page of its own). Every option opens something that already exists:
+   the Careers page (Jobs), and the Blog, Our Products and Company Overview pages. */
+const ABOUT_COLUMNS = [
+  [
+    { id: 'jobs', label: 'Jobs', description: 'Explore open positions.', href: '/jobs' },
+    { id: 'blog', label: 'Blog', description: 'Read our latest articles.', href: '/blog' },
+    { id: 'careers', label: 'Careers', description: 'Work with our team.', href: '/careers' },
+  ],
+  [
+    { id: 'products', label: 'Our Products', description: 'Explore our apps.', href: '/our-product' },
+    { id: 'overview', label: 'Company Overview', description: 'Get to know us.', href: '/company-overview' },
+    { id: 'life', label: 'Life at Sahajanand Infotech', description: 'Our culture and people.', href: '/life-at-sahajanand' },
+  ],
+]
 
 const STICKY_THRESHOLD = 24
 
 function Header({ homePath = '', sticky = true, compactLogoLight = false }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [isPinned, setIsPinned] = useState(false)
-  const [careerJobs, setCareerJobs] = useState([])
-
-  /* Careers dropdown lists the jobs created in the admin; links use the job's database _id */
-  useEffect(() => {
-    let cancelled = false
-
-    const fetchJobs = async () => {
-      try {
-        const response = await fetch(`${API_URL}/api/jobs`)
-        const data = await response.json()
-
-        if (!response.ok || !data.success || cancelled) return
-
-        setCareerJobs(
-          (Array.isArray(data.jobs) ? data.jobs : []).map((job) => ({
-            id: job._id,
-            label: job.title,
-            href: `/careers/job/${job._id}`,
-          })),
-        )
-      } catch (error) {
-        console.error('Failed to fetch careers dropdown jobs:', error)
-      }
-    }
-
-    fetchJobs()
-
-    return () => {
-      cancelled = true
-    }
-  }, [])
+  /* Which dropdown is expanded in the mobile drawer: 'services', 'about' or null (desktop opens on hover) */
+  const [openMenu, setOpenMenu] = useState(null)
 
   useEffect(() => {
     const closeMenu = () => setMenuOpen(false)
@@ -103,6 +90,23 @@ function Header({ homePath = '', sticky = true, compactLogoLight = false }) {
     window.addEventListener('resize', closeMenuOnNarrow)
     return () => window.removeEventListener('resize', closeMenuOnNarrow)
   }, [])
+
+  useEffect(() => {
+    if (!menuOpen) setOpenMenu(null)
+  }, [menuOpen])
+
+  const handleHomeClick = (event) => {
+    setMenuOpen(false)
+
+    const onHome = window.location.pathname.replace(/\/$/, '') === ''
+    const modified = event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+
+    if (!onHome || modified) return
+
+    event.preventDefault()
+    window.history.replaceState(null, '', '/')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
@@ -174,48 +178,83 @@ function Header({ homePath = '', sticky = true, compactLogoLight = false }) {
           </div>
           <ul className="header__list">
             {NAV_ITEMS.map((item) => {
-              const dropdownItems =
-                item.label === 'Careers' && careerJobs.length > 0
-                  ? careerJobs
-                  : undefined
-              return (
-                <li
-                  key={item.href}
-                  className={dropdownItems ? 'header__item--dropdown' : undefined}
-                >
-                  <a
-                    className="header__link"
-                    href={
-                      item.href.startsWith('#')
-                        ? `${homePath}${item.href}`
-                        : item.href
-                    }
-                    aria-haspopup={dropdownItems ? 'true' : undefined}
-                    onClick={(event) => {
-                      setMenuOpen(false)
-                      if (item.href === '/#blog') handleBlogLinkClick(event)
-                    }}
+              if (item.dropdown) {
+                const isAbout = item.dropdown === 'about'
+                const expanded = openMenu === item.dropdown
+                const menuId = `header-${item.dropdown}-menu`
+
+                return (
+                  <li
+                    key={item.label}
+                    className={`header__item--dropdown${expanded ? ' is-expanded' : ''}`}
                   >
-                    {item.label}
-                    {dropdownItems && (
+                    <button
+                      type="button"
+                      className="header__link header__link--toggle"
+                      aria-haspopup="true"
+                      aria-expanded={expanded}
+                      aria-controls={menuId}
+                      onClick={() => setOpenMenu(expanded ? null : item.dropdown)}
+                    >
+                      {item.label}
                       <svg className="header__caret" viewBox="0 0 12 12" aria-hidden="true">
                         <path d="M2.5 4.5 6 8l3.5-3.5" />
                       </svg>
+                    </button>
+                    {isAbout ? (
+                      <div className="header__dropdown header__dropdown--about" id={menuId}>
+                        <div className="header__about-grid">
+                          {ABOUT_COLUMNS.map((column, columnIndex) => (
+                            <ul className="header__about-col" key={columnIndex}>
+                              {column.map((entry) => (
+                                <li key={entry.id}>
+                                  <a
+                                    className="header__about-link"
+                                    href={entry.href}
+                                    onClick={(event) => {
+                                      setMenuOpen(false)
+                                      handleSectionLinkClick(event)
+                                    }}
+                                  >
+                                    <span className="header__about-title">{entry.label}</span>
+                                    <span className="header__about-desc">{entry.description}</span>
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="header__dropdown header__dropdown--services" id={menuId}>
+                        <ul className="header__dropdown-list">
+                          {SERVICES.map((service) => (
+                            <li key={service.id}>
+                              <a
+                                className="header__dropdown-link"
+                                href={service.href}
+                                onClick={() => setMenuOpen(false)}
+                              >
+                                {service.title}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     )}
+                  </li>
+                )
+              }
+
+              return (
+                <li key={item.href}>
+                  <a
+                    className="header__link"
+                    href={item.href}
+                    onClick={item.href === '/' ? handleHomeClick : () => setMenuOpen(false)}
+                  >
+                    {item.label}
                   </a>
-                  {dropdownItems && (
-                    <div className="header__dropdown">
-                      <ul className="header__dropdown-list">
-                        {dropdownItems.map((entry) => (
-                          <li key={entry.id}>
-                            <a className="header__dropdown-link" href={entry.href}>
-                              {entry.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
                 </li>
               )
             })}

@@ -494,13 +494,22 @@ function Contact() {
                       required
                     />
                   </motion.label>
-                  <motion.label variants={formDetailVariants} className="contact-page__field contact-page__field--full">
+                  <motion.label variants={formDetailVariants} className="contact-page__field">
                     <span className="contact-page__sr">Phone</span>
                     <input
                       type="tel"
                       name="phone"
                       placeholder="Phone"
                       autoComplete="tel"
+                    />
+                  </motion.label>
+                  <motion.label variants={formDetailVariants} className="contact-page__field">
+                    <span className="contact-page__sr">Email</span>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      autoComplete="email"
                     />
                   </motion.label>
                   <FormSelect

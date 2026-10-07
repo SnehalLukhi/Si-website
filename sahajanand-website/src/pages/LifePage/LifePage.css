@@ -1,0 +1,623 @@
+.lif {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #0f172a;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.lif .header.is-sticky.is-pinned {
+  animation: none;
+}
+
+/* Same content column as the other pages: 70% wide screens, 80% laptops, 90% tablets, 86% phones */
+.lif__container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+  .lif .header.is-sticky {
+    width: 70%;
+    max-width: none;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1399px) {
+  .lif__container,
+  .lif .header.is-sticky {
+    width: 80%;
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 991px) {
+  .lif {
+    overflow-x: clip;
+  }
+
+  .lif__container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 675px) {
+  .lif__container {
+    width: 86%;
+  }
+}
+
+/* ---------- Shared text styles ---------- */
+.lif__label {
+  margin: 0 0 0.85rem;
+  color: #1a7fe6;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.lif__heading {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(1.75rem, 2.6vw, 2.375rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.lif__text {
+  max-width: 42rem;
+  margin: 1.1rem 0 0;
+  color: #475569;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.lif__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 46rem;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.lif__icon {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+
+.lif__section {
+  padding: 5rem 0;
+}
+
+.lif__section--soft {
+  background: #f4f8fc;
+}
+
+.lif__section--cta {
+  padding-bottom: 6rem;
+}
+
+@media (max-width: 991px) {
+  .lif__section {
+    padding: 4rem 0;
+  }
+
+  .lif__section--cta {
+    padding-bottom: 4.5rem;
+  }
+}
+
+@media (max-width: 675px) {
+  .lif__section {
+    padding: 3.25rem 0;
+  }
+
+  .lif__intro {
+    margin-bottom: 2.25rem;
+  }
+}
+
+/* ---------- 1. Hero ---------- */
+.lif__hero {
+  margin-top: -4.75rem;
+  /* The header pill ends 6.5rem from the top; the hero content starts a clear gap below it */
+  padding: calc(4.75rem + 5.5rem) 0 4.5rem;
+  background: linear-gradient(180deg, #eaf3fc 0%, #f7fafd 62%, #ffffff 100%);
+}
+
+.lif__hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.lif__hero-title {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(2.125rem, 3.7vw, 3.375rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+.lif__hero-text {
+  max-width: 34rem;
+  margin: 1.4rem 0 0;
+  color: #475569;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.lif__breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 2rem;
+  color: #64748b;
+  font-size: 0.9375rem;
+  line-height: 1.3;
+}
+
+.lif__breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.lif__breadcrumb a:hover,
+.lif__breadcrumb a:focus-visible {
+  color: #1a7fe6;
+  outline: none;
+}
+
+.lif__breadcrumb [aria-current='page'] {
+  color: #0f172a;
+  font-weight: 500;
+}
+
+.lif__breadcrumb-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.lif__hero-media {
+  position: relative;
+}
+
+.lif__hero-media::before {
+  content: '';
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  right: -1.25rem;
+  bottom: -1.25rem;
+  border-radius: 1.5rem;
+  background: rgba(0, 133, 228, 0.12);
+}
+
+.lif__hero-media img {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 1.5rem;
+  box-shadow: 0 24px 48px -20px rgba(15, 61, 115, 0.35);
+  object-fit: cover;
+}
+
+@media (max-width: 991px) {
+  .lif__hero {
+    margin-top: 0;
+    padding: 4rem 0 3.5rem;
+  }
+
+  .lif__hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .lif__hero-media {
+    max-width: 34rem;
+    margin-right: 1.25rem;
+  }
+}
+
+@media (max-width: 675px) {
+  .lif__hero {
+    padding: 3.25rem 0 3rem;
+  }
+
+  .lif__hero-text {
+    font-size: 1.0625rem;
+  }
+
+  .lif__hero-media {
+    margin-right: 0.9rem;
+  }
+
+  .lif__hero-media::before {
+    top: 0.9rem;
+    left: 0.9rem;
+    right: -0.9rem;
+    bottom: -0.9rem;
+  }
+}
+
+/* ---------- 2. Introduction ---------- */
+.lif__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 4.5rem;
+}
+
+.lif__intro-media {
+  position: relative;
+}
+
+.lif__intro-media::before {
+  content: '';
+  position: absolute;
+  top: -1.25rem;
+  right: -1.25rem;
+  width: 55%;
+  height: 55%;
+  border-top: 4px solid #1a7fe6;
+  border-right: 4px solid #1a7fe6;
+  border-top-right-radius: 1.5rem;
+}
+
+.lif__intro-media img {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1110 / 570;
+  border-radius: 1.5rem;
+  box-shadow: 0 24px 48px -22px rgba(15, 61, 115, 0.4);
+  object-fit: cover;
+}
+
+@media (max-width: 991px) {
+  .lif__split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.75rem;
+  }
+
+  .lif__intro-media {
+    max-width: 36rem;
+    margin-right: 1.25rem;
+  }
+}
+
+@media (max-width: 675px) {
+  .lif__intro-media {
+    margin-right: 0.9rem;
+  }
+}
+
+/* ---------- Photo + title + description cards ---------- */
+.lif__story {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #e6edf6;
+  border-radius: 1.125rem;
+  background: #ffffff;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.lif__story:hover {
+  transform: translateY(-5px);
+  border-color: rgba(26, 127, 230, 0.35);
+  box-shadow: 0 18px 36px -14px rgba(15, 61, 115, 0.25);
+}
+
+/* One frame for every photo, whatever size the original file is: same ratio, filled with object-fit: cover */
+.lif__story-media {
+  flex: none;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #dbe7f3;
+}
+
+.lif__story-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lif__story:hover .lif__story-media img {
+  transform: scale(1.03);
+}
+
+.lif__story-caption {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.15rem 1.35rem 1.35rem;
+}
+
+.lif__story-title {
+  color: #0f172a;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.lif__story-text {
+  color: #64748b;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* ---------- 3. Our moments (uniform grid: equal cards, equal photo frames) ---------- */
+.lif__gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr; /* every card the same height, whatever the caption length */
+  gap: 1.5rem;
+}
+
+.lif__gallery .lif__story {
+  height: 100%;
+}
+
+@media (max-width: 991px) {
+  .lif__gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 675px) {
+  .lif__gallery {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- 4. Team synergy (same cards, same frames) ---------- */
+.lif__synergy {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 1.5rem;
+}
+
+.lif__synergy .lif__story {
+  height: 100%;
+}
+
+@media (max-width: 1199px) {
+  .lif__synergy {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 675px) {
+  .lif__synergy {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- 5. Our culture ---------- */
+.lif__culture {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lif__feature {
+  position: relative;
+  padding: 1.9rem 1.6rem 1.8rem;
+  border: 1px solid #e6edf6;
+  border-radius: 1.125rem;
+  background: #ffffff;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.lif__feature:hover {
+  transform: translateY(-5px);
+  border-color: rgba(26, 127, 230, 0.35);
+  box-shadow: 0 18px 36px -14px rgba(15, 61, 115, 0.25);
+}
+
+.lif__feature-number {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.4rem;
+  color: #d4e6f8;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.lif__feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  margin-bottom: 1.2rem;
+  border-radius: 0.9rem;
+  background: #eaf3fc;
+  color: #0f3d73;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.lif__feature:hover .lif__feature-icon {
+  background: #1a7fe6;
+  color: #ffffff;
+}
+
+.lif__feature-title {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.lif__feature-text {
+  margin: 0.55rem 0 0;
+  color: #64748b;
+  font-size: 0.96875rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 1199px) {
+  .lif__culture {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 675px) {
+  .lif__culture {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+/* ---------- 6. People behind the work ---------- */
+.lif__people {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.lif__people-tile {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  min-width: 0;
+  border-radius: 1.25rem;
+  background: #dbe7f3;
+  box-shadow: 0 16px 34px -20px rgba(15, 61, 115, 0.45);
+}
+
+.lif__people-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lif__people-tile:hover img {
+  transform: scale(1.03);
+}
+
+@media (max-width: 991px) {
+  .lif__people {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 675px) {
+  .lif__people {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- 7. Closing call to action ---------- */
+.lif__cta {
+  padding: 4rem 2rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, #0f3d73 0%, #1a7fe6 100%);
+  box-shadow: 0 28px 56px -28px rgba(15, 61, 115, 0.6);
+  text-align: center;
+}
+
+.lif__cta-title {
+  max-width: 40rem;
+  margin: 0 auto;
+  color: #ffffff;
+  font-size: clamp(1.625rem, 2.8vw, 2.375rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.lif__cta-text {
+  max-width: 34rem;
+  margin: 1.1rem auto 2rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+/* The site's button, in white on the blue panel */
+.lif .lif__button {
+  min-width: max-content;
+  padding: 0.95rem 2.2rem;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.35);
+  color: #0f3d73;
+  font-size: 1rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.2s ease;
+}
+
+.lif .lif__button:hover,
+.lif .lif__button:focus-visible {
+  background: #eef5fc;
+  box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 675px) {
+  .lif__cta {
+    padding: 2.75rem 1.4rem;
+    border-radius: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lif__story,
+  .lif__feature,
+  .lif__feature-icon,
+  .lif__story-media img,
+  .lif__people-tile img,
+  .lif .lif__button {
+    transition: none;
+  }
+
+  .lif__story:hover,
+  .lif__feature:hover,
+  .lif .lif__button:hover,
+  .lif__story:hover .lif__story-media img,
+  .lif__people-tile:hover img {
+    transform: none;
+  }
+}

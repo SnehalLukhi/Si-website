@@ -113,3 +113,10 @@ export const LogoutIcon = (props) => (
     <path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3M16 8l4 4-4 4M20 12H9" />
   </svg>
 )
+
+export const BlogIcon = (props) => (
+  <svg className="icon" {...base} {...props}>
+    <path d="M6 3h9l4 4v14H6z" />
+    <path d="M14 3v5h5M9 13h7M9 17h7M9 9h2" />
+  </svg>
+)

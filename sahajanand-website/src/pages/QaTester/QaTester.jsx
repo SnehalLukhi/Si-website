@@ -14,23 +14,110 @@ import { useServiceInquiry } from '../../hooks/useServiceInquiry'
 import ServiceFormStatus from '../../components/common/ServiceFormStatus'
 
 const QA_SERVICES = [
-  'Manual Testing',
-  'Automation Testing',
-  'API Testing',
-  'Mobile App Testing',
-  'Regression & Smoke Testing',
-  'Performance Testing',
-  'Usability & Compatibility Testing',
+  {
+    name: 'Manual Testing',
+    text: 'Experienced testers explore your product the way real users do, finding issues that scripts and tools often miss.',
+  },
+  {
+    name: 'Functional Testing',
+    text: 'Every feature is checked against the requirements to confirm that it works exactly as intended.',
+  },
+  {
+    name: 'Regression Testing',
+    text: 'After every change we re-check existing features, so new updates never break what already works.',
+  },
+  {
+    name: 'Integration Testing',
+    text: 'We verify that modules, services and third-party systems work together smoothly and exchange data correctly.',
+  },
+  {
+    name: 'API Testing',
+    text: 'Requests, responses, error handling and data accuracy are validated at the API layer, before problems reach the interface.',
+  },
+  {
+    name: 'UI Testing',
+    text: 'Layouts, screens, forms and interactions are reviewed for visual accuracy and consistent behaviour.',
+  },
+  {
+    name: 'Mobile App Testing',
+    text: 'Android and iOS apps are tested on real devices, screen sizes and OS versions for stable, smooth performance.',
+  },
+  {
+    name: 'Web Application Testing',
+    text: 'Complete user flows, forms, logins and business logic are tested to keep your web application dependable.',
+  },
+  {
+    name: 'Cross-Browser Testing',
+    text: 'We confirm that your website looks and works the same on Chrome, Firefox, Safari, Edge and other browsers.',
+  },
+  {
+    name: 'Performance Testing',
+    text: 'We measure speed, load handling and responsiveness, and point out bottlenecks before your users find them.',
+  },
+  {
+    name: 'Usability Testing',
+    text: 'We evaluate how easy and clear the product is to use, and report where users may get confused or stuck.',
+  },
+  {
+    name: 'Bug Identification & Reporting',
+    text: 'Each defect is documented with clear steps, evidence and severity, so developers can reproduce and fix it quickly.',
+  },
 ]
 
-const TOOLS = [
-  'Selenium',
-  'Cypress',
-  'Postman',
-  'Appium',
-  'JMeter',
-  'TestNG',
-  'Jira',
+const TESTING_APPROACH = [
+  {
+    name: 'Requirement Analysis',
+    text: 'We study the requirements and expected behaviour to understand what needs to be tested and where the risks are.',
+  },
+  {
+    name: 'Test Planning',
+    text: 'Scope, test types, environments, timelines and priorities are agreed before testing begins.',
+  },
+  {
+    name: 'Test Case Creation',
+    text: 'Detailed test cases cover normal flows, edge cases and error conditions for complete coverage.',
+  },
+  {
+    name: 'Test Execution',
+    text: 'Test cases are run on real devices and browsers, and every result is recorded.',
+  },
+  {
+    name: 'Bug Reporting',
+    text: 'Defects are logged with clear steps, screenshots and severity for fast developer action.',
+  },
+  {
+    name: 'Retesting',
+    text: 'Every fixed issue is tested again to confirm that it is truly resolved.',
+  },
+  {
+    name: 'Regression Testing',
+    text: 'Related features are re-checked to make sure the fixes have not caused new problems.',
+  },
+  {
+    name: 'Final Quality Validation',
+    text: 'A last full review confirms that the product meets the agreed quality standards and is ready for release.',
+  },
+]
+
+const BUSINESS_VALUE = [
+  'Fewer production issues, because defects are caught before your customers see them.',
+  'More stable applications that behave consistently across devices and browsers.',
+  'Early bug detection, when problems are cheapest and fastest to fix.',
+  'A better user experience, with smoother, more dependable products.',
+  'Lower maintenance costs, since fewer emergency fixes are needed after launch.',
+  'Reliable releases that your team can ship with confidence.',
+  'Consistent product quality as new features and updates are added.',
+]
+
+const WHY_US = [
+  'A structured testing process: clear planning, documentation and sign-off at every stage.',
+  'Experienced QA professionals who understand both products and users.',
+  'Detailed test coverage across features, edge cases and user flows.',
+  'Real-device and real-browser testing, not only simulators.',
+  'Clear bug reporting, with exact steps and evidence for every defect.',
+  'Close collaboration with developers for quick fixes and fewer misunderstandings.',
+  'Reliable release validation, so every version is checked before it goes live.',
+  'A quality-focused mindset that supports the whole development process.',
 ]
 
 const EXPERTISE = [
@@ -95,76 +182,70 @@ function QaTester() {
         <div className="qa__grid">
           <div className="qa__content">
             <p>
-              We deliver exceptional{' '}
-              <strong>QA testing solutions</strong> that blend precision,
-              coverage, and speed to keep your digital products reliable. Our
-              approach focuses on finding defects early and validating every
-              critical flow so quality stays consistent from build to release.
+              At Sahajanand Infotech, we help businesses deliver{' '}
+              <strong>reliable, stable and high-quality digital products</strong>{' '}
+              through structured software testing and quality assurance. From
+              websites and mobile apps to dashboards and business applications,
+              we check every important flow before it reaches your users.
             </p>
             <p>
-              Your product quality matters the most.{' '}
-              <strong>
-                We test experiences that meet 100% of your project’s
-                requirements.
-              </strong>{' '}
-              That’s how we stand apart – by creating thorough, risk-based
-              testing that prioritizes accuracy, stability, and impact.
+              Our testers combine careful planning, detailed test coverage and
+              clear reporting, so your team can release with confidence and
+              spend less time fixing problems after launch.
             </p>
 
-            <h2>Our QA Testing Services</h2>
+            <h2>Our QA &amp; Testing Services</h2>
             <ul>
               {QA_SERVICES.map((item) => (
+                <li key={item.name}>
+                  <strong>{item.name}:</strong> {item.text}
+                </li>
+              ))}
+            </ul>
+
+            <h2>Our Testing Approach</h2>
+            <p>
+              Quality is built step by step. We follow a clear process that
+              takes your product from first requirements to final validation.
+            </p>
+            <ul>
+              {TESTING_APPROACH.map((item) => (
+                <li key={item.name}>
+                  <strong>{item.name}:</strong> {item.text}
+                </li>
+              ))}
+            </ul>
+
+            <h2>How Professional QA Helps Your Business</h2>
+            <p>
+              Testing is not an extra cost. It protects your users, your brand
+              and your budget.
+            </p>
+            <ul>
+              {BUSINESS_VALUE.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
 
-            <h2>Tools & Technologies We Use</h2>
+            <h2>Why Sahajanand Infotech?</h2>
+            <p>
+              We treat quality as a shared responsibility. Our QA team works
+              alongside your developers from the first requirement to the final
+              release.
+            </p>
             <ul>
-              {TOOLS.map((item) => (
+              {WHY_US.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
 
-            <h2>Grow Your Business With Our QA Expertise</h2>
-            <ul>
-              <li>End-to-end functional test coverage</li>
-              <li>Automation that speeds up every release</li>
-              <li>Defect prevention, not just defect reporting</li>
-            </ul>
+            <h2>Deliver Better Software With Reliable QA</h2>
             <p>
-              We help you ship software that leaves a strong impression and
-              performs flawlessly in production. Hire our dedicated QA testers
-              to work exclusively on your project and protect your product with
-              exceptional testing precision.
-            </p>
-
-            <h2>Perks You Get:</h2>
-            <ul>
-              <li>Dedicated testers focused entirely on your project.</li>
-              <li>Flexible pricing — hourly or monthly.</li>
-              <li>Daily testing updates and progress reports.</li>
-            </ul>
-
-            <h2>Why Choose Sahajanand Infotech for QA Testing?</h2>
-            <p>
-              Our team of expert QA testers has delivered stable,
-              high-performing digital products for mobile apps, websites,
-              dashboards, SaaS platforms, and enterprise applications.
-            </p>
-            <ul>
-              <li>Affordable and premium-quality QA solutions.</li>
-              <li>Complete QA process — from test planning to sign-off.</li>
-              <li>Tailored testing strategy for your business goals.</li>
-              <li>Highly skilled testers with years of experience.</li>
-              <li>Test coverage optimized for risk and user impact.</li>
-              <li>Future-ready automation and scalable QA frameworks.</li>
-            </ul>
-
-            <h2>Let’s Discuss Your Requirement</h2>
-            <p>
-              Share your testing needs with us. We’ll help you refine your
-              quality goals and create a reliable QA process that aligns with
-              your product and release cycle.
+              Planning a new product, or worried about the quality of an
+              existing one? Tell us about your testing and quality requirements.
+              We will review your needs and suggest a testing approach that fits
+              your product and release schedule. Use the form to start the
+              conversation.
             </p>
           </div>
 

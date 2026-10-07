@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "app-development",
+    "title": "App Development",
+    "date": "2026-01-16",
+    "excerpt": "We build fast, scalable, and user-friendly mobile apps tailored to your business needs.",
+    "cardImage": "app1.png",
+    "articleImage": "appside.png",
+    "articleHeading": "App Development: Building Powerful, Scalable and User-Friendly Mobile Experiences",
+    "sections": [
+      {
+        "heading": "Introduction",
+        "content": "Mobile applications have become an essential part of how modern businesses connect with customers. An app puts products, services and support within easy reach, helping brands stay present in everyday digital habits.\n\nA thoughtfully designed mobile app improves customer engagement and accessibility by offering a focused, convenient experience on the devices people use most. From browsing information to completing transactions, apps can make key interactions faster and more intuitive.\n\nWhen built with the right technology, performance and user experience in mind, a mobile application can support long-term business growth—strengthening relationships with users while creating a scalable channel for future features and services.",
+        "bullets": []
+      },
+      {
+        "heading": "Why Businesses Need High-Quality Mobile App Development",
+        "content": "Customers expect digital experiences that feel personal, reliable and available whenever they need them. High-quality mobile app development helps businesses meet those expectations while building a stronger connection with their audience.\n\nA well-developed app can improve engagement, streamline access to products and services, and create a consistent brand presence across Android and iOS platforms.",
+        "bullets": [
+          "Better customer engagement through always-available access",
+          "Personalized user experiences tailored to individual needs",
+          "Faster access to products, services and support",
+          "Stronger brand presence on mobile devices",
+          "Business process automation that reduces friction",
+          "Scalable architecture that grows with your business",
+          "Security and performance that protect users and data",
+          "Reliable Android and iOS support for wider reach"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "web-development",
+    "title": "Web Development",
+    "date": "2026-01-16",
+    "excerpt": "We create modern, responsive websites with seamless UI, smooth functionality, and reliable performance.",
+    "cardImage": "web1.png",
+    "articleImage": "webside.png",
+    "articleHeading": "Web Development: Building Fast, Scalable and High-Performing Digital Experiences",
+    "sections": [
+      {
+        "heading": "Introduction",
+        "content": "Today, a website is more than just an online presence. It is often the first interaction a customer has with a business. A well-designed and professionally developed website helps businesses build trust, communicate their value and provide a smooth digital experience across every device.\n\nModern web development combines clean design, reliable technology, strong performance and scalable architecture to create websites that are fast, secure and easy to use.\n\nWhether it is a business website, e-commerce platform or custom web application, the right development approach ensures that the experience remains reliable as the business grows.",
+        "bullets": []
+      },
+      {
+        "heading": "Why Modern Businesses Need High-Quality Web Development",
+        "content": "A strong digital presence has become essential for businesses of every size. Customers expect websites to load quickly, work smoothly on mobile devices and provide clear information without unnecessary complexity.\n\nHigh-quality web development helps businesses deliver better user experiences while creating a reliable foundation for future growth.",
+        "bullets": [
+          "Faster page loading and better performance",
+          "Responsive experiences across devices",
+          "Better user experience and navigation",
+          "Secure and reliable functionality",
+          "Scalable architecture for future growth",
+          "Search-engine-friendly technical structure"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "digital-marketing",
+    "title": "Digital Marketing",
+    "date": "2026-01-16",
+    "excerpt": "We build effective digital marketing strategies that increase your reach, engagement, and business growth.",
+    "cardImage": "marketing.png",
+    "articleImage": "digitalapp.png",
+    "articleHeading": "Digital Marketing: Building Strong Brands and Driving Meaningful Online Growth",
+    "sections": [
+      {
+        "heading": "Introduction",
+        "content": "Digital marketing helps businesses build a clear and lasting online presence. Through websites, search, social platforms and other digital channels, brands can introduce their value to people who are already looking for related products and services.\n\nA well-planned digital marketing approach makes it easier to reach the right audience, increase brand awareness and generate qualified leads. Instead of relying on broad, unfocused outreach, businesses can share useful content and offers where their customers spend time online.\n\nOver time, consistent digital marketing also supports meaningful customer connections. When messaging, channels and experiences work together, businesses can guide people from first discovery to lasting engagement with greater clarity and purpose.",
+        "bullets": []
+      },
+      {
+        "heading": "Why Businesses Need a Strong Digital Marketing Strategy",
+        "content": "A strong digital marketing strategy gives businesses direction in a crowded online landscape. It connects brand goals with the channels, campaigns and content that are most likely to attract and convert the right audience.\n\nWith a clear strategy, teams can improve visibility, engage customers more effectively and make decisions based on real performance data—supporting growth that can be measured and improved over time.",
+        "bullets": [
+          "Strong online presence across key digital channels",
+          "Better audience targeting for more relevant outreach",
+          "Brand awareness that builds recognition and trust",
+          "Lead generation that supports sales and growth",
+          "Social media marketing that encourages engagement",
+          "Search engine visibility for organic discovery",
+          "Paid advertising that amplifies high-intent traffic",
+          "Data-driven decision making guided by performance insights",
+          "Better customer engagement throughout the journey",
+          "Measurable business growth with clear results"
+        ]
+      }
+    ]
+  }
+]

@@ -1108,6 +1108,24 @@ function Careers() {
     }
   }, [page, pageCount])
 
+  /* Header "Open Positions" link (/careers#open-positions): the section is rendered by React after load, so scroll to it here */
+  useEffect(() => {
+    if (window.location.hash !== '#open-positions') return undefined
+
+    const timer = window.setTimeout(() => {
+      const section = document.getElementById('open-positions')
+      if (!section) return
+
+      const header = document.querySelector('.header')
+      const fixedHeader = header && window.getComputedStyle(header).position === 'fixed'
+      const offset = (fixedHeader ? header.getBoundingClientRect().bottom : 0) + 16
+
+      window.scrollTo(0, section.getBoundingClientRect().top + window.scrollY - offset)
+    }, 150)
+
+    return () => window.clearTimeout(timer)
+  }, [])
+
   useEffect(() => {
     window.scrollTo(0, 0)
 

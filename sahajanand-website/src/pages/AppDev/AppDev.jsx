@@ -14,21 +14,107 @@ import { useServiceInquiry } from '../../hooks/useServiceInquiry'
 import ServiceFormStatus from '../../components/common/ServiceFormStatus'
 
 const APP_SERVICES = [
-  'Native Android App Development',
-  'Custom Mobile App Development',
-  'App UI Implementation',
-  'API Integration',
-  'Firebase Integration',
-  'Play Store Deployment',
-  'App Maintenance & Support',
+  {
+    name: 'Android App Development',
+    text: 'Fast, stable native Android apps built to run smoothly across the wide range of devices your customers use.',
+  },
+  {
+    name: 'iOS App Development',
+    text: 'Polished iPhone and iPad apps that follow Apple design standards and feel natural to iOS users.',
+  },
+  {
+    name: 'Cross-Platform App Development',
+    text: 'One codebase for both Android and iOS, so you reach more users sooner while keeping development efficient.',
+  },
+  {
+    name: 'Custom Mobile App Development',
+    text: 'Apps designed and built around your idea, your users and your workflow, not forced into a ready-made template.',
+  },
+  {
+    name: 'Business App Development',
+    text: 'Mobile apps for operations, teams and customers that simplify daily tasks and keep your business connected.',
+  },
+  {
+    name: 'E-commerce App Development',
+    text: 'Shopping apps with easy product discovery, secure payments, order tracking and notifications that bring buyers back.',
+  },
+  {
+    name: 'UI/UX for Mobile Apps',
+    text: 'Clear, thumb-friendly interfaces and simple journeys designed specifically for small screens and quick interactions.',
+  },
+  {
+    name: 'API & Backend Integration',
+    text: 'Secure connections between your app, servers, databases and third-party services, so data flows reliably.',
+  },
+  {
+    name: 'App Testing & Quality Assurance',
+    text: 'Thorough testing on real devices and OS versions to catch bugs, crashes and performance problems before launch.',
+  },
+  {
+    name: 'App Deployment',
+    text: 'We prepare, submit and publish your app on Google Play and the App Store, and handle the review requirements.',
+  },
+  {
+    name: 'App Maintenance & Support',
+    text: 'Regular updates, bug fixes, OS compatibility upgrades and improvements that keep your app useful over time.',
+  },
 ]
 
-const TOOLS = [
-  'Android Studio',
-  'Kotlin',
-  'Java',
-  'Android SDK',
-  'Firebase',
+const APP_APPROACH = [
+  {
+    name: 'Requirement Analysis',
+    text: 'We learn about your idea, audience and goals, and define clearly what the app needs to do.',
+  },
+  {
+    name: 'Planning',
+    text: 'Features, platforms, technology, milestones and timelines are agreed before development starts.',
+  },
+  {
+    name: 'UI/UX Design',
+    text: 'Screens and user journeys are designed and reviewed with you, so the experience is approved before it is built.',
+  },
+  {
+    name: 'App Development',
+    text: 'Our developers turn the approved designs into a working app, with regular progress updates.',
+  },
+  {
+    name: 'API Integration',
+    text: 'The app is connected to the backend and any third-party services it relies on.',
+  },
+  {
+    name: 'Testing',
+    text: 'Functionality, performance, security and device compatibility are checked thoroughly.',
+  },
+  {
+    name: 'Deployment',
+    text: 'The finished app is published on the app stores and made available to your users.',
+  },
+  {
+    name: 'Maintenance & Support',
+    text: 'After launch we stay with you for updates, fixes and new features as your app grows.',
+  },
+]
+
+const BUSINESS_VALUE = [
+  'Reach customers directly on the mobile devices they use every day.',
+  'Improve customer engagement through notifications, personalised content and easy access.',
+  'Create convenient digital experiences that make your services quick to use.',
+  'Automate business processes, reducing manual work and saving time.',
+  'Build a stronger brand presence with an app that is always on your customers’ phones.',
+  'Support business growth by opening new channels for sales and service.',
+  'Create scalable and reliable mobile products that keep working as your user base grows.',
+]
+
+const WHY_US = [
+  'User-focused mobile experiences, designed around how people really use their phones.',
+  'Custom app solutions shaped by your requirements rather than a fixed template.',
+  'Modern development practices, tools and frameworks.',
+  'Clean, maintainable code that is easy to update and extend.',
+  'Responsive, intuitive interfaces that work well on different screen sizes.',
+  'Secure API and backend integration that protects your users’ data.',
+  'Performance-focused development, for quick start-up and smooth interactions.',
+  'Scalable architecture that is ready for more users and new features.',
+  'Long-term maintenance and support, so your app stays reliable after launch.',
 ]
 
 const EXPERTISE = [
@@ -81,76 +167,71 @@ function AppDev() {
         <div className="appdev__grid">
           <div className="appdev__content">
             <p>
-              We deliver exceptional{' '}
-              <strong>app development solutions</strong> that blend clean code,
-              smooth functionality, and reliable performance. Our approach
-              focuses on building fast, scalable mobile apps that feel native,
-              stay stable, and keep your users engaged.
+              At Sahajanand Infotech, we build{' '}
+              <strong>modern, reliable and scalable mobile applications</strong>{' '}
+              that help businesses connect with their customers and deliver
+              better digital experiences. Whether you are launching a new idea
+              or improving an existing product, we design and develop apps that
+              are simple to use and dependable in everyday life.
             </p>
             <p>
-              Your users’ experience matters the most.{' '}
-              <strong>
-                We build mobile apps that meet 100% of your project’s
-                requirements.
-              </strong>{' '}
-              That’s how we stand apart – by creating robust, maintainable
-              applications that prioritize speed, usability, and impact.
+              Our team brings together thoughtful design, clean engineering and
+              careful testing, so your app makes a strong first impression and
+              keeps users coming back.
             </p>
 
             <h2>Our App Development Services</h2>
             <ul>
               {APP_SERVICES.map((item) => (
+                <li key={item.name}>
+                  <strong>{item.name}:</strong> {item.text}
+                </li>
+              ))}
+            </ul>
+
+            <h2>Our App Development Approach</h2>
+            <p>
+              Great apps come from a clear process. We guide your idea through
+              a structured journey, from the first requirement to long-term
+              support.
+            </p>
+            <ul>
+              {APP_APPROACH.map((item) => (
+                <li key={item.name}>
+                  <strong>{item.name}:</strong> {item.text}
+                </li>
+              ))}
+            </ul>
+
+            <h2>How Professional Mobile App Development Helps Your Business</h2>
+            <p>
+              A well-built mobile app puts your business in your customers’
+              hands and gives you a direct, lasting way to serve them.
+            </p>
+            <ul>
+              {BUSINESS_VALUE.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
 
-            <h2>Tools & Technologies We Use</h2>
+            <h2>Why Sahajanand Infotech?</h2>
+            <p>
+              We see every app as a long-term product, not a one-time delivery.
+              Our designers, developers and testers work together to build
+              something that fits your goals and your users.
+            </p>
             <ul>
-              {TOOLS.map((item) => (
+              {WHY_US.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
 
-            <h2>Grow Your Business With Our App Development Expertise</h2>
-            <ul>
-              <li>Fast, scalable mobile applications</li>
-              <li>Clean, maintainable Android-focused code</li>
-              <li>Performance-focused development approach</li>
-            </ul>
+            <h2>Turn Your App Idea Into Reality</h2>
             <p>
-              We help you launch apps that leave a strong impression and
-              deliver flawless functionality. Hire our dedicated app developers
-              to work exclusively on your project and bring your ideas to life
-              with exceptional development precision.
-            </p>
-
-            <h2>Perks You Get:</h2>
-            <ul>
-              <li>Dedicated developers focused entirely on your project.</li>
-              <li>Flexible pricing — hourly or monthly.</li>
-              <li>Daily development updates and progress reports.</li>
-            </ul>
-
-            <h2>Why Choose Sahajanand Infotech for App Development?</h2>
-            <p>
-              Our team of expert app developers has built modern,
-              high-performing digital products for Android apps, dashboards,
-              SaaS platforms, and enterprise applications.
-            </p>
-            <ul>
-              <li>Affordable and premium-quality app development solutions.</li>
-              <li>Complete development process — from planning to store release.</li>
-              <li>Tailored technical strategy for your business goals.</li>
-              <li>Highly skilled developers with years of experience.</li>
-              <li>Apps optimized for speed, stability, and user engagement.</li>
-              <li>Future-ready and scalable mobile architectures.</li>
-            </ul>
-
-            <h2>Let’s Discuss Your Requirement</h2>
-            <p>
-              Share your app development needs with us. We’ll help you refine
-              your ideas and create a reliable, high-performing mobile app that
-              aligns with your brand and goals.
+              Have a mobile app idea, or a product you want to take further?
+              Share your concept, requirements and goals with us. We will
+              understand what you want to achieve and help you plan the right
+              app for your business. Use the form to start the conversation.
             </p>
           </div>
 

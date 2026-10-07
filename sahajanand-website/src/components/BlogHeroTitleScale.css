@@ -1,5 +1,6 @@
 /* Hero title scale-up (Blog Detail + Contact Us) */
 .blog-appdev__hero-title.service-title-reveal,
+.blog-detail__hero-title.service-title-reveal,
 .blog-webdev__hero-title.service-title-reveal,
 .blog-marketing__hero-title.service-title-reveal,
 .contact-page__hero-title.service-title-reveal {
@@ -7,6 +8,7 @@
 }
 
 .blog-appdev__hero-title .service-title-reveal__text,
+.blog-detail__hero-title .service-title-reveal__text,
 .blog-webdev__hero-title .service-title-reveal__text,
 .blog-marketing__hero-title .service-title-reveal__text,
 .contact-page__hero-title .service-title-reveal__text {
@@ -27,6 +29,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .blog-appdev__hero-title .service-title-reveal__text,
+  .blog-detail__hero-title .service-title-reveal__text,
   .blog-webdev__hero-title .service-title-reveal__text,
   .blog-marketing__hero-title .service-title-reveal__text,
   .contact-page__hero-title .service-title-reveal__text {

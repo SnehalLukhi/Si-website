@@ -1,0 +1,253 @@
+.testimonials {
+  --testimonials-gap: 1.5rem;
+  --testimonials-move: 0.7s;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 5.5rem 1.5rem 5rem;
+}
+
+.testimonials__inner {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+}
+
+.testimonials__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: min(100%, 48rem);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.testimonials__eyebrow {
+  margin: 0;
+  color: #71717a;
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+
+.testimonials__heading {
+  margin: 0;
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.testimonials__slider {
+  margin: 3.5rem 0 0;
+}
+
+/* Side padding keeps the card shadows from being clipped; the card gap is wider than it, so the next card never peeks in */
+.testimonials__viewport {
+  overflow: hidden;
+  margin: -1.25rem -1.1rem -3.25rem;
+  padding: 1.25rem 1.1rem 3.25rem;
+}
+
+.testimonials__track {
+  display: flex;
+  align-items: stretch;
+  gap: var(--testimonials-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* Position, gap and timing are set inline by the component (one card step every 2 seconds) */
+  will-change: transform;
+}
+
+.testimonials__track.is-instant,
+.testimonials__track.is-instant .testimonials__card,
+.testimonials__track.is-instant .testimonials__card::before {
+  transition: none;
+}
+
+.testimonials__card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  min-width: 0;
+  padding: 2.25rem 1.75rem 2rem;
+  border: 1px solid #e6edf6;
+  border-radius: 1.125rem;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06), 0 2px 6px rgba(15, 23, 42, 0.03);
+  text-align: center;
+  transition:
+    transform var(--testimonials-move) cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow var(--testimonials-move) ease,
+    opacity var(--testimonials-move) ease;
+}
+
+/* Same blue accent along the top as the active Our Services card */
+.testimonials__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1e9bff, #1a7fe6);
+  opacity: 0;
+  transition: opacity var(--testimonials-move) ease;
+}
+
+.testimonials__card.is-active {
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.1), 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.testimonials__card.is-active::before {
+  opacity: 1;
+}
+
+/* Same as the Our Services carousel: the side cards are a little smaller, the middle one is in front */
+.testimonials__card.is-side {
+  transform: scale(0.88);
+}
+
+/* Inside the peek carousel (tablet / phone) the card simply fills its slide */
+.peek-carousel__slide > .testimonials__card {
+  flex: 1 1 auto;
+}
+
+/* Profile image and name on top, then the review, then the stars. The review area takes all the spare height and
+   centres the text in it, so the name and the stars sit at the same place on every card whatever the review length. */
+.testimonials__person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.testimonials__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.75rem;
+  height: 4.75rem;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.16);
+  object-fit: cover;
+}
+
+.testimonials__name {
+  color: #0f172a;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.testimonials__text {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  color: #475569;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  text-align: center;
+}
+
+.testimonials__stars {
+  color: #f5b301;
+  font-size: 1.15rem;
+  letter-spacing: 0.15em;
+  line-height: 1;
+}
+
+.testimonials__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 2.25rem;
+}
+
+.testimonials__dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: #cbd5e1;
+  transition:
+    width 0.4s ease,
+    background-color 0.4s ease;
+}
+
+.testimonials__dot.is-active {
+  width: 1.75rem;
+  background: #1e9bff;
+}
+
+@media (max-width: 991px) {
+  .testimonials {
+    padding: 4rem 5% 4rem;
+  }
+
+  .testimonials__heading {
+    font-size: 36px;
+  }
+
+  /* Same as the Our Services carousel: two cards and the gap share the content column, neighbours peek out beside the current one */
+  .testimonials .peek-carousel {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    --peek-slide: calc((100cqw - 25px) / 2);
+    --peek-gap: 25px;
+  }
+
+  .testimonials .peek-carousel__slide.is-peek,
+  .testimonials .peek-carousel__slide.is-peek .testimonials__card {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+@media (max-width: 675px) {
+  .testimonials {
+    padding: 3.25rem 8% 3.25rem;
+  }
+
+  .testimonials__heading {
+    max-width: 100%;
+    font-size: 28px;
+  }
+
+  .testimonials__slider {
+    margin-top: 2.5rem;
+  }
+
+  /* Below 676px exactly one card is visible, with equal space on both sides (as in Our Services and Blog) */
+  .testimonials .peek-carousel {
+    width: 86%;
+    max-width: 26rem;
+    margin-left: auto;
+    margin-right: auto;
+    --peek-slide: 100cqw;
+    --peek-gap: 25px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonials__track,
+  .testimonials__card,
+  .testimonials__card::before,
+  .testimonials__dot {
+    transition: none;
+  }
+}

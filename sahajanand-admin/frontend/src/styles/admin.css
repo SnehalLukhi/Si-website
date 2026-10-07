@@ -512,6 +512,34 @@ input[type='file']::file-selector-button:hover { background: var(--brand-100); }
   border-top: 1px solid var(--line);
 }
 
+/* ---------- Blog form: article sections ---------- */
+
+.blog-form-hint { font-size: 12px; color: var(--ink-3); }
+.blog-sections { margin-bottom: 18px; }
+.blog-sections-head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  margin-bottom: 12px;
+}
+.blog-sections-head label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-2); margin-bottom: 2px; }
+.blog-add-section-btn { display: inline-flex; align-items: center; gap: 6px; }
+.blog-section-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fafcfe;
+  padding: 16px 16px 2px;
+  margin-bottom: 14px;
+}
+.blog-section-card-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  margin-bottom: 12px; font-size: 14px; color: var(--ink);
+}
+.blog-section-card-actions { display: flex; gap: 8px; }
+.blog-section-card-actions .cancel-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+@media (max-width: 640px) {
+  .blog-sections-head, .blog-section-card-head { flex-direction: column; align-items: stretch; }
+}
+
 /* ---------- Tablet ---------- */
 
 @media (max-width: 1024px) {
@@ -680,4 +708,112 @@ input[type='file']::file-selector-button:hover { background: var(--brand-100); }
 
 @media (max-width: 400px) {
   .admin-logout .logout-icon { display: none; }
+}
+
+/* ---------- Contact Inquiries ---------- */
+
+.inquiry-table th:nth-child(1) { width: 4%; }
+.inquiry-table th:nth-child(2) { width: 17%; }
+.inquiry-table th:nth-child(3) { width: 22%; }
+.inquiry-table th:nth-child(4) { width: 12%; }
+.inquiry-table th:nth-child(5) { width: 14%; }
+.inquiry-table th:nth-child(6) { width: 14%; }
+.inquiry-table th:nth-child(7) { width: 17%; }
+
+/* Row selection */
+.inquiry-select { width: 44px; padding-right: 0; }
+.inquiry-checkbox {
+  width: 17px; height: 17px; margin: 0;
+  accent-color: var(--brand);
+  cursor: pointer;
+}
+.inquiry-checkbox:disabled { cursor: not-allowed; }
+.inquiry-table tbody tr.is-selected td { background: var(--brand-50); }
+.inquiry-table tbody tr.is-selected:hover td { background: var(--brand-50); }
+
+.inquiry-select-all-compact {
+  display: none;
+  align-items: center; gap: 8px;
+  color: var(--ink-2); font-size: 14px; font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.inquiry-bulk { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+.inquiry-bulk-count { color: var(--ink-3); font-size: 14px; font-weight: 500; white-space: nowrap; }
+.inquiry-bulk .delete-job-btn {
+  padding: 10px 18px;
+  border-color: var(--danger-line);
+  background: var(--danger-50);
+  color: var(--danger);
+}
+.inquiry-bulk .delete-job-btn:hover { background: #fde2e2; border-color: var(--danger); }
+
+.inquiry-actions { white-space: normal; }
+.data-table .inquiry-actions .delete-job-btn { margin-left: 6px; padding: 7px 10px; }
+
+.inquiry-contact { display: flex; flex-direction: column; gap: 2px; overflow-wrap: anywhere; }
+.inquiry-contact span:last-child:not(:first-child) { color: var(--ink-3); font-size: 13px; }
+
+.inquiry-view-btn {
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--brand);
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.inquiry-view-btn:hover { background: var(--brand-50); border-color: var(--brand); }
+.inquiry-view-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.data-table .inquiry-detail-row td { background: #fafcff; padding: 20px 24px; }
+.data-table tbody tr.inquiry-detail-row:hover td { background: #fafcff; }
+
+.inquiry-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px 24px;
+  margin: 0 0 18px;
+}
+.inquiry-detail-grid dt,
+.inquiry-message h4 {
+  margin: 0 0 2px;
+  color: var(--ink-3);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+}
+.inquiry-detail-grid dd { margin: 0; color: var(--ink); font-size: 14px; overflow-wrap: anywhere; }
+.inquiry-message p {
+  margin: 4px 0 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: 14px; line-height: 1.6;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+
+@media (max-width: 1024px) {
+  .inquiry-select-all-compact { display: inline-flex; }
+  /* Selected card: tint the whole card, not each cell */
+  .inquiry-table tbody tr.is-selected { background: var(--brand-50); border-color: var(--brand-100); }
+  .inquiry-table tbody tr.is-selected td,
+  .inquiry-table tbody tr.is-selected:hover td { background: transparent; }
+  .toolbar { flex-wrap: wrap; }
+  .inquiry-bulk { margin-left: 0; width: 100%; justify-content: space-between; }
+
+  /* Card layout: the checkbox is a labelled row, and the name (second cell) acts as the card title */
+  .inquiry-table td.inquiry-select { display: flex; width: auto; padding: 10px 0; text-align: right; }
+  .inquiry-table td.inquiry-select::before { display: block; }
+  .inquiry-table td:nth-child(2) { display: block; text-align: left; padding: 12px 0; }
+  .inquiry-table td:nth-child(2)::before { display: none; }
+  .data-table td.cell-actions.inquiry-actions { display: flex; gap: 8px; }
+  .data-table .inquiry-actions .inquiry-view-btn,
+  .data-table .inquiry-actions .delete-job-btn { flex: 1; margin-left: 0; width: auto; }
+
+  .data-table .inquiry-detail-row td { padding: 14px 0 6px; }
+  .data-table tbody tr.inquiry-detail-row { padding: 0 16px 14px; }
+  .data-table td.cell-actions .inquiry-view-btn { width: 100%; }
 }

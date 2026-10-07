@@ -367,3 +367,17 @@
     filter: none;
   }
 }
+
+/* Below 676px: exactly one card is visible at a time. The card fills the carousel width, so the neighbouring
+   cards (still in the scroller for the automatic slide) rest completely outside the visible area. */
+@media (max-width: 675px) {
+  .blog .peek-carousel {
+    /* Equal breathing room on the left and right: the carousel is a little narrower than the content column */
+    width: 86%;
+    max-width: 26rem;
+    margin-left: auto;
+    margin-right: auto;
+    --peek-slide: 100cqw;
+    --peek-gap: 25px;
+  }
+}

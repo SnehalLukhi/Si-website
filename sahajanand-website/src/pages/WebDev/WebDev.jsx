@@ -21,24 +21,114 @@ import { useServiceInquiry } from '../../hooks/useServiceInquiry'
 import ServiceFormStatus from '../../components/common/ServiceFormStatus'
 
 const WEB_SERVICES = [
-  'Custom Website Development',
-  'Frontend Development',
-  'Backend Development',
-  'E-commerce Development',
-  'CMS Development',
-  'API Integration',
-  'Website Maintenance & Support',
+  {
+    name: 'Custom Website Development',
+    text: 'Websites designed and built from scratch around your brand, your audience and your goals, with no generic templates.',
+  },
+  {
+    name: 'Business Website Development',
+    text: 'Professional, fast and trustworthy websites that present your company clearly and help visitors become customers.',
+  },
+  {
+    name: 'Web Application Development',
+    text: 'Secure, feature-rich web applications that handle your workflows, users and data reliably as you grow.',
+  },
+  {
+    name: 'E-commerce Development',
+    text: 'Online stores with smooth product browsing, secure checkout, payment integration and easy order management.',
+  },
+  {
+    name: 'Frontend Development',
+    text: 'Fast, accessible and visually polished interfaces built with modern frameworks that feel smooth on every screen.',
+  },
+  {
+    name: 'Backend Development',
+    text: 'Dependable server-side logic, databases and authentication that keep your application secure, stable and quick.',
+  },
+  {
+    name: 'API Development & Integration',
+    text: 'Custom APIs and clean integrations that connect your website with payment gateways, CRMs and other third-party services.',
+  },
+  {
+    name: 'Responsive Web Development',
+    text: 'Layouts that adapt naturally to mobile, tablet and desktop, so every visitor gets a comfortable experience.',
+  },
+  {
+    name: 'CMS Development',
+    text: 'Content management systems that let your team update pages, blogs and media easily, without needing a developer.',
+  },
+  {
+    name: 'Website Revamp & Modernization',
+    text: 'We refresh outdated websites with modern design, better speed and updated technology, while keeping what already works.',
+  },
+  {
+    name: 'Custom Software Solutions',
+    text: 'Tailor-made web-based software that automates your business processes and fits the way your team really works.',
+  },
+  {
+    name: 'Maintenance & Support',
+    text: 'Ongoing updates, monitoring, security fixes and improvements that keep your website healthy long after launch.',
+  },
 ]
 
-const TOOLS = [
-  'HTML5',
-  'CSS3',
-  'JavaScript',
-  'React',
-  'Node.js',
-  'PHP',
-  'Laravel',
-  'MySQL',
+const DEVELOPMENT_APPROACH = [
+  {
+    name: 'Requirement Analysis',
+    text: 'We learn about your business, users and goals, and turn them into a clear list of requirements.',
+  },
+  {
+    name: 'Planning',
+    text: 'Scope, technology, milestones and timelines are agreed up front, so everyone knows what to expect.',
+  },
+  {
+    name: 'UI/UX Collaboration',
+    text: 'Designers and developers work together from the start, so the final product matches the approved design.',
+  },
+  {
+    name: 'Frontend Development',
+    text: 'Approved designs become fast, responsive and accessible interfaces.',
+  },
+  {
+    name: 'Backend Development',
+    text: 'We build the databases, business logic and security that power the application behind the scenes.',
+  },
+  {
+    name: 'API Integration',
+    text: 'The frontend, backend and any third-party services are connected into one smooth working system.',
+  },
+  {
+    name: 'Testing',
+    text: 'Functionality, performance, security and device compatibility are checked before anything goes live.',
+  },
+  {
+    name: 'Deployment',
+    text: 'We launch your project on a reliable, secure environment and make sure everything runs correctly.',
+  },
+  {
+    name: 'Support',
+    text: 'After launch we stay available for updates, fixes and improvements as your needs change.',
+  },
+]
+
+const BUSINESS_VALUE = [
+  'A strong digital presence that builds credibility and helps customers find you.',
+  'Better website performance, with faster loading and smoother interactions.',
+  'Better user experiences that keep visitors engaged and guide them to act.',
+  'Automated business processes that save time and reduce manual work.',
+  'Easy integration with the third-party systems and tools you already use.',
+  'Support for business growth, with technology that keeps up as demand rises.',
+  'Scalable digital products that can take on new features and more users without a rebuild.',
+]
+
+const WHY_US = [
+  'A custom development approach: every solution is shaped around your requirements.',
+  'Clean, maintainable code that is easy to understand, extend and hand over.',
+  'Responsive, user-friendly interfaces that work well on every device.',
+  'Scalable architecture that is ready for more users, data and features.',
+  'Modern development practices, tools and frameworks.',
+  'Secure and reliable solutions, with protection built in from the start.',
+  'Close collaboration between design and development teams for a consistent result.',
+  'Long-term support and maintenance, so your product keeps performing after launch.',
 ]
 
 const EXPERTISE = [
@@ -116,76 +206,71 @@ function WebDev() {
         <div className="webdev__grid">
           <div className="webdev__content">
             <p>
-              We deliver exceptional{' '}
-              <strong>web development solutions</strong> that blend clean code,
-              seamless UI, and reliable performance. Our approach focuses on
-              building fast, scalable websites that work smoothly across
-              devices and keep your business running without interruption.
+              At Sahajanand Infotech, we build{' '}
+              <strong>modern, scalable and high-performance</strong> websites
+              and web applications, tailored to what your business actually
+              needs. From company websites and online stores to custom web
+              platforms, we turn your requirements into dependable digital
+              products.
             </p>
             <p>
-              Your product performance matters the most.{' '}
-              <strong>
-                We build web experiences that meet 100% of your project’s
-                requirements.
-              </strong>{' '}
-              That’s how we stand apart – by creating robust, maintainable
-              applications that prioritize speed, stability, and impact.
+              Our developers combine clean code, thoughtful design and proven
+              technology, so your website is fast today and ready to grow
+              tomorrow.
             </p>
 
             <h2>Our Web Development Services</h2>
             <ul>
               {WEB_SERVICES.map((item) => (
+                <li key={item.name}>
+                  <strong>{item.name}:</strong> {item.text}
+                </li>
+              ))}
+            </ul>
+
+            <h2>Our Development Approach</h2>
+            <p>
+              A good website is built through a clear process. We follow a
+              structured approach that keeps you informed from the first
+              requirement to long-term support.
+            </p>
+            <ul>
+              {DEVELOPMENT_APPROACH.map((item) => (
+                <li key={item.name}>
+                  <strong>{item.name}:</strong> {item.text}
+                </li>
+              ))}
+            </ul>
+
+            <h2>How Professional Web Development Helps Your Business</h2>
+            <p>
+              Your website is often the first place customers meet your
+              business. A well-built one works for you every day.
+            </p>
+            <ul>
+              {BUSINESS_VALUE.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
 
-            <h2>Tools & Technologies We Use</h2>
+            <h2>Why Sahajanand Infotech?</h2>
+            <p>
+              We approach every project as a long-term partnership. Our design
+              and development teams work side by side, so what you approve is
+              exactly what gets built.
+            </p>
             <ul>
-              {TOOLS.map((item) => (
+              {WHY_US.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
 
-            <h2>Grow Your Business With Our Web Development Expertise</h2>
-            <ul>
-              <li>Fast, scalable web applications</li>
-              <li>Clean, maintainable frontend and backend code</li>
-              <li>Performance-focused development approach</li>
-            </ul>
+            <h2>Build a Powerful Web Presence With Us</h2>
             <p>
-              We help you launch websites that leave a strong impression and
-              deliver flawless functionality. Hire our dedicated web developers
-              to work exclusively on your project and bring your ideas to life
-              with exceptional development precision.
-            </p>
-
-            <h2>Perks You Get:</h2>
-            <ul>
-              <li>Dedicated developers focused entirely on your project.</li>
-              <li>Flexible pricing — hourly or monthly.</li>
-              <li>Daily development updates and progress reports.</li>
-            </ul>
-
-            <h2>Why Choose Sahajanand Infotech for Web Development?</h2>
-            <p>
-              Our team of expert web developers has built modern,
-              high-performing digital products for mobile-ready websites,
-              dashboards, SaaS platforms, and enterprise applications.
-            </p>
-            <ul>
-              <li>Affordable and premium-quality web development solutions.</li>
-              <li>Complete development process — from planning to deployment.</li>
-              <li>Tailored technical strategy for your business goals.</li>
-              <li>Highly skilled developers with years of experience.</li>
-              <li>Websites optimized for speed, SEO, and conversions.</li>
-              <li>Future-ready and scalable web architectures.</li>
-            </ul>
-
-            <h2>Let’s Discuss Your Requirement</h2>
-            <p>
-              Share your web development needs with us. We’ll help you refine
-              your ideas and create a reliable, high-performing website that
-              aligns with your brand and goals.
+              Planning a new website or web application, or looking to improve
+              an existing one? Tell us about your requirements. We will
+              understand your goals and suggest the right solution for your
+              business. Use the form to start the conversation.
             </p>
           </div>
 

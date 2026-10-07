@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "seed-admin": "node scripts/seedAdmin.js",
+    "seed-blogs": "node scripts/seedBlogs.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -19,7 +20,7 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.10.3",
     "multer": "^2.4.0",
-    "nodemailer": "^10.0.13"
+    "resend": "^6.32.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
