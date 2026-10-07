@@ -14,7 +14,7 @@ import photo7 from '../../assets/images/photos/image7.png'
 import photo8 from '../../assets/images/photos/image8.png'
 import './CareersFull.css'
 
-const API_URL = 'http://localhost:5000'
+const API_URL = import.meta.env.VITE_API_URL ?? ''
 const PAGE_SIZE = 8
 
 const EXPERIENCE_FILTERS = [

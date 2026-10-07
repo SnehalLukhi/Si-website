@@ -13,7 +13,7 @@ import lifeOutdoor from '../../assets/images/info-4.png'
 import lifeOffice from '../../assets/images/photos/image8.png'
 import './CareersPage.css'
 
-const API_URL = 'http://localhost:5000'
+const API_URL = import.meta.env.VITE_API_URL ?? ''
 
 /* Simple outline icons (24 x 24, drawn with the current text colour) */
 const ICONS = {

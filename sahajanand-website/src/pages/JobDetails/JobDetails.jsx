@@ -602,7 +602,7 @@ import { Reveal, RevealGroup } from '../../components/motion/Reveal'
 import { ArticleItem, ArticleSection } from '../../components/motion/ArticleReveal'
 import './JobDetails.css'
 
-const API_URL = 'http://localhost:5000'
+const API_URL = import.meta.env.VITE_API_URL ?? ''
 
 const APPLY_EMAIL = 'hr@sahajanandinfotech.com'
 const APPLY_PHONE = '+91 8140039454'

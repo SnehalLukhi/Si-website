@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 
-const API_URL = 'http://localhost:5000'
+const API_URL = import.meta.env.VITE_API_URL ?? ''
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 // "Let's Get In Touch" form on the service pages: validates, emails the message, reports the result.

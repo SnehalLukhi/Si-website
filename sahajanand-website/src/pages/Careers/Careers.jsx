@@ -576,7 +576,7 @@ import cultureImage4 from '../../assets/images/careers/4image.png'
 import quoteMark from '../../assets/images/careers/quote-mark.svg'
 import './Careers.css'
 
-const API_URL = 'http://localhost:5000'
+const API_URL = import.meta.env.VITE_API_URL ?? ''
 
 const CULTURE_ROWS = [
   {

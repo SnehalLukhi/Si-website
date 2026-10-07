@@ -44,7 +44,7 @@ const text = (value) => (typeof value === 'string' ? value.trim() : '')
 const cleanupUploads = (files) => {
   Object.values(files || {})
     .flat()
-    .forEach((file) => removeBlogImage(`/uploads/blogs/${file.filename}`))
+    .forEach((file) => removeBlogImage(file.url))
 }
 
 // Get all blogs (newest first)
@@ -106,8 +106,8 @@ router.post('/', blogImages, async (req, res) => {
       slug,
       date: text(req.body.date),
       excerpt: text(req.body.excerpt),
-      image: image ? `/uploads/blogs/${image.filename}` : '',
-      articleImage: articleImage ? `/uploads/blogs/${articleImage.filename}` : '',
+      image: image ? image.url : '',
+      articleImage: articleImage ? articleImage.url : '',
       articleHeading: text(req.body.articleHeading),
       sections: toSections(req.body.sections),
     })
@@ -174,12 +174,12 @@ router.put('/:id', blogImages, async (req, res) => {
 
     if (image) {
       oldImages.push(blog.image)
-      blog.image = `/uploads/blogs/${image.filename}`
+      blog.image = image.url
     }
 
     if (articleImage) {
       oldImages.push(blog.articleImage)
-      blog.articleImage = `/uploads/blogs/${articleImage.filename}`
+      blog.articleImage = articleImage.url
     }
 
     await blog.save()

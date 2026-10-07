@@ -9,7 +9,7 @@ import {
   SearchIcon,
   TrashIcon,
 } from '../../components/Icons'
-import { API_URL } from '../../services/api'
+import { API_URL, assetUrl } from '../../services/api'
 import { authFetch } from '../../services/auth'
 
 function OurProducts() {
@@ -285,7 +285,7 @@ function OurProducts() {
                 <div className="product-image">
                   {product.image ? (
                     <img
-                      src={`${API_URL}${product.image}`}
+                      src={assetUrl(product.image)}
                       alt={product.name}
                     />
                   ) : (

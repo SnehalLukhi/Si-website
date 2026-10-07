@@ -5,8 +5,9 @@ import { Reveal, ViewportReveal } from '../../components/motion/Reveal'
 import Header from '../../components/layout/Header'
 import Footer from '../../components/layout/Footer'
 import './Products.css'
+import { blogImageUrl as imageUrl } from '../../utils/blogApi'
 
-const API_URL = 'http://localhost:5000'
+const API_URL = import.meta.env.VITE_API_URL ?? ''
 
 const PLACEHOLDER_STORE_URL = 'https://play.google.com/store/apps'
 
@@ -86,9 +87,7 @@ function ProductCard({ product, hidden, onSelect }) {
       <div className="products-page__card-media">
         <img
           src={
-            product.image
-              ? `${API_URL}${product.image}`
-              : ''
+            imageUrl(product.image)
           }
           alt={product.name}
           loading="lazy"
@@ -761,7 +760,7 @@ function Products() {
                   <div className="products-page__ai-card-media">
                     {item.image && (
                       <img
-                        src={`${API_URL}${item.image}`}
+                        src={imageUrl(item.image)}
                         alt={item.title}
                         loading="lazy"
                       />

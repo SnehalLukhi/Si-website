@@ -108,7 +108,7 @@ router.post('/', upload.single('image'), async (req, res) => {
       playStore: req.body.playStore,
       website: req.body.website,
       image: req.file
-        ? `/uploads/products/${req.file.filename}`
+        ? req.file.url
         : '',
     })
 
@@ -151,7 +151,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
     }
 
     if (req.file) {
-      update.image = `/uploads/products/${req.file.filename}`
+      update.image = req.file.url
     }
 
     const product = await Product.findByIdAndUpdate(

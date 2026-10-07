@@ -9,7 +9,7 @@ import '../../components/BlogHeroTitleScale.css'
 import { Reveal, RevealGroup } from '../../components/motion/Reveal'
 import { ArticleItem } from '../../components/motion/ArticleReveal'
 
-const API_URL = 'http://localhost:5000'
+const API_URL = import.meta.env.VITE_API_URL ?? ''
 
 const CONTACT_ITEMS = [
   {

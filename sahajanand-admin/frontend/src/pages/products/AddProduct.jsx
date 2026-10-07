@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { API_URL } from '../../services/api'
+import { assetUrl } from '../../services/api'
 
 // Used for both "Add Product" and "Edit Product" (when a product is passed in)
 function AddProduct({ product, onSave, onCancel, saving }) {
@@ -8,7 +8,7 @@ function AddProduct({ product, onSave, onCancel, saving }) {
   const [form, setForm] = useState({
     name: product?.name || '',
     description: product?.description || '',
-    image: product?.image ? `${API_URL}${product.image}` : '',
+    image: product?.image ? assetUrl(product.image) : '',
     imageFile: null,
     playStore: product?.playStore || '',
     downloads: product?.downloads || '',

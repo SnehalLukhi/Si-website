@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { API_URL } from '../../services/api'
+import { assetUrl } from '../../services/api'
 import { PlusIcon, TrashIcon } from '../../components/Icons'
 
 const toSlug = (value) =>
@@ -21,9 +21,9 @@ function AddBlog({ blog, onSave, onCancel, saving }) {
     date: blog?.date || '',
     excerpt: blog?.excerpt || '',
     articleHeading: blog?.articleHeading || '',
-    image: blog?.image ? `${API_URL}${blog.image}` : '',
+    image: blog?.image ? assetUrl(blog.image) : '',
     imageFile: null,
-    articleImage: blog?.articleImage ? `${API_URL}${blog.articleImage}` : '',
+    articleImage: blog?.articleImage ? assetUrl(blog.articleImage) : '',
     articleImageFile: null,
   })
 

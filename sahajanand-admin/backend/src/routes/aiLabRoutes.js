@@ -33,7 +33,7 @@ router.post('/', upload.single('image'), async (req, res) => {
       description: req.body.description,
       link: req.body.link,
       image: req.file
-        ? `/uploads/products/${req.file.filename}`
+        ? req.file.url
         : '',
     })
 

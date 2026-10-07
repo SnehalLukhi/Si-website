@@ -1,6 +1,6 @@
 /* Blog data lives in the admin backend (managed from Admin → Blogs). Home, /blog and the
    detail pages all read it through these helpers. */
-export const API_URL = 'http://localhost:5000'
+export const API_URL = import.meta.env.VITE_API_URL ?? ''
 
 /* "2026-01-16" -> "January 16, 2026" (any other text is shown as typed) */
 export function formatBlogDate(value) {
@@ -13,7 +13,11 @@ export function formatBlogDate(value) {
   )
 }
 
-export const blogImageUrl = (path) => (path ? `${API_URL}${path}` : '')
+/* Images are full https URLs (Vercel Blob) or /uploads/... paths served by the backend */
+export const blogImageUrl = (path) => {
+  if (!path) return ''
+  return /^https?:\/\//.test(path) ? path : `${API_URL}${path}`
+}
 
 /* The shape the shared BlogCard renders */
 export function toCardPost(blog) {

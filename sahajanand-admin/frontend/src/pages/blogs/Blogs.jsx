@@ -3,7 +3,7 @@ import { flushSync } from 'react-dom'
 import { useLocation, useNavigate } from 'react-router-dom'
 import AddBlog from './AddBlog'
 import { PencilIcon, PlusIcon, SearchIcon, TrashIcon } from '../../components/Icons'
-import { API_URL } from '../../services/api'
+import { API_URL, assetUrl } from '../../services/api'
 import { authFetch } from '../../services/auth'
 
 const buildFormData = (blog) => {
@@ -249,7 +249,7 @@ function Blogs() {
               <div className="product-card-head">
                 <div className="product-image">
                   {blog.image ? (
-                    <img src={`${API_URL}${blog.image}`} alt={blog.title} />
+                    <img src={assetUrl(blog.image)} alt={blog.title} />
                   ) : (
                     <span>BLOG</span>
                   )}

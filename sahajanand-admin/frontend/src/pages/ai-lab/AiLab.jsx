@@ -7,7 +7,7 @@ import {
   SearchIcon,
   TrashIcon,
 } from '../../components/Icons'
-import { API_URL } from '../../services/api'
+import { API_URL, assetUrl } from '../../services/api'
 import { authFetch } from '../../services/auth'
 
 function AiLab() {
@@ -192,7 +192,7 @@ function AiLab() {
               <div className="ai-lab-image">
                 {item.image ? (
                   <img
-                    src={`${API_URL}${item.image}`}
+                    src={assetUrl(item.image)}
                     alt={item.title}
                   />
                 ) : (

@@ -1,0 +1,30 @@
+{
+  "services": {
+    "website": {
+      "root": "sahajanand-website/",
+      "framework": "vite",
+      "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+    },
+    "admin": {
+      "root": "sahajanand-admin/frontend/",
+      "framework": "vite",
+      "outputDirectory": "dist",
+      "rewrites": [{ "source": "/admin/(.*)", "destination": "/admin/index.html" }]
+    },
+    "api": {
+      "root": "sahajanand-admin/backend/",
+      "framework": "express",
+      "entrypoint": "server.js",
+      "functions": {
+        "server.js": { "includeFiles": "uploads/**" }
+      }
+    }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": { "service": "api" } },
+    { "source": "/uploads/(.*)", "destination": { "service": "api" } },
+    { "source": "/admin", "destination": { "service": "admin" } },
+    { "source": "/admin/(.*)", "destination": { "service": "admin" } },
+    { "source": "/(.*)", "destination": { "service": "website" } }
+  ]
+}

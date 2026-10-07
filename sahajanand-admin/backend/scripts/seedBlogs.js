@@ -16,6 +16,8 @@ const imagesDir = path.resolve(here, '../../../sahajanand-website/src/assets/ima
 const posts = JSON.parse(fs.readFileSync(path.join(here, 'blogSeedData.json'), 'utf-8'))
 
 // Copies an original website image into the blog upload folder and returns the stored path
+fs.mkdirSync(BLOG_UPLOAD_DIR, { recursive: true })
+
 const storeImage = (relativePath, name) => {
   const source = path.join(imagesDir, relativePath)
 
