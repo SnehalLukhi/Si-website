@@ -28,20 +28,49 @@ const EXPERIENCE_FILTERS = [
 const MARQUEE_TOP_PHOTOS = [photo1, photo2, photo3, photo4]
 const MARQUEE_BOTTOM_PHOTOS = [photo5, photo6, photo7, photo8]
 
-/* Fixed filter categories. A job belongs to the one its admin-assigned category matches
-   (label or a legacy short form); categories are never derived from job titles. */
+/* Fixed filter categories. A job belongs to the one its admin-assigned category matches. The admin types the
+   category as free text (e.g. "UI/UX Design & Graphic Design"), so a category is matched by its keywords, ignoring
+   case, spacing and punctuation; categories are never derived from job titles. The first matching rule wins. */
 const JOB_CATEGORIES = [
-  { id: 'development', label: 'Development', aliases: ['development', 'developer', 'dev'] },
-  { id: 'ui-ux-design', label: 'UI/UX Design', aliases: ['uiuxdesign', 'uiux', 'design', 'uidesign', 'uxdesign'] },
-  { id: 'qa-testing', label: 'QA / Testing', aliases: ['qatesting', 'qa', 'testing', 'qatester', 'tester'] },
-  { id: 'digital-marketing', label: 'Digital Marketing', aliases: ['digitalmarketing', 'marketing'] },
-  { id: 'ai-machine-learning', label: 'AI / Machine Learning', aliases: ['aimachinelearning', 'aiml', 'ai', 'machinelearning', 'ml'] },
+  { id: 'development', label: 'Development' },
+  { id: 'ui-ux-design', label: 'UI/UX Design' },
+  { id: 'qa-testing', label: 'QA / Testing' },
+  { id: 'digital-marketing', label: 'Digital Marketing' },
+  { id: 'ai-machine-learning', label: 'AI / Machine Learning' },
+]
+
+const CATEGORY_RULES = [
+  {
+    id: 'ai-machine-learning',
+    words: ['machinelearning', 'artificialintelligence'],
+    tokens: ['ai', 'ml', 'aiml'],
+  },
+  {
+    id: 'ui-ux-design',
+    words: ['uiux', 'uxdesign', 'uidesign', 'graphicdesign', 'productdesign'],
+    tokens: ['ui', 'ux', 'design', 'designer', 'designing'],
+  },
+  {
+    id: 'qa-testing',
+    words: ['testing', 'tester', 'qualityassurance'],
+    tokens: ['qa', 'test'],
+  },
+  { id: 'digital-marketing', words: ['marketing'], tokens: ['seo', 'smm'] },
+  { id: 'development', words: ['development', 'developer', 'programming'], tokens: ['dev'] },
 ]
 
 function getJobCategoryId(value = '') {
-  const key = String(value).toLowerCase().replace(/[^a-z0-9]/g, '')
+  const text = String(value).toLowerCase()
+  const key = text.replace(/[^a-z0-9]/g, '')
+  const tokens = text.split(/[^a-z0-9]+/).filter(Boolean)
 
-  return JOB_CATEGORIES.find((item) => item.aliases.includes(key))?.id || null
+  return (
+    CATEGORY_RULES.find(
+      (rule) =>
+        rule.words.some((word) => key.includes(word)) ||
+        rule.tokens.some((token) => tokens.includes(token)),
+    )?.id || null
+  )
 }
 
 function getExperienceRange(experience = '') {
@@ -55,6 +84,11 @@ function getExperienceRange(experience = '') {
 
   if (numbers.length >= 2) {
     return [numbers[0], numbers[1]]
+  }
+
+  /* "Fresher to 1 Years": starts at 0 */
+  if (numbers.length === 1 && value.includes('fresher')) {
+    return [0, numbers[0]]
   }
 
   if (numbers.length === 1) {

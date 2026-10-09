@@ -381,8 +381,8 @@
 
 .contact-page__form-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.95rem 1rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
 }
 
 .contact-page__field {
@@ -664,7 +664,8 @@
   gap: 0.45rem;
   width: fit-content;
   margin-top: 0.25rem;
-  padding: 0.78rem 1.55rem;
+  min-width: 9.5rem;
+  padding: 0.78rem 2.35rem;
   border: 0;
   border-radius: 999px;
   background: #0085e4;
@@ -995,7 +996,23 @@
     flex-direction: column;
   }
 
+  /* The form box matches the height of the info/map column; its fields share that space */
   .contact-page__form-wrap > .contact-page__form {
+    flex: 1 1 auto;
+  }
+
+  .contact-page__form-grid {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+  }
+
+  .contact-page__form-grid > .contact-page__field:last-child {
+    display: flex;
+    flex: 1 1 auto;
+  }
+
+  .contact-page__form-grid > .contact-page__field:last-child textarea {
     flex: 1 1 auto;
   }
 }
@@ -1141,4 +1158,18 @@
   color: #ffffff;
   font-size: 15px;
   cursor: pointer;
+}
+
+/* Single-column form: taller fields, and a taller Message box than the other fields */
+.contact-page__form-grid .contact-page__field input,
+.contact-page__form-grid .contact-page__phone {
+  min-height: 3.5rem;
+}
+
+.contact-page__form-grid .contact-page__phone {
+  box-sizing: border-box;
+}
+
+.contact-page__form-grid .contact-page__field textarea {
+  min-height: 9.5rem;
 }
