@@ -5,6 +5,7 @@ import OurProducts from '../pages/products/OurProducts'
 import Blogs from '../pages/blogs/Blogs'
 import AiLab from '../pages/ai-lab/AiLab'
 import ContactInquiries from '../pages/contact/ContactInquiries'
+import JobApplications from '../pages/applications/JobApplications'
 import RequireAuth from '../components/RequireAuth'
 import Login from '../pages/auth/Login'
 import ForgotPassword from '../pages/auth/ForgotPassword'
@@ -28,6 +29,8 @@ export default function AppRoutes() {
           <Route path="blogs/*" element={<Blogs />} />
 
           <Route path="ai-lab/*" element={<AiLab />} />
+
+          <Route path="job-applications" element={<JobApplications />} />
 
           <Route path="contact-inquiries" element={<ContactInquiries />} />
 

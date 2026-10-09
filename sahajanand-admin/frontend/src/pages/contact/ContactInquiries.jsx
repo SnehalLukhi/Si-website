@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { SearchIcon, TrashIcon } from '../../components/Icons'
 import { API_URL } from '../../services/api'
 import { authFetch } from '../../services/auth'
+import { refreshCounts } from '../../services/counts'
 
 const formatDate = (value) =>
   value
@@ -10,18 +11,32 @@ const formatDate = (value) =>
 
 const fullName = (inquiry) => [inquiry.firstName, inquiry.lastName].filter(Boolean).join(' ')
 
+const phoneOf = (inquiry) => [inquiry.countryCode, inquiry.phone].filter(Boolean).join(' ')
+
+const emailStatusOf = (inquiry) =>
+  inquiry.emailStatus === 'sent'
+    ? 'Sent'
+    : inquiry.emailStatus === 'failed'
+      ? `Not delivered${inquiry.emailError ? ` (${inquiry.emailError})` : ''}`
+      : 'Pending'
+
+// The Contact Us form's fields first; fields only older inquiries have are shown when they exist
 const detailsOf = (inquiry) => [
-  ['First Name', inquiry.firstName],
-  ['Last Name', inquiry.lastName],
+  ['Full Name', fullName(inquiry)],
+  ['Company Name', inquiry.company],
+  ['Country', inquiry.country],
   ['Email', inquiry.email],
-  ['Phone', [inquiry.countryCode, inquiry.phone].filter(Boolean).join(' ')],
-  ['LinkedIn', inquiry.linkedin],
-  ['Service', inquiry.service],
-  ['Experience', inquiry.experience],
-  ['Company', inquiry.company],
-  ['Subject', inquiry.subject],
-  ['Attachment', inquiry.attachment ? `${inquiry.attachment} (sent with the email)` : ''],
+  ['Phone Number', phoneOf(inquiry)],
+  ['Portfolio / Store Link', inquiry.portfolio],
   ['Submitted', formatDate(inquiry.createdAt)],
+  ['Notification Email', emailStatusOf(inquiry)],
+  ...[
+    ['LinkedIn', inquiry.linkedin],
+    ['Service', inquiry.service],
+    ['Experience', inquiry.experience],
+    ['Subject', inquiry.subject],
+    ['Attachment', inquiry.attachment ? `${inquiry.attachment} (sent with the email)` : ''],
+  ].filter(([, value]) => value),
 ]
 
 function ContactInquiries() {
@@ -60,8 +75,10 @@ function ContactInquiries() {
       fullName(inquiry),
       inquiry.email,
       inquiry.phone,
-      inquiry.service,
       inquiry.company,
+      inquiry.country,
+      inquiry.portfolio,
+      inquiry.service,
       inquiry.subject,
       inquiry.message,
     ]
@@ -103,6 +120,7 @@ function ContactInquiries() {
     setInquiries((current) => current.filter((inquiry) => !gone.has(inquiry._id)))
     setSelected((current) => new Set([...current].filter((inquiryId) => !gone.has(inquiryId))))
     setOpenId((current) => (gone.has(current) ? null : current))
+    refreshCounts()
   }
 
   const handleDeleteOne = async (inquiry) => {
@@ -170,7 +188,7 @@ function ContactInquiries() {
       <div className="jobs-header">
         <div>
           <h1>
-            Contact Inquiries <span className="count-pill">{inquiries.length}</span>
+            Contact Us Inquiries <span className="count-pill">{inquiries.length}</span>
           </h1>
           <p>Messages sent from the website Contact Us form</p>
         </div>
@@ -183,7 +201,7 @@ function ContactInquiries() {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by name, email, service or subject"
+            placeholder="Search by name, company, country or email"
             aria-label="Search contact inquiries"
           />
         </label>
@@ -237,9 +255,9 @@ function ContactInquiries() {
                 />
               </th>
               <th>Name</th>
+              <th>Company</th>
               <th>Contact</th>
-              <th>Service</th>
-              <th>Subject</th>
+              <th>Country</th>
               <th>Submitted</th>
               <th>Actions</th>
             </tr>
@@ -287,16 +305,14 @@ function ContactInquiries() {
                       <td data-label="Name">
                         <div className="cell-title">{fullName(inquiry)}</div>
                       </td>
+                      <td data-label="Company">{inquiry.company || '—'}</td>
                       <td data-label="Contact">
                         <div className="inquiry-contact">
                           <span>{inquiry.email || '—'}</span>
-                          {inquiry.phone && <span>{inquiry.phone}</span>}
+                          {inquiry.phone && <span>{phoneOf(inquiry)}</span>}
                         </div>
                       </td>
-                      <td data-label="Service">
-                        {inquiry.service ? <span className="tag">{inquiry.service}</span> : '—'}
-                      </td>
-                      <td data-label="Subject">{inquiry.subject || '—'}</td>
+                      <td data-label="Country">{inquiry.country || '—'}</td>
                       <td data-label="Submitted">{formatDate(inquiry.createdAt)}</td>
                       <td className="cell-actions inquiry-actions">
                         <button
@@ -333,7 +349,7 @@ function ContactInquiries() {
 
                           <div className="inquiry-message">
                             <h4>Message</h4>
-                            <p>{inquiry.message}</p>
+                            <p>{inquiry.message || 'Not provided'}</p>
                           </div>
                         </td>
                       </tr>

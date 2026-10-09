@@ -1,6 +1,8 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { AppsIcon, BlogIcon, BotIcon, BriefcaseIcon, LogoutIcon, MailIcon } from '../components/Icons'
 import { clearToken } from '../services/auth'
+import { fetchCounts, onCountsChanged } from '../services/counts'
 import logo from '../assets/images/logo.svg'
 
 const NAV_ITEMS = [
@@ -8,11 +10,32 @@ const NAV_ITEMS = [
   { to: '/products', label: 'Products', Icon: AppsIcon },
   { to: '/blogs', label: 'Blogs', Icon: BlogIcon },
   { to: '/ai-lab', label: 'AI Lab', Icon: BotIcon },
-  { to: '/contact-inquiries', label: 'Contact Inquiries', Icon: MailIcon },
+  { to: '/job-applications', label: 'Job Applications', Icon: BriefcaseIcon, countKey: 'jobApplications' },
+  { to: '/contact-inquiries', label: 'Contact Us Inquiries', Icon: MailIcon, countKey: 'contactInquiries' },
 ]
 
 export default function AdminLayout() {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const [counts, setCounts] = useState(null)
+
+  // Counts come from the database; they reload when the page changes and after a delete
+  useEffect(() => {
+    let cancelled = false
+    const load = () =>
+      fetchCounts().then((next) => {
+        if (!cancelled && next) setCounts(next)
+      })
+
+    load()
+
+    const stop = onCountsChanged(load)
+
+    return () => {
+      cancelled = true
+      stop()
+    }
+  }, [pathname])
 
   // Leave the dashboard first (replacing this history entry), then drop the login
   const handleLogout = () => {
@@ -30,10 +53,11 @@ export default function AdminLayout() {
         <nav className="admin-nav">
           <div className="nav-label">MANAGEMENT</div>
 
-          {NAV_ITEMS.map(({ to, label, Icon }) => (
+          {NAV_ITEMS.map(({ to, label, Icon, countKey }) => (
             <NavLink key={to} to={to}>
               <Icon className="nav-icon" />
               {label}
+              {countKey && counts && <span className="nav-count">{counts[countKey]}</span>}
             </NavLink>
           ))}
         </nav>

@@ -820,3 +820,19 @@ input[type='file']::file-selector-button:hover { background: var(--brand-100); }
 
 /* Edit + Delete side by side in the Careers table */
 .data-table .cell-actions .card-actions .delete-job-btn { margin-left: 0; }
+
+/* Sidebar record counts (Job Applications, Contact Us Inquiries) */
+.admin-nav .nav-count {
+  margin-left: auto;
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #e6ecf7;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: center;
+}
+
+.admin-nav a.active .nav-count { background: #0085e4; color: #fff; }
