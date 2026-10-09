@@ -47,6 +47,11 @@ const cleanupUploads = (files) => {
     .forEach((file) => removeBlogImage(file.url))
 }
 
+// Finds a blog by _id whether it is stored as an ObjectId or as a plain string (records imported as JSON keep a string _id,
+// which findById cannot match because it casts the id to an ObjectId first)
+const findBlogRaw = (id) =>
+  Blog.collection.findOne({ _id: { $in: [new mongoose.Types.ObjectId(id), id] } })
+
 // Get all blogs (newest first)
 router.get('/', async (req, res) => {
   try {
@@ -129,7 +134,8 @@ router.put('/:id', blogImages, async (req, res) => {
       return res.status(404).json({ success: false, message: 'Blog not found' })
     }
 
-    const blog = await Blog.findById(req.params.id)
+    const raw = await findBlogRaw(req.params.id)
+    const blog = raw ? Blog.hydrate(raw) : null
 
     if (!blog) {
       cleanupUploads(req.files)
@@ -153,7 +159,7 @@ router.put('/:id', blogImages, async (req, res) => {
       return res.status(400).json({ success: false, message: 'Slug is invalid' })
     }
 
-    if (slug !== blog.slug && (await Blog.exists({ slug, _id: { $ne: blog._id } }))) {
+    if (slug !== blog.slug && (await Blog.exists({ slug, _id: { $ne: raw._id } }))) {
       cleanupUploads(req.files)
       return res.status(409).json({ success: false, message: 'This slug is already used' })
     }
@@ -182,7 +188,11 @@ router.put('/:id', blogImages, async (req, res) => {
       blog.articleImage = articleImage.url
     }
 
-    await blog.save()
+    // Written against the stored _id (ObjectId or string), so the right record is always the one updated
+    const changes = blog.toObject()
+    delete changes._id
+    changes.updatedAt = new Date()
+    await Blog.collection.updateOne({ _id: raw._id }, { $set: changes })
     oldImages.forEach(removeBlogImage)
 
     res.json({ success: true, message: 'Blog updated successfully', blog })
@@ -201,11 +211,13 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ success: false, message: 'Blog not found' })
     }
 
-    const blog = await Blog.findByIdAndDelete(req.params.id)
+    const blog = await findBlogRaw(req.params.id)
 
     if (!blog) {
       return res.status(404).json({ success: false, message: 'Blog not found' })
     }
+
+    await Blog.collection.deleteOne({ _id: blog._id })
 
     removeBlogImage(blog.image)
     removeBlogImage(blog.articleImage)
