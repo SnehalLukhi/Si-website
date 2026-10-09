@@ -613,66 +613,19 @@ const APPLY_PANEL_SLIDE_PX = 40
 const RELATED_CARD_STAGGER_S = 0.15
 
 const PHONE_COUNTRIES = [
-  { code: '+91', iso: 'in', label: 'India' },
-  { code: '+1', iso: 'us', label: 'United States' },
-  { code: '+44', iso: 'gb', label: 'United Kingdom' },
-  { code: '+61', iso: 'au', label: 'Australia' },
-  { code: '+971', iso: 'ae', label: 'United Arab Emirates' },
-  { code: '+966', iso: 'sa', label: 'Saudi Arabia' },
-  { code: '+65', iso: 'sg', label: 'Singapore' },
-  { code: '+60', iso: 'my', label: 'Malaysia' },
-  { code: '+84', iso: 'vn', label: 'Vietnam' },
-  { code: '+86', iso: 'cn', label: 'China' },
-  { code: '+81', iso: 'jp', label: 'Japan' },
-  { code: '+82', iso: 'kr', label: 'South Korea' },
-  { code: '+49', iso: 'de', label: 'Germany' },
-  { code: '+33', iso: 'fr', label: 'France' },
-  { code: '+39', iso: 'it', label: 'Italy' },
-  { code: '+34', iso: 'es', label: 'Spain' },
-  { code: '+31', iso: 'nl', label: 'Netherlands' },
-  { code: '+41', iso: 'ch', label: 'Switzerland' },
-  { code: '+46', iso: 'se', label: 'Sweden' },
-  { code: '+7', iso: 'ru', label: 'Russia' },
-  { code: '+90', iso: 'tr', label: 'Turkey' },
-  { code: '+20', iso: 'eg', label: 'Egypt' },
-  { code: '+27', iso: 'za', label: 'South Africa' },
-  { code: '+234', iso: 'ng', label: 'Nigeria' },
-  { code: '+254', iso: 'ke', label: 'Kenya' },
-  { code: '+55', iso: 'br', label: 'Brazil' },
-  { code: '+52', iso: 'mx', label: 'Mexico' },
-  { code: '+64', iso: 'nz', label: 'New Zealand' },
-  { code: '+92', iso: 'pk', label: 'Pakistan' },
-  { code: '+880', iso: 'bd', label: 'Bangladesh' },
-  { code: '+94', iso: 'lk', label: 'Sri Lanka' },
-  { code: '+977', iso: 'np', label: 'Nepal' },
-  { code: '+63', iso: 'ph', label: 'Philippines' },
-  { code: '+62', iso: 'id', label: 'Indonesia' },
-  { code: '+66', iso: 'th', label: 'Thailand' },
+  { code: '+91', flag: '🇮🇳', label: 'India' },
+  { code: '+84', flag: '🇻🇳', label: 'Vietnam' },
+  { code: '+1', flag: '🇺🇸', label: 'United States' },
+  { code: '+44', flag: '🇬🇧', label: 'United Kingdom' },
 ]
-
-/* Country choices for the "Country" field: every country name, in English */
-const COUNTRY_CODES =
-  'AF AL DZ AD AO AG AR AM AU AT AZ BS BH BD BB BY BE BZ BJ BT BO BA BW BR BN BG BF BI KH CM CA CV CF TD CL CN CO KM CG CD CR CI HR CU CY CZ DK DJ DM DO EC EG SV GQ ER EE SZ ET FJ FI FR GA GM GE DE GH GR GD GT GN GW GY HT HN HU IS IN ID IR IQ IE IL IT JM JP JO KZ KE KI KP KR KW KG LA LV LB LS LR LY LI LT LU MG MW MY MV ML MT MH MR MU MX FM MD MC MN ME MA MZ MM NA NR NP NL NZ NI NE NG MK NO OM PK PW PA PG PY PE PH PL PT QA RO RU RW KN LC VC WS SM ST SA SN RS SC SL SG SK SI SB SO ZA SS ES LK SD SR SE CH SY TW TJ TZ TH TL TG TO TT TN TR TM TV UG UA AE GB US UY UZ VU VA VE VN YE ZM ZW'.split(' ')
-
-const COUNTRY_NAMES = (() => {
-  try {
-    const names = new Intl.DisplayNames(['en'], { type: 'region' })
-
-    return COUNTRY_CODES.map((code) => names.of(code)).sort((a, b) => a.localeCompare(b))
-  } catch {
-    return PHONE_COUNTRIES.map((item) => item.label).sort()
-  }
-})()
 
 const EMPTY_APPLY_FORM = {
   name: '',
-  company: '',
-  country: '',
   email: '',
-  countryCode: '+91',
   phone: '',
-  portfolio: '',
-  message: '',
+  countryCode: '+91',
+  coverLetter: '',
+  cv: null,
 }
 
 function CapIcon() {
@@ -752,6 +705,18 @@ function ExternalIcon() {
   )
 }
 
+function FolderIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="#F5C542"
+        d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"
+      />
+      <path fill="#E8A317" d="M20 8H4v10h16V8z" />
+    </svg>
+  )
+}
+
 function LinkedInIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -802,15 +767,7 @@ function validateApplyForm(form) {
   const errors = {}
 
   if (!form.name.trim()) {
-    errors.name = 'Full name is required'
-  }
-
-  if (!form.company.trim()) {
-    errors.company = 'Company name is required'
-  }
-
-  if (!form.country) {
-    errors.country = 'Please select your country'
+    errors.name = 'Name is required'
   }
 
   if (!form.email.trim()) {
@@ -823,11 +780,16 @@ function validateApplyForm(form) {
     errors.phone = 'Phone number is required'
   }
 
+  if (!form.cv) {
+    errors.cv = 'Please upload your CV'
+  }
+
   return errors
 }
 
 function ApplyModal({ job, open, onClose }) {
   const titleId = useId()
+  const fileInputRef = useRef(null)
 
   const [form, setForm] = useState(EMPTY_APPLY_FORM)
   const [errors, setErrors] = useState({})
@@ -908,22 +870,19 @@ function ApplyModal({ job, open, onClose }) {
     setSubmitError('')
 
     try {
-      const payload = {
-        jobId: job._id,
-        name: form.name.trim(),
-        company: form.company.trim(),
-        country: form.country,
-        email: form.email.trim(),
-        countryCode: form.countryCode,
-        phone: form.phone.trim(),
-        portfolio: form.portfolio.trim(),
-        message: form.message.trim(),
-      }
+      const payload = new FormData()
+
+      payload.append('jobId', job._id)
+      payload.append('name', form.name.trim())
+      payload.append('email', form.email.trim())
+      payload.append('countryCode', form.countryCode)
+      payload.append('phone', form.phone.trim())
+      payload.append('coverLetter', form.coverLetter.trim())
+      payload.append('cv', form.cv)
 
       const response = await fetch(`${API_URL}/api/applications`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: payload,
       })
 
       const result = await response.json().catch(() => null)
@@ -996,135 +955,150 @@ function ApplyModal({ job, open, onClose }) {
             onSubmit={handleSubmit}
             noValidate
           >
-            <div className="job-apply-modal__row">
-              <div className="job-apply-modal__field">
-                <input
-                  className={`job-apply-modal__input${errors.name ? ' is-invalid' : ''}`}
-                  type="text"
-                  name="name"
-                  placeholder="Full Name *"
-                  value={form.name}
-                  onChange={(event) => updateField('name', event.target.value)}
-                  autoComplete="name"
-                />
+            <div className="job-apply-modal__field">
+              <input
+                className={`job-apply-modal__input${
+                  errors.name ? ' is-invalid' : ''
+                }`}
+                type="text"
+                name="name"
+                placeholder="Enter your Name"
+                value={form.name}
+                onChange={(event) =>
+                  updateField('name', event.target.value)
+                }
+                autoComplete="name"
+              />
 
-                {errors.name ? <p className="job-apply-modal__error">{errors.name}</p> : null}
-              </div>
-
-              <div className="job-apply-modal__field">
-                <input
-                  className={`job-apply-modal__input${errors.company ? ' is-invalid' : ''}`}
-                  type="text"
-                  name="company"
-                  placeholder="Company Name *"
-                  value={form.company}
-                  onChange={(event) => updateField('company', event.target.value)}
-                  autoComplete="organization"
-                />
-
-                {errors.company ? <p className="job-apply-modal__error">{errors.company}</p> : null}
-              </div>
-            </div>
-
-            <div className="job-apply-modal__row">
-              <div className="job-apply-modal__field">
-                <select
-                  className={`job-apply-modal__input job-apply-modal__select${
-                    form.country ? '' : ' is-empty'
-                  }${errors.country ? ' is-invalid' : ''}`}
-                  name="country"
-                  aria-label="Country"
-                  value={form.country}
-                  onChange={(event) => updateField('country', event.target.value)}
-                  autoComplete="country-name"
-                >
-                  <option value="">Country *</option>
-                  {COUNTRY_NAMES.map((name) => (
-                    <option key={name} value={name}>
-                      {name}
-                    </option>
-                  ))}
-                </select>
-
-                {errors.country ? <p className="job-apply-modal__error">{errors.country}</p> : null}
-              </div>
-
-              <div className="job-apply-modal__field">
-                <input
-                  className={`job-apply-modal__input${errors.email ? ' is-invalid' : ''}`}
-                  type="email"
-                  name="email"
-                  placeholder="Email *"
-                  value={form.email}
-                  onChange={(event) => updateField('email', event.target.value)}
-                  autoComplete="email"
-                />
-
-                {errors.email ? <p className="job-apply-modal__error">{errors.email}</p> : null}
-              </div>
+              {errors.name ? (
+                <p className="job-apply-modal__error">{errors.name}</p>
+              ) : null}
             </div>
 
             <div className="job-apply-modal__field">
-              <div className={`job-apply-modal__phone${errors.phone ? ' is-invalid' : ''}`}>
-                <label className="job-apply-modal__country" aria-label="Country calling code">
-                  <img
+              <input
+                className={`job-apply-modal__input${
+                  errors.email ? ' is-invalid' : ''
+                }`}
+                type="email"
+                name="email"
+                placeholder="Enter your Email"
+                value={form.email}
+                onChange={(event) =>
+                  updateField('email', event.target.value)
+                }
+                autoComplete="email"
+              />
+
+              {errors.email ? (
+                <p className="job-apply-modal__error">{errors.email}</p>
+              ) : null}
+            </div>
+
+            <div className="job-apply-modal__field">
+              <div
+                className={`job-apply-modal__phone${
+                  errors.phone ? ' is-invalid' : ''
+                }`}
+              >
+                <label
+                  className="job-apply-modal__country"
+                  aria-label="Country code"
+                >
+                  <span
                     className="job-apply-modal__flag"
-                    src={`https://flagcdn.com/w40/${selectedCountry.iso}.png`}
-                    alt=""
-                    width="20"
-                    height="15"
-                  />
+                    aria-hidden="true"
+                  >
+                    {selectedCountry.flag}
+                  </span>
 
                   <select
                     className="job-apply-modal__country-select"
                     value={form.countryCode}
-                    onChange={(event) => updateField('countryCode', event.target.value)}
+                    onChange={(event) =>
+                      updateField('countryCode', event.target.value)
+                    }
                   >
                     {PHONE_COUNTRIES.map((country) => (
-                      <option key={country.label} value={country.code}>
-                        {country.label} ({country.code})
+                      <option
+                        key={country.code}
+                        value={country.code}
+                      >
+                        {country.flag} {country.code}
                       </option>
                     ))}
                   </select>
 
-                  <span className="job-apply-modal__dial">{form.countryCode}</span>
+                  <span className="job-apply-modal__dial">
+                    {form.countryCode}
+                  </span>
                 </label>
 
                 <input
                   className="job-apply-modal__phone-input"
                   type="tel"
                   name="phone"
-                  placeholder="Phone Number *"
+                  placeholder="Phone number"
                   value={form.phone}
-                  onChange={(event) => updateField('phone', event.target.value)}
+                  onChange={(event) =>
+                    updateField('phone', event.target.value)
+                  }
                   autoComplete="tel-national"
                 />
               </div>
 
-              {errors.phone ? <p className="job-apply-modal__error">{errors.phone}</p> : null}
-            </div>
-
-            <div className="job-apply-modal__field">
-              <input
-                className="job-apply-modal__input"
-                type="text"
-                name="portfolio"
-                placeholder="Portfolio / Store Link"
-                value={form.portfolio}
-                onChange={(event) => updateField('portfolio', event.target.value)}
-                autoComplete="url"
-              />
+              {errors.phone ? (
+                <p className="job-apply-modal__error">{errors.phone}</p>
+              ) : null}
             </div>
 
             <div className="job-apply-modal__field">
               <textarea
                 className="job-apply-modal__textarea"
-                name="message"
-                placeholder="Message"
+                name="coverLetter"
+                placeholder="Enter Cover Letter"
                 rows={5}
-                value={form.message}
-                onChange={(event) => updateField('message', event.target.value)}
+                value={form.coverLetter}
+                onChange={(event) =>
+                  updateField('coverLetter', event.target.value)
+                }
               />
+            </div>
+
+            <div className="job-apply-modal__field">
+              <button
+                type="button"
+                className={`job-apply-modal__upload${
+                  errors.cv ? ' is-invalid' : ''
+                }`}
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <span
+                  className="job-apply-modal__upload-icon"
+                  aria-hidden="true"
+                >
+                  <FolderIcon />
+                </span>
+
+                <span>
+                  {form.cv ? form.cv.name : 'Upload your CV here'}
+                </span>
+              </button>
+
+              <input
+                ref={fileInputRef}
+                className="job-apply-modal__file"
+                type="file"
+                accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+                onChange={(event) => {
+                  const file = event.target.files?.[0] || null
+                  updateField('cv', file)
+                }}
+              />
+
+              {errors.cv ? (
+                <p className="job-apply-modal__error">{errors.cv}</p>
+              ) : null}
             </div>
 
             {submitError ? (

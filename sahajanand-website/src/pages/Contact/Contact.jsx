@@ -95,6 +95,20 @@ const PHONE_COUNTRIES = [
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+/* Country choices for the "Country" field: every country name, in English */
+const COUNTRY_CODES =
+  'AF AL DZ AD AO AG AR AM AU AT AZ BS BH BD BB BY BE BZ BJ BT BO BA BW BR BN BG BF BI KH CM CA CV CF TD CL CN CO KM CG CD CR CI HR CU CY CZ DK DJ DM DO EC EG SV GQ ER EE SZ ET FJ FI FR GA GM GE DE GH GR GD GT GN GW GY HT HN HU IS IN ID IR IQ IE IL IT JM JP JO KZ KE KI KP KR KW KG LA LV LB LS LR LY LI LT LU MG MW MY MV ML MT MH MR MU MX FM MD MC MN ME MA MZ MM NA NR NP NL NZ NI NE NG MK NO OM PK PW PA PG PY PE PH PL PT QA RO RU RW KN LC VC WS SM ST SA SN RS SC SL SG SK SI SB SO ZA SS ES LK SD SR SE CH SY TW TJ TZ TH TL TG TO TT TN TR TM TV UG UA AE GB US UY UZ VU VA VE VN YE ZM ZW'.split(' ')
+
+const COUNTRY_NAMES = (() => {
+  try {
+    const names = new Intl.DisplayNames(['en'], { type: 'region' })
+
+    return COUNTRY_CODES.map((code) => names.of(code)).sort((a, b) => a.localeCompare(b))
+  } catch {
+    return PHONE_COUNTRIES.map((item) => item.label).sort()
+  }
+})()
+
 const HERO_COPY_RISE_PX = 40
 const HERO_COPY_STAGGER_S = 0.15
 const heroCopyReveal = (delay) => ({ duration: 0.6, delay, ease: [0.33, 1, 0.68, 1] })
@@ -201,6 +215,7 @@ function Contact() {
   const [contactCardsDone, setContactCardsDone] = useState(false)
   const [formEntered, setFormEntered] = useState(false)
   const [countryCode, setCountryCode] = useState('+91')
+  const [countryChosen, setCountryChosen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submissionStatus, setSubmissionStatus] = useState(null)
 
@@ -213,16 +228,17 @@ function Contact() {
     const form = event.currentTarget
     const values = Object.fromEntries(new FormData(form))
     const payload = {
-      firstName: String(values.firstName || '').trim(),
-      lastName: String(values.lastName || '').trim(),
+      name: String(values.name || '').trim(),
+      company: String(values.company || '').trim(),
+      country: String(values.country || '').trim(),
+      email: String(values.email || '').trim(),
       countryCode,
       phone: String(values.phone || '').trim(),
-      email: String(values.email || '').trim(),
-      linkedin: String(values.linkedin || '').trim(),
+      portfolio: String(values.portfolio || '').trim(),
       message: String(values.message || '').trim(),
     }
 
-    if (!payload.firstName || !payload.lastName || !payload.phone || !payload.email || !payload.message) {
+    if (!payload.name || !payload.company || !payload.country || !payload.email || !payload.phone) {
       setSubmissionStatus({ type: 'error', message: 'Please complete all required fields.' })
       return
     }
@@ -249,6 +265,7 @@ function Contact() {
 
       form.reset()
       setCountryCode('+91')
+      setCountryChosen(false)
       setSubmissionStatus({ type: 'success' })
     } catch (error) {
       console.error('Contact form submission failed:', error)
@@ -398,19 +415,49 @@ function Contact() {
                     <span className="contact-page__sr">Full name</span>
                     <input
                       type="text"
-                      name="firstName"
+                      name="name"
                       placeholder="Full Name *"
-                      autoComplete="given-name"
+                      autoComplete="name"
                       required
                     />
                   </motion.label>
                   <motion.label variants={formDetailVariants} className="contact-page__field">
-                    <span className="contact-page__sr">Last name</span>
+                    <span className="contact-page__sr">Company name</span>
                     <input
                       type="text"
-                      name="lastName"
-                      placeholder="Last Name *"
-                      autoComplete="family-name"
+                      name="company"
+                      placeholder="Company Name *"
+                      autoComplete="organization"
+                      required
+                    />
+                  </motion.label>
+                  <motion.label variants={formDetailVariants} className="contact-page__field">
+                    <span className="contact-page__sr">Country</span>
+                    <select
+                      className={`contact-page__country-name${countryChosen ? '' : ' is-empty'}`}
+                      name="country"
+                      defaultValue=""
+                      autoComplete="country-name"
+                      onChange={(event) => setCountryChosen(Boolean(event.target.value))}
+                      required
+                    >
+                      <option value="" disabled>
+                        Country *
+                      </option>
+                      {COUNTRY_NAMES.map((name) => (
+                        <option key={name} value={name}>
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+                  </motion.label>
+                  <motion.label variants={formDetailVariants} className="contact-page__field">
+                    <span className="contact-page__sr">Email</span>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email *"
+                      autoComplete="email"
                       required
                     />
                   </motion.label>
@@ -447,21 +494,11 @@ function Contact() {
                     </div>
                   </motion.div>
                   <motion.label variants={formDetailVariants} className="contact-page__field">
-                    <span className="contact-page__sr">Email</span>
+                    <span className="contact-page__sr">Portfolio or store link</span>
                     <input
-                      type="email"
-                      name="email"
-                      placeholder="Email *"
-                      autoComplete="email"
-                      required
-                    />
-                  </motion.label>
-                  <motion.label variants={formDetailVariants} className="contact-page__field contact-page__field--full">
-                    <span className="contact-page__sr">LinkedIn profile link</span>
-                    <input
-                      type="url"
-                      name="linkedin"
-                      placeholder="LinkedIn Profile Link"
+                      type="text"
+                      name="portfolio"
+                      placeholder="Portfolio / Store Link"
                       autoComplete="url"
                     />
                   </motion.label>
@@ -469,9 +506,8 @@ function Contact() {
                     <span className="contact-page__sr">Message</span>
                     <textarea
                       name="message"
-                      placeholder="Message *"
+                      placeholder="Message"
                       rows="5"
-                      required
                     />
                   </motion.label>
                 </div>
