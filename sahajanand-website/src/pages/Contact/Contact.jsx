@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import Header from '../../components/layout/Header'
 import Footer from '../../components/layout/Footer'
@@ -55,21 +55,45 @@ const SOCIAL_LINKS = [
   },
 ]
 
-const SERVICE_OPTIONS = [
-  'UI/UX Design',
-  'QA Tester',
-  'Web Development',
-  'App Development',
-  'Marketing',
+const PHONE_COUNTRIES = [
+  { code: '+91', iso: 'in', label: 'India' },
+  { code: '+1', iso: 'us', label: 'United States' },
+  { code: '+44', iso: 'gb', label: 'United Kingdom' },
+  { code: '+61', iso: 'au', label: 'Australia' },
+  { code: '+971', iso: 'ae', label: 'United Arab Emirates' },
+  { code: '+966', iso: 'sa', label: 'Saudi Arabia' },
+  { code: '+65', iso: 'sg', label: 'Singapore' },
+  { code: '+60', iso: 'my', label: 'Malaysia' },
+  { code: '+84', iso: 'vn', label: 'Vietnam' },
+  { code: '+86', iso: 'cn', label: 'China' },
+  { code: '+81', iso: 'jp', label: 'Japan' },
+  { code: '+82', iso: 'kr', label: 'South Korea' },
+  { code: '+49', iso: 'de', label: 'Germany' },
+  { code: '+33', iso: 'fr', label: 'France' },
+  { code: '+39', iso: 'it', label: 'Italy' },
+  { code: '+34', iso: 'es', label: 'Spain' },
+  { code: '+31', iso: 'nl', label: 'Netherlands' },
+  { code: '+41', iso: 'ch', label: 'Switzerland' },
+  { code: '+46', iso: 'se', label: 'Sweden' },
+  { code: '+7', iso: 'ru', label: 'Russia' },
+  { code: '+90', iso: 'tr', label: 'Turkey' },
+  { code: '+20', iso: 'eg', label: 'Egypt' },
+  { code: '+27', iso: 'za', label: 'South Africa' },
+  { code: '+234', iso: 'ng', label: 'Nigeria' },
+  { code: '+254', iso: 'ke', label: 'Kenya' },
+  { code: '+55', iso: 'br', label: 'Brazil' },
+  { code: '+52', iso: 'mx', label: 'Mexico' },
+  { code: '+64', iso: 'nz', label: 'New Zealand' },
+  { code: '+92', iso: 'pk', label: 'Pakistan' },
+  { code: '+880', iso: 'bd', label: 'Bangladesh' },
+  { code: '+94', iso: 'lk', label: 'Sri Lanka' },
+  { code: '+977', iso: 'np', label: 'Nepal' },
+  { code: '+63', iso: 'ph', label: 'Philippines' },
+  { code: '+62', iso: 'id', label: 'Indonesia' },
+  { code: '+66', iso: 'th', label: 'Thailand' },
 ]
 
-const EXPERIENCE_OPTIONS = [
-  '1 year',
-  '2 year',
-  '3 year',
-  '4 year',
-  '5+ year',
-]
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 const HERO_COPY_RISE_PX = 40
 const HERO_COPY_STAGGER_S = 0.15
@@ -172,123 +196,13 @@ function SocialIcon({ type }) {
   }
 }
 
-/* Custom dropdown: the native <select> popup can't be styled consistently across browsers */
-function FormSelect({ name, label, placeholder, options }) {
-  const [value, setValue] = useState('')
-  const [open, setOpen] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(-1)
-  const rootRef = useRef(null)
-  const listId = useId()
-  const labelId = useId()
-
-  useEffect(() => {
-    if (!open) return undefined
-    const onPointerDown = (event) => {
-      if (!rootRef.current?.contains(event.target)) setOpen(false)
-    }
-    document.addEventListener('pointerdown', onPointerDown)
-    return () => document.removeEventListener('pointerdown', onPointerDown)
-  }, [open])
-
-  const openMenu = () => {
-    setActiveIndex(Math.max(options.indexOf(value), 0))
-    setOpen(true)
-  }
-
-  const choose = (option) => {
-    setValue(option)
-    setOpen(false)
-  }
-
-  const handleKeyDown = (event) => {
-    if (!open) {
-      if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
-        event.preventDefault()
-        openMenu()
-      }
-      return
-    }
-
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-      event.preventDefault()
-      const step = event.key === 'ArrowDown' ? 1 : -1
-      setActiveIndex((index) => (index + step + options.length) % options.length)
-    } else if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault()
-      if (activeIndex >= 0) choose(options[activeIndex])
-    } else if (event.key === 'Escape') {
-      event.preventDefault()
-      setOpen(false)
-    } else if (event.key === 'Tab') {
-      setOpen(false)
-    }
-  }
-
-  return (
-    <motion.div
-      className="contact-page__field contact-page__select"
-      ref={rootRef}
-      variants={formDetailVariants}
-    >
-      <span className="contact-page__sr" id={labelId}>
-        {label}
-      </span>
-      <button
-        className={`contact-page__select-trigger${open ? ' is-open' : ''}`}
-        type="button"
-        role="combobox"
-        aria-labelledby={labelId}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-controls={listId}
-        aria-activedescendant={open && activeIndex >= 0 ? `${listId}-${activeIndex}` : undefined}
-        onClick={() => (open ? setOpen(false) : openMenu())}
-        onKeyDown={handleKeyDown}
-      >
-        {value || placeholder}
-      </button>
-      {open && (
-        <ul className="contact-page__select-menu" id={listId} role="listbox" aria-labelledby={labelId}>
-          {options.map((option, index) => (
-            <li
-              key={option}
-              id={`${listId}-${index}`}
-              className={`contact-page__select-option${index === activeIndex ? ' is-active' : ''}${
-                option === value ? ' is-selected' : ''
-              }`}
-              role="option"
-              aria-selected={option === value}
-              onPointerEnter={() => setActiveIndex(index)}
-              onPointerDown={(event) => event.preventDefault()}
-              onClick={() => choose(option)}
-            >
-              {option}
-            </li>
-          ))}
-        </ul>
-      )}
-      {/* Carries the form value and the browser's required-field check */}
-      <input
-        className="contact-page__select-value"
-        name={name}
-        value={value}
-        required
-        tabIndex={-1}
-        aria-hidden="true"
-        onChange={() => {}}
-      />
-    </motion.div>
-  )
-}
-
 function Contact() {
   const reduceMotion = useReducedMotion()
   const [contactCardsDone, setContactCardsDone] = useState(false)
   const [formEntered, setFormEntered] = useState(false)
-  const [fileName, setFileName] = useState('')
+  const [countryCode, setCountryCode] = useState('+91')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submissionStatus, setSubmissionStatus] = useState(null)
-  const fileInputRef = useRef(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -296,9 +210,26 @@ function Contact() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    if (!fileInputRef.current?.files?.length) {
-      formData.delete('attachment')
+    const form = event.currentTarget
+    const values = Object.fromEntries(new FormData(form))
+    const payload = {
+      firstName: String(values.firstName || '').trim(),
+      lastName: String(values.lastName || '').trim(),
+      countryCode,
+      phone: String(values.phone || '').trim(),
+      email: String(values.email || '').trim(),
+      linkedin: String(values.linkedin || '').trim(),
+      message: String(values.message || '').trim(),
+    }
+
+    if (!payload.firstName || !payload.lastName || !payload.phone || !payload.email || !payload.message) {
+      setSubmissionStatus({ type: 'error', message: 'Please complete all required fields.' })
+      return
+    }
+
+    if (!EMAIL_PATTERN.test(payload.email)) {
+      setSubmissionStatus({ type: 'error', message: 'Please enter a valid email address.' })
+      return
     }
 
     setIsSubmitting(true)
@@ -307,7 +238,8 @@ function Contact() {
     try {
       const response = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       })
       const result = await response.json().catch(() => null)
 
@@ -315,11 +247,9 @@ function Contact() {
         throw new Error(result?.message || 'Unable to send your message. Please try again.')
       }
 
-      setSubmissionStatus({
-        type: 'success',
-        message: result.message || 'Your message has been sent successfully.',
-        previewUrl: result.previewUrl || null,
-      })
+      form.reset()
+      setCountryCode('+91')
+      setSubmissionStatus({ type: 'success' })
     } catch (error) {
       console.error('Contact form submission failed:', error)
       setSubmissionStatus({
@@ -331,10 +261,7 @@ function Contact() {
     }
   }
 
-  const handleFileChange = (event) => {
-    const file = event.target.files?.[0]
-    setFileName(file ? file.name : '')
-  }
+  const selectedCountry = PHONE_COUNTRIES.find((item) => item.code === countryCode) || PHONE_COUNTRIES[0]
 
   return (
     <div className="contact-page">
@@ -468,11 +395,11 @@ function Contact() {
 
                 <div className="contact-page__form-grid">
                   <motion.label variants={formDetailVariants} className="contact-page__field">
-                    <span className="contact-page__sr">First name</span>
+                    <span className="contact-page__sr">Full name</span>
                     <input
                       type="text"
                       name="firstName"
-                      placeholder="First name *"
+                      placeholder="Full Name *"
                       autoComplete="given-name"
                       required
                     />
@@ -482,105 +409,72 @@ function Contact() {
                     <input
                       type="text"
                       name="lastName"
-                      placeholder="Last name *"
+                      placeholder="Last Name *"
                       autoComplete="family-name"
                       required
                     />
                   </motion.label>
-                  <motion.label variants={formDetailVariants} className="contact-page__field">
-                    <span className="contact-page__sr">Phone</span>
-                    <input
-                      type="tel"
-                      name="phone"
-                      placeholder="Phone"
-                      autoComplete="tel"
-                    />
-                  </motion.label>
+                  <motion.div variants={formDetailVariants} className="contact-page__field">
+                    <div className="contact-page__phone">
+                      <label className="contact-page__country" aria-label="Country code">
+                        <img
+                          className="contact-page__flag"
+                          src={`https://flagcdn.com/w40/${selectedCountry.iso}.png`}
+                          alt=""
+                          width="20"
+                          height="15"
+                        />
+                        <select
+                          className="contact-page__country-select"
+                          value={countryCode}
+                          onChange={(event) => setCountryCode(event.target.value)}
+                        >
+                          {PHONE_COUNTRIES.map((country) => (
+                            <option key={country.label} value={country.code}>
+                              {country.label} ({country.code})
+                            </option>
+                          ))}
+                        </select>
+                        <span className="contact-page__dial">{countryCode}</span>
+                      </label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Phone Number *"
+                        autoComplete="tel-national"
+                        required
+                      />
+                    </div>
+                  </motion.div>
                   <motion.label variants={formDetailVariants} className="contact-page__field">
                     <span className="contact-page__sr">Email</span>
                     <input
                       type="email"
                       name="email"
-                      placeholder="Email"
+                      placeholder="Email *"
                       autoComplete="email"
+                      required
                     />
                   </motion.label>
-                  <FormSelect
-                    name="service"
-                    label="Service interest"
-                    placeholder="Select Service *"
-                    options={SERVICE_OPTIONS}
-                  />
-                  <FormSelect
-                    name="experience"
-                    label="Experience years"
-                    placeholder="Select Experience Years *"
-                    options={EXPERIENCE_OPTIONS}
-                  />
-                  <motion.label variants={formDetailVariants} className="contact-page__field">
-                    <span className="contact-page__sr">Company</span>
+                  <motion.label variants={formDetailVariants} className="contact-page__field contact-page__field--full">
+                    <span className="contact-page__sr">LinkedIn profile link</span>
                     <input
-                      type="text"
-                      name="company"
-                      placeholder="Company / Website"
-                      autoComplete="organization"
+                      type="url"
+                      name="linkedin"
+                      placeholder="LinkedIn Profile Link"
+                      autoComplete="url"
                     />
-                  </motion.label>
-                  <motion.label variants={formDetailVariants} className="contact-page__field">
-                    <span className="contact-page__sr">Subject</span>
-                    <input type="text" name="subject" placeholder="Subject" />
                   </motion.label>
                   <motion.label variants={formDetailVariants} className="contact-page__field contact-page__field--full">
                     <span className="contact-page__sr">Message</span>
                     <textarea
                       name="message"
-                      placeholder="Tell us about your project"
+                      placeholder="Message *"
                       rows="5"
                       required
                     />
                   </motion.label>
                 </div>
-
-                <motion.div className="contact-page__upload" variants={formDetailVariants}>
-                  <div className="contact-page__upload-head">
-                    <span className="contact-page__upload-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24">
-                        <path
-                          fill="currentColor"
-                          d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"
-                        />
-                      </svg>
-                    </span>
-                    <div>
-                      <p className="contact-page__upload-title">
-                        Attach a document
-                      </p>
-                      <p className="contact-page__upload-hint">
-                        Supported formats: .pdf, .doc, .docx, .png, .jpg
-                      </p>
-                    </div>
-                  </div>
-                  <div className="contact-page__upload-bar">
-                    <span className="contact-page__upload-name">
-                      {fileName || 'No file chosen'}
-                    </span>
-                    <button
-                      className="contact-page__upload-btn"
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                    >
-                      Choose File
-                    </button>
-                    <input
-                      ref={fileInputRef}
-                      className="contact-page__upload-input"
-                      type="file"
-                      name="attachment"
-                      accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
-                      onChange={handleFileChange}
-                    />
-                  </div>
-                </motion.div>
 
                 <motion.button
                   className="contact-page__submit"
@@ -602,27 +496,9 @@ function Contact() {
                     />
                   </svg>
                 </motion.button>
-                {submissionStatus && (
-                  <p
-                    role={submissionStatus.type === 'error' ? 'alert' : 'status'}
-                    aria-live="polite"
-                    style={{
-                      color: submissionStatus.type === 'error' ? '#b91c1c' : '#15803d',
-                    }}
-                  >
+                {submissionStatus?.type === 'error' && (
+                  <p role="alert" aria-live="polite" style={{ color: '#b91c1c' }}>
                     {submissionStatus.message}
-                    {submissionStatus.previewUrl && (
-                      <>
-                        {' '}
-                        <a
-                          href={submissionStatus.previewUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          View Ethereal email preview
-                        </a>
-                      </>
-                    )}
                   </p>
                 )}
               </motion.form>
@@ -630,6 +506,31 @@ function Contact() {
           </div>
         </div>
       </section>
+
+      {submissionStatus?.type === 'success' && (
+        <div className="contact-success" role="presentation" onClick={() => setSubmissionStatus(null)}>
+          <div
+            className="contact-success__dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="contact-success-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <span className="contact-success__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m5 12.5 4.5 4.5L19 7.5" />
+              </svg>
+            </span>
+            <h2 id="contact-success-title" className="contact-success__title">Thank You!</h2>
+            <p className="contact-success__text">
+              Thank you for contacting Sahajanand Infotech. Your form has been submitted successfully. We will get back to you soon.
+            </p>
+            <button type="button" className="contact-success__btn" onClick={() => setSubmissionStatus(null)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       <Footer />
 
