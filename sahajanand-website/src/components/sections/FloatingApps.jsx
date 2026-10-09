@@ -99,10 +99,11 @@ const FIGMA_ICON_SIZE = 57
 const FIGMA_SPACING_X = 69
 const FIGMA_SPACING_Y = 69
 const FIGMA_FIRST_ROW_FROM_TOP = 83.5
-const NARROW_PHONE_ICON_RATIO = 0.26
+// Phone icons are a fixed share of the phone width (62px / 286px at 576px, gap 4%), so they shrink with the phone
+const NARROW_PHONE_ICON_RATIO = 62 / 286
 const NARROW_PHONE_ICON_MAX = 62
 const NARROW_PHONE_GAP_RATIO = 0.04
-const NARROW_PHONE_GAP_MIN = 8
+const NARROW_PHONE_GAP_MIN = 0
 const OPEN_START = 0.1
 const OPEN_END = 0.6
 const CLOCKWISE_CURVE_RATIO = 0.16

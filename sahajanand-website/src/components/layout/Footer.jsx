@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import logoMark from '../../assets/images/logo1.png'
+import logoMark from '../../assets/images/logo2.png'
 import { handleSectionLinkClick } from '../../utils/homeSections'
 import './Footer.css'
 

@@ -828,3 +828,305 @@
     margin-right: auto;
   }
 }
+
+/* Desktop two-column "Future-ready" block: the left photo and the right photo row end on the same line.
+   The text keeps its place at the top; the spare height goes between the text and the left photo. */
+@media (min-width: 992px) {
+  .about-logo__future {
+    align-items: stretch;
+  }
+
+  .about-logo__future-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .about-logo__gallery {
+    align-self: end;
+  }
+}
+
+/* Wide screens: the photos grow with the column but the text did not, which left a large empty band between
+   the paragraph and the left photo. From about 1700px the text grows with the screen (and is unchanged below),
+   so it fills that space and sits closer to the photo. */
+@media (min-width: 1441px) {
+  .about-logo__future-heading {
+    font-size: max(54px, calc(54px + (100vw - 1704px) * 0.03));
+    line-height: 1.148;
+  }
+
+  .about-logo__future-description {
+    max-width: none;
+    font-size: max(18px, calc(18px + (100vw - 1704px) * 0.0145));
+    line-height: 1.4222;
+  }
+
+  /* The "SAHAJANAND INFO is a young..." paragraph follows the same size as the paragraph below it. The negative
+     bottom margin takes back the extra line height, so the text block keeps its height and nothing moves. */
+  .about-logo__description {
+    font-size: max(18px, calc(18px + (100vw - 1704px) * 0.0145));
+    line-height: 1.4222;
+    margin-bottom: calc(-2 * (1.4222 * max(18px, calc(18px + (100vw - 1704px) * 0.0145)) - 25.6px));
+  }
+}
+
+/* Wide screens: the "We are SAHAJANAND INFO" text starts on the same vertical line as the photo column below it
+   (the text column takes the width of one photo column instead of a fixed 547px). */
+@media (min-width: 1620px) {
+  .about-logo__text {
+    width: calc((100% - 40px) / 2);
+  }
+
+  .about-logo__heading,
+  .about-logo__description {
+    width: 100%;
+  }
+}
+
+/* Phones (576px and below): paragraphs wrap naturally (the hidden <br>s are replaced by a space), the
+   "Future-ready, / Always Evolving" heading keeps its two lines, and headings are balanced so no word is left alone */
+@media (max-width: 576px) {
+  .about-logo__description br,
+  .about-logo__future-description br {
+    display: none;
+  }
+
+  .about-logo__future-heading br {
+    display: inline;
+  }
+
+  .about-logo__future-heading {
+    text-wrap: balance;
+  }
+
+  /* Even rhythm: the photos are 14px apart (it was 32px between the first and the rest) and the block sits closer
+     to the paragraph above it (it was 7.5rem) */
+  .about-logo__future {
+    gap: max(7px, calc(14 * var(--u)));
+    margin-top: max(24px, calc(48 * var(--u)));
+  }
+
+  .about-logo__gallery-bottom {
+    gap: max(7px, calc(14 * var(--u)));
+    margin-top: max(7px, calc(14 * var(--u)));
+  }
+}
+
+/* Phones (576px and below): the header and every section share the same 5% side gutter, so the logo and menu
+   button line up with the page content at any width. (The header was inset 12.75vw and the stats 16px.) */
+@media (max-width: 576px) {
+  .home .header.is-sticky {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .stats {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+
+/* Phones (576px and below): compact, even spacing and comfortable text sizes for the About, Future and Stats blocks.
+   Spacing scale: 12px heading-to-text, 20px text-to-image/button, 14px between photos, 32px section padding. */
+@media (max-width: 576px) {
+  .about-logo {
+    padding-top: max(16px, calc(32 * var(--u)));
+    padding-bottom: max(16px, calc(32 * var(--u)));
+  }
+
+  .about-logo__content {
+    gap: max(10px, calc(20 * var(--u)));
+  }
+
+  .about-logo__description {
+    margin-top: max(6px, calc(12 * var(--u)));
+    font-size: 1.0625rem;
+    line-height: 1.5;
+  }
+
+  .about-logo__future {
+    margin-top: max(24px, calc(48 * var(--u)));
+  }
+
+  .about-logo__future-description {
+    margin-top: max(6px, calc(12 * var(--u)));
+    line-height: 1.5;
+  }
+
+  .about-logo__info-one {
+    margin-top: max(10px, calc(20 * var(--u)));
+  }
+
+  .stats {
+    padding-top: max(14px, calc(28 * var(--u)));
+    padding-bottom: max(14px, calc(28 * var(--u)));
+  }
+
+  .stats__list {
+    gap: max(8px, calc(16 * var(--u)));
+  }
+
+  .stats__card {
+    height: max(110px, calc(140 * var(--u)));
+  }
+}
+
+/* 1280px-1680px: the typography and spacing of the "We are SAHAJANAND INFO" / "Future-ready, Always Evolving" section scale
+   with the screen width, in the same proportions as the 1920px desktop design (heading about 3.15vw, text about 1.1vw), so
+   the text keeps its place next to the photos at every width instead of staying at a fixed size while the photos shrink. */
+@media (min-width: 1280px) and (max-width: 1680px) {
+  .about-logo {
+    padding-top: 3.333vw;
+    padding-bottom: 3.333vw;
+  }
+
+  .about-logo__heading {
+    height: auto;
+    font-size: max(38px, 2.8125vw);
+    line-height: 1.148;
+  }
+
+  .about-logo__heading-name {
+    font-size: max(40px, 2.9167vw);
+    line-height: 1.107;
+  }
+
+  .about-logo__description {
+    margin-top: 0.83vw;
+    font-size: max(15px, 1.1vw);
+    line-height: 1.4222;
+  }
+
+  .about-logo__future {
+    margin-top: 4.53vw;
+  }
+
+  .about-logo__future-heading {
+    font-size: max(42px, 3.15vw);
+    line-height: 1.148;
+  }
+
+  .about-logo__future-description {
+    max-width: none;
+    margin-top: 0.83vw;
+    font-size: max(15px, 1.1vw);
+    line-height: 1.4222;
+  }
+
+  .about-logo__info-one {
+    margin-top: 1.67vw;
+  }
+}
+
+/* 992px-1279px: the gap between the "We are SAHAJANAND INFO" text and the photos below it follows the same proportion as the
+   desktop design (about 4.5vw) instead of 6.7vw. 1280px-1649px already uses it (see the 1280px-1680px block above). */
+@media (min-width: 992px) and (max-width: 1279px) {
+  .about-logo__future {
+    margin-top: 4.53vw;
+  }
+}
+
+/* 992px-1619px: the "We are SAHAJANAND INFO" text starts on the same vertical line as the photo column below it (as on the
+   1620px+ desktop): the text column is as wide as one photo column and sits on the right of the logo. */
+@media (min-width: 992px) and (max-width: 1440px) {
+  .about-logo__content {
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .about-logo__text {
+    flex: 0 0 auto;
+    width: 48%;
+  }
+
+  .about-logo__heading,
+  .about-logo__description {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1441px) and (max-width: 1619px) {
+  .about-logo__text {
+    width: calc((100% - 40px) / 2);
+  }
+
+  .about-logo__heading,
+  .about-logo__description {
+    width: 100%;
+  }
+}
+
+/* 992px-1279px: "SAHAJANAND INFO" stays inside the narrower text column */
+@media (min-width: 992px) and (max-width: 1279px) {
+  .about-logo__heading {
+    font-size: 3.5vw;
+  }
+
+  .about-logo__heading-name {
+    font-size: 3.6vw;
+  }
+}
+
+/* ---------- Typography system for the Home page above 992px ----------
+   One scale for the Hero and the two sections below it (all use the screen width, with a floor and a cap):
+   - Hero heading: 3vw (40px - 60px), the most prominent text
+   - Section headings ("We are SAHAJANAND INFO", "Future-ready, Always Evolving"): 2.6vw (34px - 52px), all the same size
+   - Paragraphs (Hero, "We are", "Future-ready"): 1vw (13.2px - 18px), all the same size
+   It replaces the separate font-size rules the sections had at different widths (the Future-ready heading used to be larger
+   than the Hero heading, and the Hero paragraph a fixed 16px while the others grew). Only font size and line-height change. */
+@media (min-width: 993px) {
+  .home .hero__title {
+    font-size: clamp(40px, 3vw, 60px);
+  }
+
+  .home .hero__text {
+    font-size: clamp(13.2px, 1vw, 18px);
+    line-height: 1.55;
+  }
+
+  .about-logo__heading,
+  .about-logo__future-heading {
+    font-size: clamp(34px, 2.6vw, 52px);
+    line-height: 1.15;
+  }
+
+  .about-logo__heading-name {
+    font-size: clamp(34px, 2.6vw, 52px);
+    line-height: 1.15;
+  }
+
+  .about-logo__description,
+  .about-logo__future-description {
+    font-size: clamp(13.2px, 1vw, 18px);
+    line-height: 1.55;
+  }
+}
+
+/* 1700px and wider: the Hero text column grows a little with the paragraph so its lines break as at smaller widths */
+@media (min-width: 1700px) {
+  .home .hero__copy {
+    width: max(28rem, 26vw);
+  }
+
+  .home .hero__text {
+    max-width: none;
+  }
+}
+
+/* Above 992px: the Hero text starts on the same vertical line as the Header's left edge and the logo of the "We are" section
+   below (the red line in the design), instead of being indented by 5.8vw. The Android visual is positioned separately and
+   does not move. */
+@media (min-width: 993px) {
+  .home .hero__copy {
+    margin-left: 0;
+  }
+}
+
+/* 677px-991px: less space between the "We are SAHAJANAND INFO" text and the "Future-ready, Always Evolving" block below it
+   (it was a fixed 7.5rem; it now scales with the screen width, from about 3rem to 4.5rem) */
+@media (min-width: 677px) and (max-width: 991px) {
+  .about-logo__future {
+    margin-top: clamp(3rem, 7.5vw, 4.5rem);
+  }
+}

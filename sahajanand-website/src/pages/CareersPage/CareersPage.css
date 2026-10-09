@@ -837,3 +837,17 @@
     transform: none;
   }
 }
+
+/* Tablets and phones: the header is laid over the top of the hero (see Header.css), so its height (4.95rem) is added to the top
+   padding to keep the hero text exactly where it was. */
+@media (max-width: 991px) {
+  .car__hero {
+    padding-top: calc(3rem + 4.95rem);
+  }
+}
+
+@media (max-width: 675px) {
+  .car__hero {
+    padding-top: calc(2.5rem + 4.95rem);
+  }
+}

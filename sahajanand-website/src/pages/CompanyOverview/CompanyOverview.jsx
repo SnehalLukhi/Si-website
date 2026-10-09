@@ -192,7 +192,7 @@ function CompanyOverview() {
 
   return (
     <div className="cov">
-      <Header homePath="/" compactLogoLight />
+      <Header homePath="/" />
 
       {/* 1. Hero */}
       <section className="cov__hero" aria-labelledby="cov-hero-title">

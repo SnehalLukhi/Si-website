@@ -9,6 +9,12 @@ import '../../components/BlogHeroTitleScale.css'
 import { Reveal, RevealGroup } from '../../components/motion/Reveal'
 import { ArticleItem } from '../../components/motion/ArticleReveal'
 
+/* Company location shown in the map section (Google Maps embed, no API key needed) */
+const MAP_QUERY = encodeURIComponent(
+  '307, Dhara Arcade, Nr. Mahadev Chowk, Maruti Nandan Society, Mota Varachha, Surat, Gujarat 394101',
+)
+const MAP_EMBED_URL = `https://www.google.com/maps?q=${MAP_QUERY}&z=16&output=embed`
+
 const API_URL = import.meta.env.VITE_API_URL ?? ''
 
 const CONTACT_ITEMS = [
@@ -426,30 +432,17 @@ function Contact() {
                 ))}
               </motion.ul>
 
-              <div className="contact-page__social-block">
-                <h3 className="contact-page__info-heading">Our Social Networks</h3>
-                <motion.div
-                  className="contact-page__social"
-                  aria-label="Social media"
-                  initial={reduceMotion ? false : 'hidden'}
-                  animate={reduceMotion || contactCardsDone ? 'visible' : 'hidden'}
-                  variants={contactStaggerVariants(0.1)}
-                >
-                  {SOCIAL_LINKS.map((item) => (
-                    <motion.a
-                      key={item.label}
-                      className="contact-page__social-link"
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={item.label}
-                      style={SOCIAL_LINK_STYLE}
-                      variants={socialIconVariants}
-                    >
-                      <SocialIcon type={item.icon} />
-                    </motion.a>
-                  ))}
-                </motion.div>
+              <div className="contact-page__map-block">
+                <Reveal className="contact-page__map-card" y={32} delay={0.1}>
+                  <iframe
+                    className="contact-page__map-frame"
+                    title="Sahajanand Infotech location on Google Maps"
+                    src={MAP_EMBED_URL}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                  />
+                </Reveal>
               </div>
             </aside>
 

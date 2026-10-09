@@ -34,3 +34,22 @@ button,
 a {
   font-family: inherit;
 }
+
+/* A space that stands in for a <br> only where that <br> is hidden on phones (576px and below) */
+.br-mobile-space {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .br-mobile-space {
+    display: inline;
+  }
+}
+
+/* Phones (576px and below): 576px is the visual baseline. --u is 1px at 576px and shrinks in proportion to the screen
+   width, so spacing written as calc(N * var(--u)) keeps the same proportions on every smaller phone. */
+@media (max-width: 576px) {
+  :root {
+    --u: calc(100vw / 576);
+  }
+}

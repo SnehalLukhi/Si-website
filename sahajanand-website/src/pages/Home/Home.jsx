@@ -11,7 +11,7 @@ import { Reveal } from '../../components/motion/Reveal'
 import { isBlogHash, scrollToBlog } from '../../utils/scrollToBlog'
 import { handleHashOnArrival } from '../../utils/homeSections'
 import sky from '../../images/claude.png'
-import logo from '../../assets/images/logo.png'
+import logo from '../../assets/images/logo.svg'
 import infoOne from '../../assets/images/info-1.png'
 import infoTwo from '../../assets/images/info-2.png'
 import infoThree from '../../assets/images/info-3.png'
@@ -60,11 +60,11 @@ const FUTURE_HEADING = (
 
 const FUTURE_DESCRIPTION = (
   <>
-    From early-stage ideas to long-term vision, we create
+    From early-stage ideas to long-term vision, we create<span className="br-mobile-space"> </span>
     <br />
-    products with a future-first mindset. Our journey is
+    products with a future-first mindset. Our journey is<span className="br-mobile-space"> </span>
     <br />
-    not just about fast scaling — it&apos;s about smart,
+    not just about fast scaling — it&apos;s about smart,<span className="br-mobile-space"> </span>
     <br />
     responsible innovation.
   </>
@@ -121,7 +121,7 @@ function AboutLogoSection({ heroIntroDone }) {
         <span className="about-logo__heading-name">SAHAJANAND INFO</span>
       </h2>
       <p className="about-logo__description">
-        SAHAJANAND INFO is a young, dynamic start-up, founded
+        SAHAJANAND INFO is a young, dynamic start-up, founded<span className="br-mobile-space"> </span>
         <br />
         by a team of experienced leaders in the mobile industry.
       </p>
@@ -149,7 +149,7 @@ function AboutLogoSection({ heroIntroDone }) {
               <span className="about-logo__heading-name">SAHAJANAND INFO</span>
             </Reveal>
             <Reveal as="p" className="about-logo__description" {...mobileRise(2)}>
-              SAHAJANAND INFO is a young, dynamic start-up, founded
+              SAHAJANAND INFO is a young, dynamic start-up, founded<span className="br-mobile-space"> </span>
               <br />
               by a team of experienced leaders in the mobile industry.
             </Reveal>

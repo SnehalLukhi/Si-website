@@ -238,7 +238,7 @@ function CareersPage() {
 
   return (
     <div className="car">
-      <Header homePath="/" compactLogoLight />
+      <Header homePath="/" />
 
       {/* 1. Hero */}
       <section className="car__hero" aria-labelledby="car-hero-title">

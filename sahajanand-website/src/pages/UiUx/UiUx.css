@@ -46,7 +46,7 @@
 
 .uiux__hero-copy {
   position: absolute;
-  top: calc(4.75rem + 6.875rem);
+  top: 50%;
   left: 0;
   right: 0;
   z-index: 1;
@@ -741,5 +741,89 @@
     width: 70%;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+/* 992px and up: the header pill covers the top 104px of the hero (36px offset + 68px height), so the title and
+   breadcrumb group is centred in the visible part of the image below it (hero centre + 104px / 2). */
+@media (min-width: 992px) {
+  .uiux__hero-copy {
+    top: calc(50% + 52px);
+  }
+}
+
+/* Phones (576px and below): a more compact "Get In Touch" form (less padding, tighter gaps, shorter fields and message
+   box). The fields, the width and the centring are unchanged. */
+@media (max-width: 576px) {
+  .uiux__form {
+    gap: 0.7rem;
+    padding: 1.45rem 1.1rem 1.2rem;
+  }
+
+  .uiux__form-title {
+    font-size: 1.25rem;
+  }
+
+  .uiux__form-rules {
+    margin: -0.25rem 0 0.15rem;
+  }
+
+  .uiux__field input,
+  .uiux__field textarea {
+    padding: 0.7rem 0.95rem;
+    font-size: 0.95rem;
+  }
+
+  .uiux__field textarea {
+    height: 6.25rem;
+    min-height: 6.25rem;
+  }
+
+  .uiux__submit {
+    margin-top: 0.2rem;
+    padding: 0.75rem 1.2rem;
+    font-size: 1rem;
+  }
+}
+
+/* Above 992px: the section headings inside the article (21px) match the page's own "Our Expertise & Skillset" heading
+   (2.1vw) and the section headings of the other pages, instead of being much smaller. */
+@media (min-width: 993px) {
+  .uiux__content h2 {
+    font-size: clamp(1.5rem, 2.1vw, 2rem);
+  }
+}
+
+/* 992px-1199px: a more compact "Let's Get In Touch" form (fields stay in one column; less padding, tighter gaps, shorter
+   fields and message box). The form width, the page columns and everything outside 992px-1199px are unchanged. */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .uiux__form {
+    gap: 0.75rem;
+    padding: 1.6rem 1.4rem 1.35rem;
+  }
+
+  .uiux__form-title {
+    font-size: 1.3rem;
+  }
+
+  .uiux__form-rules {
+    margin: -0.2rem 0 0.2rem;
+  }
+
+  .uiux__field input,
+  .uiux__field textarea {
+    padding: 0.75rem 1rem;
+    font-size: 0.97rem;
+  }
+
+  .uiux__field textarea {
+    height: 6.75rem;
+    min-height: 6.75rem;
+  }
+
+  .uiux__submit {
+    margin-top: 0.25rem;
+    padding: 0.8rem 1.3rem;
+    font-size: 1rem;
   }
 }

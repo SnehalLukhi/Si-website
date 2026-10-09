@@ -5,7 +5,8 @@ import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { useBlogPosts } from '../../hooks/useBlogPosts'
 import './Blog.css'
 
-const PEEK_QUERY = '(max-width: 991px)'
+/* Peek carousel (centre card + half of each neighbour) up to 1199px; three full cards from 1200px */
+const PEEK_QUERY = '(max-width: 1199px)'
 
 export function BlogCard({ post }) {
   return (
@@ -38,7 +39,7 @@ const DESKTOP_VISIBLE = 3
 
 function getVisibleCount() {
   if (window.matchMedia('(max-width: 676px)').matches) return 2
-  if (window.matchMedia('(max-width: 991px)').matches) return 2
+  if (window.matchMedia('(max-width: 1199px)').matches) return 2
   return DESKTOP_VISIBLE
 }
 
@@ -90,7 +91,7 @@ function Blog() {
 
   useEffect(() => {
     const oneCard = window.matchMedia('(max-width: 676px)')
-    const twoCards = window.matchMedia('(max-width: 991px)')
+    const twoCards = window.matchMedia('(max-width: 1199px)')
     const onChange = () => {
       setVisible(getVisibleCount())
       setPage(0)

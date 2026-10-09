@@ -462,6 +462,55 @@
   }
 }
 
+/* Hero title + breadcrumb use the same column width as the article body below (70%, 80% from 992px to 1399px)
+   instead of spanning the whole image, and wrap inside it. */
+@media (min-width: 992px) {
+  .blog-detail__hero-copy {
+    /* The header pill covers the top 104px of the hero, so the group is centred in the visible part below it */
+    top: calc(50% + 52px);
+    left: 50%;
+    right: auto;
+    width: 70%;
+    padding: 0;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1399px) {
+  .blog-detail__hero-copy {
+    width: 80%;
+  }
+}
+
+@media (max-width: 991px) {
+  /* The hero has 1.25rem side padding here; the extra 2.5rem makes the width 70% of the page, like the body */
+  .blog-detail__hero-copy {
+    width: calc((100% + 2.5rem) * 0.7);
+  }
+
+  /* The narrower title wraps onto more lines, so the hero keeps its height as a minimum and grows only when the text
+     needs it. The top padding clears the header, which is laid over the top of the hero (4.95rem),
+     plus the same 1.25rem breathing room used at the bottom. */
+  .blog-detail__hero {
+    height: auto;
+    min-height: clamp(17rem, 31vw, 21rem);
+    padding-top: calc(4.95rem + 1.25rem);
+    padding-bottom: 1.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .blog-detail__hero {
+    min-height: clamp(15.25rem, 48vw, 18.5rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-detail__hero {
+    min-height: clamp(13.75rem, 56vw, 16.5rem);
+  }
+}
+
 /* Blog not found / loading state (same page chrome, no hero) */
 .blog-detail__state {
   display: flex;

@@ -582,3 +582,442 @@
   }
 }
 
+
+/* ---------- Redesigned footer (styling and arrangement only; all content and links unchanged) ----------
+   Large rounded navy panel in the site's own palette. Desktop composition: logo + intro, Quick Links and
+   Our Services as big links; a divider; then address, social icons and email/phone in three columns; a divider
+   and the credits row. Phones and tablets keep the accordion. */
+.site-footer {
+  --footer-glow: #0085e4;
+  --footer-accent-soft: #63b3ed;
+  --footer-card: linear-gradient(160deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.02));
+  --footer-card-border: rgba(255, 255, 255, 0.1);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 5.5rem 0 0;
+  border-radius: 2.5rem 2.5rem 0 0;
+  background:
+    linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.8) 50%, transparent) top / 100% 1px no-repeat,
+    radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1.4px) 0 0 / 24px 24px,
+    radial-gradient(70rem 30rem at 8% -10%, rgba(0, 133, 228, 0.22), transparent 70%),
+    linear-gradient(165deg, #223c66 0%, #1b2d4d 42%, #101c34 100%);
+}
+
+/* Large soft organic blobs in the brand blues */
+.site-footer::before,
+.site-footer::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.site-footer::before {
+  top: -9rem;
+  right: -7rem;
+  width: 32rem;
+  height: 30rem;
+  border-radius: 58% 42% 55% 45% / 52% 60% 40% 48%;
+  background: radial-gradient(circle at 40% 40%, rgba(0, 133, 228, 0.38), rgba(0, 133, 228, 0.06) 70%);
+}
+
+.site-footer::after {
+  bottom: -12rem;
+  left: -9rem;
+  width: 36rem;
+  height: 32rem;
+  border-radius: 45% 55% 40% 60% / 55% 45% 58% 42%;
+  background: radial-gradient(circle at 55% 45%, rgba(49, 130, 206, 0.34), rgba(49, 130, 206, 0.05) 70%);
+}
+
+.site-footer__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.site-footer__logo {
+  height: 3.2rem;
+}
+
+.site-footer__description {
+  color: #c2cfdf;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.site-footer__heading {
+  font-size: 1.2rem;
+  letter-spacing: 0.005em;
+}
+
+/* Social icons: brand-blue circles */
+.site-footer__social-link {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #ffffff;
+  color: #0085e4;
+  box-shadow: 0 10px 22px rgba(0, 133, 228, 0.35);
+  transition:
+    box-shadow 0.25s ease,
+    filter 0.25s ease,
+    translate 0.3s ease-out;
+}
+
+.site-footer__social-link svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.site-footer__social-link:hover,
+.site-footer__social-link:focus-visible {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: #ffffff;
+  color: #0085e4;
+  box-shadow: 0 14px 28px rgba(0, 133, 228, 0.6);
+}
+
+/* Link lists: a blue chevron slides in before the link on hover */
+.site-footer__list a {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1rem;
+  transition:
+    color 0.2s ease,
+    transform 0.25s ease;
+}
+
+.site-footer__list a::before {
+  content: '\203A';
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  color: var(--footer-accent-soft);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0;
+  transition:
+    width 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.site-footer__list a:hover,
+.site-footer__list a:focus-visible {
+  transform: translateX(2px);
+}
+
+.site-footer__list a:hover::before,
+.site-footer__list a:focus-visible::before {
+  width: 0.8rem;
+  opacity: 1;
+}
+
+/* Contact icons as soft blue chips (a ring around the icon) */
+.site-footer__contact-icon {
+  align-items: center;
+  justify-content: center;
+  margin: 0.15rem 0 0 0.25rem;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 0 0.25rem #ffffff;
+  color: #0085e4;
+}
+
+.site-footer__contact-list > li {
+  align-items: center;
+}
+
+.site-footer__contact-list > li:last-child {
+  align-items: flex-start;
+}
+
+.site-footer__contact-list > li + li {
+  margin-top: 1.05rem;
+}
+
+.site-footer__contact-list a:hover,
+.site-footer__contact-list a:focus-visible {
+  color: #ffffff;
+}
+
+/* Credits row: gradient hairline above, the credit as a soft pill */
+.site-footer__bottom {
+  margin-top: 2.25rem;
+  padding-bottom: 0.25rem;
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3) 50%, transparent) 1;
+}
+
+.site-footer_team {
+  padding: 0.45rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Phones and tablets: the link groups are glass cards (accordion rows) */
+.site-footer__col {
+  padding: 1.15rem 1.25rem;
+  border: 1px solid var(--footer-card-border);
+  border-radius: 1.5rem;
+  background: var(--footer-card);
+}
+
+@media (min-width: 992px) {
+  .site-footer {
+    padding-top: 6rem;
+    border-radius: 6rem 6rem 0 0;
+  }
+
+  .site-footer__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas:
+      'brandtop quick services'
+      'brandtext quick services'
+      'rule rule rule'
+      'gtitle gtitle gtitle'
+      'addr social email'
+      'addr social phone';
+    grid-template-rows: auto 1fr auto auto auto auto;
+    gap: 0 3rem;
+    align-items: start;
+  }
+
+  /* The brand block, the contact column and its wrappers take part in the footer grid directly */
+  .site-footer__brand,
+  .site-footer__col--contact,
+  .site-footer__col--contact .site-footer__accordion-panel,
+  .site-footer__col--contact .site-footer__accordion-panel-inner,
+  .site-footer__contact-list {
+    display: contents;
+  }
+
+  .site-footer__brand-link {
+    grid-area: brandtop;
+    align-self: start;
+    margin: 0;
+  }
+
+  .site-footer__description {
+    grid-area: brandtext;
+    max-width: 24rem;
+    margin: 1.25rem 0 0;
+    font-size: 0.98rem;
+  }
+
+  /* Quick Links / Our Services: small label with a line, then large links (no card on desktop) */
+  .site-footer__col {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .site-footer__col:nth-child(2) {
+    grid-area: quick;
+  }
+
+  .site-footer__col:nth-child(3) {
+    grid-area: services;
+  }
+
+  .site-footer__heading {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin: 0 0 1.35rem;
+    color: var(--footer-accent-soft);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .site-footer__heading::before {
+    content: '';
+    width: 2.25rem;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--footer-glow), var(--footer-accent-soft));
+  }
+
+  .site-footer__list > li + li {
+    margin-top: 0.55rem;
+  }
+
+  .site-footer__list a {
+    color: #ffffff;
+    font-size: clamp(1.45rem, 2vw, 1.85rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  .site-footer__list a:hover,
+  .site-footer__list a:focus-visible {
+    color: var(--footer-accent-soft);
+  }
+
+  .site-footer__list a::before {
+    font-size: 1.6rem;
+  }
+
+  /* Divider between the top and the contact rows */
+  .site-footer__grid::before {
+    content: '';
+    grid-area: rule;
+    height: 1px;
+    margin: 3.25rem 0 2.75rem;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.24) 20%,
+      rgba(255, 255, 255, 0.24) 80%,
+      transparent
+    );
+  }
+
+  /* Get In Touch: label row, then address | social | email + phone */
+  .site-footer__col--contact .site-footer__heading-row {
+    grid-area: gtitle;
+  }
+
+  .site-footer__contact-list > li:nth-child(1) {
+    grid-area: email;
+    margin: 0;
+  }
+
+  .site-footer__contact-list > li:nth-child(2) {
+    grid-area: phone;
+    margin: 1.1rem 0 0;
+  }
+
+  .site-footer__contact-list > li:nth-child(3) {
+    grid-area: addr;
+    margin: 0;
+  }
+
+  .site-footer__social {
+    grid-area: social;
+    align-self: start;
+    flex-wrap: nowrap;
+  }
+
+  .site-footer__contact-list a,
+  .site-footer__contact-address {
+    font-size: 1rem;
+  }
+
+  .site-footer__bottom {
+    margin-top: 3.25rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .site-footer {
+    border-radius: 1.75rem 1.75rem 0 0;
+  }
+
+  .site-footer__brand {
+    padding: 0.25rem 0 0.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-footer {
+    padding-top: 3.5rem;
+    border-radius: 1.5rem 1.5rem 0 0;
+  }
+
+  .site-footer::before {
+    width: 22rem;
+    height: 20rem;
+  }
+
+  .site-footer::after {
+    width: 24rem;
+    height: 22rem;
+  }
+
+  .site-footer__grid {
+    gap: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer__list a,
+  .site-footer__list a::before,
+  .site-footer__social-link {
+    transition: none;
+  }
+
+  .site-footer__list a:hover,
+  .site-footer__list a:focus-visible {
+    transform: none;
+  }
+}
+
+/* White text for the intro, address, email, phone and the bottom credits */
+.site-footer .site-footer__description,
+.site-footer .site-footer__contact-address,
+.site-footer .site-footer__contact-list a,
+.site-footer .site-footer__copyright,
+.site-footer .site-footer_team {
+  color: #ffffff;
+}
+
+/* Location icon: centred against its (multi-line) address */
+.site-footer__contact-list > li:last-child {
+  align-items: center;
+}
+
+.site-footer__contact-list > li:last-child .site-footer__contact-icon {
+  margin-top: 0;
+}
+
+/* Hover animation for the address, email and phone rows: the row slides slightly right and its icon lifts and glows */
+.site-footer__contact-list > li {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-footer__contact-icon {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+}
+
+.site-footer__contact-list > li:hover {
+  transform: translateX(6px);
+}
+
+.site-footer__contact-list > li:hover .site-footer__contact-icon {
+  transform: scale(1.12);
+  box-shadow:
+    0 0 0 0.25rem #ffffff,
+    0 8px 18px rgba(0, 133, 228, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer__contact-list > li,
+  .site-footer__contact-icon {
+    transition: none;
+  }
+
+  .site-footer__contact-list > li:hover,
+  .site-footer__contact-list > li:hover .site-footer__contact-icon {
+    transform: none;
+  }
+}
+
+/* Phones (576px and below): slightly tighter footer text and top padding */
+@media (max-width: 576px) {
+  .site-footer__description {
+    line-height: 1.6;
+  }
+}

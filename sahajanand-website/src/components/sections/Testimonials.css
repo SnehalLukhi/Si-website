@@ -231,8 +231,10 @@
   .testimonials__slider {
     margin-top: 2.5rem;
   }
+}
 
-  /* Below 676px exactly one card is visible, with equal space on both sides (as in Our Services and Blog) */
+/* 576px and below exactly one card is visible, with equal space on both sides (as in Our Services and Blog) */
+@media (max-width: 576px) {
   .testimonials .peek-carousel {
     width: 86%;
     max-width: 26rem;
@@ -249,5 +251,107 @@
   .testimonials__card::before,
   .testimonials__dot {
     transition: none;
+  }
+}
+
+/* Phones: balance the heading lines so a single word is never left on its own line */
+@media (max-width: 576px) {
+  /* Same 5% side gutter as the other sections (it was 8%, which made these cards narrower than Services and Blog) */
+  .testimonials {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .testimonials__heading {
+    text-wrap: balance;
+  }
+
+  /* The heading already has a space before its <br>, so it can wrap as one balanced paragraph */
+  .testimonials__heading br {
+    display: none;
+  }
+}
+
+/* Phones (576px and below): shared section padding and eyebrow size, so the three sections read as one system */
+@media (max-width: 576px) {
+  .testimonials {
+    padding-top: max(18px, calc(36 * var(--u)));
+    padding-bottom: max(18px, calc(36 * var(--u)));
+  }
+
+  .testimonials__header {
+    gap: max(6px, calc(12 * var(--u)));
+  }
+
+  .testimonials__eyebrow {
+    font-size: 20px;
+  }
+
+  .testimonials__slider {
+    margin-top: max(14px, calc(28 * var(--u)));
+  }
+
+  .testimonials__text {
+    line-height: 1.6;
+  }
+}
+
+/* Phones (576px and below): exactly one whole card at a time. The carousel box is the full content width (so the card's
+   shadow is not cut off hard at the card's sides), the card is 86% of it and centred. A soft mask fades the box out just
+   past the card edges: the next / previous card rests 12px beside the active one, so it is fully masked, while the
+   active card's shadow fades out naturally. The shadow room above and below the card is kept tight. */
+@media (max-width: 576px) {
+  .testimonials .peek-carousel {
+    width: 100%;
+    max-width: none;
+    --peek-slide: 86cqw;
+    --peek-gap: 25px;
+  }
+
+  .testimonials .peek-carousel__scroller {
+    margin-bottom: -64px;
+    padding-bottom: 64px;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent calc(7% - 12px),
+      #000 calc(7% - 1px),
+      #000 calc(93% + 1px),
+      transparent calc(93% + 12px)
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent calc(7% - 12px),
+      #000 calc(7% - 1px),
+      #000 calc(93% + 1px),
+      transparent calc(93% + 12px)
+    );
+  }
+}
+
+/* Phones (576px and below): the cards have no shadow at all (active, side and hover states, and the carousel around them) */
+@media (max-width: 576px) {
+  .testimonials .testimonials__card,
+  .testimonials .testimonials__card:hover,
+  .testimonials .peek-carousel__slide,
+  .testimonials .peek-carousel__slide.is-active .testimonials__card,
+  .testimonials .peek-carousel__slide.is-peek .testimonials__card {
+    box-shadow: none !important;
+    filter: none;
+  }
+
+  .testimonials .testimonials__card::before,
+  .testimonials .testimonials__card::after,
+  .testimonials .peek-carousel,
+  .testimonials .peek-carousel__scroller {
+    box-shadow: none;
+    filter: none;
+  }
+}
+
+/* 577px-675px: the same side padding as the 676px layout, so the three-card carousel is the same width as there */
+@media (min-width: 577px) and (max-width: 675px) {
+  .testimonials {
+    padding-left: 5%;
+    padding-right: 5%;
   }
 }

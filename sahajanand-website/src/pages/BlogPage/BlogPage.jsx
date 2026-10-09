@@ -126,7 +126,7 @@ function BlogPage() {
 
   return (
     <div className="blogpage">
-      <Header homePath="/" compactLogoLight />
+      <Header homePath="/" />
 
       <section className="blogpage__hero" aria-label="Blog">
         <img className="blogpage__hero-image" src={heroImage} alt="" />

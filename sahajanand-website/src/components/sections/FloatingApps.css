@@ -365,3 +365,93 @@
 }
 
 
+
+/* 675px and below: the "Mobile App" title is centred on the screen. The 18px left offset used on wider screens
+   pushed its left edge past the viewport. */
+@media (max-width: 675px) {
+  .floating-apps__phone-title {
+    left: 50%;
+  }
+}
+
+/* Phones (576px and below): the 576px layout is the exact baseline and every smaller screen is a proportionally scaled
+   copy of it. --u is 1px at 576px and shrinks with the screen width (see styles/index.css). Everything that sets the
+   composition (phone size, stage offset, the cluster's vertical offset, the phone slot, the title and the small
+   horizontal offset between the icon ring and the phone) is written in that unit, so at 576px nothing changes.
+   The section height, the scroll distance and the animation (JavaScript) are untouched. */
+@media (max-width: 576px) {
+  .floating-apps {
+    /* How far the phone slot is pushed down on short screens (the same rule as the 991px layout, in --u) */
+    --floating-apps-extra: max(0px, calc(143.33 * var(--u) - 19.85vh));
+    /* The icon cluster (icons, glow and phone) is lifted inside the stage so the faint "Mobile App" title always sits
+       6 units below the top of the stage (the letters start about 12 units lower inside the title box, so the whole
+       word stays visible, at any width and screen height); the
+       Stats -> animation gap is then the same proportion at every width. Services is pulled up by the same amount so
+       the space after the phone is not increased. */
+    --floating-apps-lift: max(
+      0px,
+      calc(19.85vh + var(--floating-apps-extra) - 42.93 * var(--u))
+    );
+    /* Gap under the phone: Services is pulled up so the space between the visible phone and "Our Services" is at most
+       about 120 units (it is measured as 100vh - 634 units once the lift above is not enough). Taller screens no longer
+       leave a large blank area, and the gap scales with the width like everything else here. */
+    margin-bottom: calc(max(var(--floating-apps-lift), 100vh - 634 * var(--u)) * -1);
+  }
+
+  .floating-apps__stage {
+    top: calc(72 * var(--u));
+    height: calc(100vh - 72 * var(--u));
+  }
+
+  .floating-apps__cluster {
+    top: calc(72 * var(--u) - var(--floating-apps-lift));
+    transform: translate(calc(-10.416 * var(--u)), calc(252.5 * var(--u) - 30.15vh));
+  }
+
+  /* The phone is 286 units wide (286px at 576px) instead of a width-capped size, and its slot scales with it */
+  .floating-apps__phone-slot,
+  .floating-apps__phone {
+    --phone-width: calc(286 * var(--u));
+  }
+
+  .floating-apps__phone-slot {
+    top: calc(50% + var(--floating-apps-extra));
+    left: calc(50% + 10.416 * var(--u));
+    height: calc(505 * var(--u));
+  }
+
+  /* 101.3 units wide at 576px, so the whole word stays on screen at every width */
+  .floating-apps__phone-title {
+    left: 50%;
+    font-size: min(
+      calc(var(--phone-width) * 0.374),
+      calc((100vw - 24 * var(--u)) / 5.45)
+    );
+  }
+}
+
+/* 577px-991px: the same composition as the 576px layout. The icon cluster (icons, glow and phone) is lifted inside the stage
+   so the faint "Mobile App" title sits close under the top of the stage (the Stats -> animation gap no longer grows with the
+   screen height), and "Our Services" is pulled up by the same amount plus whatever blank band is left under the phone, so
+   the gap below the visible phone stays in proportion to the phone (about 0.42 x its width). The section height, the
+   scroll distance and the animation (JavaScript) are untouched. */
+@media (min-width: 577px) and (max-width: 991px) {
+  .floating-apps {
+    --floating-apps-extra: max(0px, calc(4.4rem + var(--floating-apps-phone) * 0.255 - 19.85vh));
+    --floating-apps-phone: min(286px, 66vw, calc(100vw - 48px), calc((100vh - 5rem) * 0.62));
+    --floating-apps-lift: max(0px, calc(19.85vh + var(--floating-apps-extra) - 42.93px));
+    margin-bottom: calc(max(var(--floating-apps-lift) - 28px, 100vh - 610px) * -1);
+  }
+
+  .floating-apps__cluster {
+    top: calc(4.5rem - var(--floating-apps-lift));
+  }
+}
+
+/* 992px-1280px: on tall screens the sticky stage is much taller than the phone, which left a large blank band between the
+   visible phone and "Our Services". Services is pulled up so the gap stays in the same proportion to the phone. */
+@media (min-width: 992px) and (max-width: 1280px) {
+  .floating-apps {
+    margin-bottom: calc(max(0px, 82vh - 52vw + 9px) * -1);
+  }
+}

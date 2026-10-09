@@ -118,12 +118,12 @@ function Hero({ onIntroComplete }) {
             Love to Use
           </Reveal>
           <Reveal as="p" className="hero__text" y={40} duration={0.8} delay={0.25}>
-            We create innovative Android products that solve
+            We create innovative Android products that solve<span className="br-mobile-space"> </span>
             <br />
             everyday problems and reach users across the globe.
           </Reveal>
           <Reveal y={40} duration={0.8} delay={0.5} {...introCompleteProps}>
-            <Button href="#contact">Get in Touch</Button>
+            <Button href="/contact-us">Get in Touch</Button>
           </Reveal>
         </div>
 

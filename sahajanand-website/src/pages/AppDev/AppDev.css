@@ -46,7 +46,7 @@
 
 .appdev__hero-copy {
   position: absolute;
-  top: calc(4.75rem + 6.875rem);
+  top: 50%;
   left: 0;
   right: 0;
   z-index: 1;
@@ -745,5 +745,55 @@
     width: 70%;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+/* 992px and up: the header pill covers the top 104px of the hero (36px offset + 68px height), so the title and
+   breadcrumb group is centred in the visible part of the image below it (hero centre + 104px / 2). */
+@media (min-width: 992px) {
+  .appdev__hero-copy {
+    top: calc(50% + 52px);
+  }
+}
+
+/* Phones (576px and below): a more compact "Get In Touch" form (less padding, tighter gaps, shorter fields and message
+   box). The fields, the width and the centring are unchanged. */
+@media (max-width: 576px) {
+  .appdev__form {
+    gap: 0.7rem;
+    padding: 1.45rem 1.1rem 1.2rem;
+  }
+
+  .appdev__form-title {
+    font-size: 1.25rem;
+  }
+
+  .appdev__form-rules {
+    margin: -0.25rem 0 0.15rem;
+  }
+
+  .appdev__field input,
+  .appdev__field textarea {
+    padding: 0.7rem 0.95rem;
+    font-size: 0.95rem;
+  }
+
+  .appdev__field textarea {
+    height: 6.25rem;
+    min-height: 6.25rem;
+  }
+
+  .appdev__submit {
+    margin-top: 0.2rem;
+    padding: 0.75rem 1.2rem;
+    font-size: 1rem;
+  }
+}
+
+/* Above 992px: the section headings inside the article (21px) match the page's own "Our Expertise & Skillset" heading
+   (2.1vw) and the section headings of the other pages, instead of being much smaller. */
+@media (min-width: 993px) {
+  .appdev__content h2 {
+    font-size: clamp(1.5rem, 2.1vw, 2rem);
   }
 }

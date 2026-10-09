@@ -169,7 +169,7 @@ function LifePage() {
 
   return (
     <div className="lif">
-      <Header homePath="/" compactLogoLight />
+      <Header homePath="/" />
 
       {/* 1. Hero */}
       <section className="lif__hero" aria-labelledby="lif-hero-title">

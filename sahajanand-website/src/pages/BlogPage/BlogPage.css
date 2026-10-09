@@ -463,3 +463,18 @@
     transform: none;
   }
 }
+
+/* 992px and up: the header pill covers the top 104px of the hero (36px offset + 68px height), so the title and
+   breadcrumb group is centred in the visible part of the image below it (hero centre + 104px / 2). */
+@media (min-width: 992px) {
+  .blogpage__hero-copy {
+    top: calc(50% + 52px);
+  }
+}
+
+/* 992px-1140px: two blog cards per row (three would be too narrow here) */
+@media (min-width: 992px) and (max-width: 1140px) {
+  .blogpage__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

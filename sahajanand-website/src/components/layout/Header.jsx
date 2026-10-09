@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import logoMark from '../../assets/images/logo.png'
-import logoMarkLight from '../../assets/images/logo1.png'
+import logoMark from '../../assets/images/logo.svg'
+import logoMarkLight from '../../assets/images/logo1.svg'
 import { handleSectionLinkClick } from '../../utils/homeSections'
 import { SERVICES } from '../sections/Services'
 import './Header.css'

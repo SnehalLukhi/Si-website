@@ -426,10 +426,9 @@
   transform: translate3d(-50%, 0, 0);
   border: 1px solid rgba(219, 234, 254, 0.5);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.90);
+  /* Solid white: page content scrolling behind the floating header must not show through it */
+  background: #ffffff;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.14);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 .header.is-sticky.is-pinned {
@@ -1574,5 +1573,56 @@
     padding-left: 0.75rem;
     background: rgba(0, 133, 228, 0.07);
     color: var(--header-active);
+  }
+}
+
+/* ---------- Blog, Careers, Company Overview and Life pages: tablet and phone header (991px and below) ----------
+   Same responsive header as the service pages: a transparent bar laid over the top of the hero (no separate strip),
+   with the same side insets, so the logo and the menu button sit in the same place as there. */
+@media (max-width: 991px) {
+  .blogpage .header__shell.is-sticky,
+  .car .header__shell.is-sticky,
+  .cov .header__shell.is-sticky,
+  .lif .header__shell.is-sticky {
+    height: 0 !important;
+  }
+
+  .blogpage .header.is-sticky,
+  .car .header.is-sticky,
+  .cov .header.is-sticky,
+  .lif .header.is-sticky {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    transform: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0.85rem 1.15rem;
+    padding-left: 15%;
+    padding-right: 15%;
+    z-index: 100;
+  }
+
+  .blogpage .header.is-sticky .header__brand,
+  .car .header.is-sticky .header__brand,
+  .cov .header.is-sticky .header__brand,
+  .lif .header.is-sticky .header__brand {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Leave room for the toggle on very narrow screens */
+  .blogpage .header.is-sticky .header__logo,
+  .car .header.is-sticky .header__logo,
+  .cov .header.is-sticky .header__logo,
+  .lif .header.is-sticky .header__logo {
+    max-width: min(58vw, 13rem, calc(70vw - 3.5rem));
   }
 }
