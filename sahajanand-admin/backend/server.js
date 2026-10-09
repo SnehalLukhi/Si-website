@@ -11,6 +11,7 @@ import blogRoutes from './src/routes/blogRoutes.js'
 import aiLabRoutes from './src/routes/aiLabRoutes.js'
 import authRoutes from './src/routes/authRoutes.js'
 import { getJwtSecret, protectReads, protectWrites } from './src/middleware/auth.js'
+import { apiNotFound, errorHandler } from './src/middleware/errorHandler.js'
 
 dotenv.config()
 
@@ -73,6 +74,9 @@ app.use('/api/jobs', protectWrites, jobRoutes)
 app.use('/api/products', protectWrites, productRoutes)
 app.use('/api/blogs', protectWrites, blogRoutes)
 app.use('/api/ai-lab', protectWrites, aiLabRoutes)
+
+app.use(apiNotFound)
+app.use(errorHandler)
 
 // On Vercel the app is exported and run as a function; locally it listens on a port
 if (!process.env.VERCEL) {

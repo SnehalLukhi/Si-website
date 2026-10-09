@@ -55,6 +55,14 @@ const optimizedUrl = (secureUrl) => secureUrl.replace('/image/upload/', '/image/
 const saveFile = async (file, folder) => {
   const name = `${Date.now()}-${Math.round(Math.random() * 1e9)}`
 
+  // Vercel's disk is read-only: without Cloudinary an upload cannot be saved, so say so instead of failing obscurely
+  if (process.env.VERCEL && !useCloudinary()) {
+    const error = new Error('Image storage is not configured (CLOUDINARY_URL is missing)')
+    error.status = 500
+    error.publicMessage = 'Image storage is not configured on the server. Set CLOUDINARY_URL and redeploy.'
+    throw error
+  }
+
   if (useCloudinary()) {
     const result = await uploadToCloudinary(file.buffer, folder, name)
     file.url = optimizedUrl(result.secure_url)
