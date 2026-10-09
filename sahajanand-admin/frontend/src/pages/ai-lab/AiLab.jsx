@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import AddAiLab from './AddAiLab'
 import {
   ExternalIcon,
+  PencilIcon,
   PlusIcon,
   SearchIcon,
   TrashIcon,
@@ -13,12 +14,15 @@ import { authFetch } from '../../services/auth'
 function AiLab() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const view = pathname.endsWith('/new') ? 'add' : 'list'
+  const editMatch = /^\/ai-lab\/([^/]+)\/edit\/?$/.exec(pathname)
+  const editId = editMatch ? editMatch[1] : null
+  const view = editId ? 'edit' : pathname.endsWith('/new') ? 'add' : 'list'
   const setView = (nextView) =>
     navigate(nextView === 'add' ? '/ai-lab/new' : '/ai-lab')
   const [aiLabs, setAiLabs] = useState([])
   const [loading, setLoading] = useState(true)
   const [deletingId, setDeletingId] = useState(null)
+  const [saving, setSaving] = useState(false)
   const [query, setQuery] = useState('')
 
   const fetchAiLabs = async () => {
@@ -80,6 +84,43 @@ function AiLab() {
     }
   }
 
+  const handleEditAiLab = async (aiLabId, form) => {
+    try {
+      setSaving(true)
+
+      const formData = new FormData()
+
+      formData.append('title', form.title)
+      formData.append('description', form.description)
+      formData.append('link', form.link)
+
+      if (form.imageFile) {
+        formData.append('image', form.imageFile)
+      }
+
+      const response = await authFetch(`${API_URL}/api/ai-lab/${aiLabId}`, {
+        method: 'PUT',
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to update AI Lab')
+      }
+
+      setAiLabs((prev) => prev.map((item) => (item._id === aiLabId ? data.aiLab : item)))
+      setView('list')
+
+      alert('AI Lab item updated successfully')
+    } catch (error) {
+      console.error('Failed to update AI Lab:', error)
+      alert('Failed to update AI Lab item. Please check the backend.')
+    } finally {
+      setSaving(false)
+    }
+  }
+
   const handleDeleteAiLab = async (aiLabId) => {
     const confirmed = window.confirm(
       'Are you sure you want to delete this AI Lab item? This action cannot be undone.',
@@ -118,6 +159,37 @@ function AiLab() {
     } finally {
       setDeletingId(null)
     }
+  }
+
+  if (view === 'edit') {
+    const editing = aiLabs.find((item) => item._id === editId)
+
+    if (!editing) {
+      return (
+        <div className="ai-lab-page">
+          <div className="ai-lab-empty">
+            <h3>{loading ? 'Loading AI Lab item...' : 'AI Lab item not found'}</h3>
+            <p>{loading ? 'Please wait.' : 'It may have been deleted.'}</p>
+
+            {!loading && (
+              <button type="button" className="cancel-btn" onClick={() => setView('list')}>
+                Back to AI Lab
+              </button>
+            )}
+          </div>
+        </div>
+      )
+    }
+
+    return (
+      <AddAiLab
+        key={editing._id}
+        item={editing}
+        onSave={(values) => handleEditAiLab(editing._id, values)}
+        onCancel={() => setView('list')}
+        saving={saving}
+      />
+    )
   }
 
   if (view === 'add') {
@@ -218,6 +290,16 @@ function AiLab() {
                   )}
                 </div>
 
+                <div className="card-actions">
+                <button
+                  type="button"
+                  className="edit-product-btn"
+                  onClick={() => navigate(`/ai-lab/${item._id}/edit`)}
+                >
+                  <PencilIcon />
+                  Edit
+                </button>
+
                 <button
                   type="button"
                   className="delete-ai-lab-btn"
@@ -231,6 +313,7 @@ function AiLab() {
                     ? 'Deleting...'
                     : 'Delete'}
                 </button>
+                </div>
               </div>
             </article>
           ))}

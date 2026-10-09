@@ -1,7 +1,7 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { AppsIcon, BlogIcon, BotIcon, BriefcaseIcon, LogoutIcon, MailIcon } from '../components/Icons'
 import { clearToken } from '../services/auth'
-import logo from '../aseets/images/logo.png'
+import logo from '../assets/images/logo.svg'
 
 const NAV_ITEMS = [
   { to: '/careers', label: 'Jobs', Icon: BriefcaseIcon },

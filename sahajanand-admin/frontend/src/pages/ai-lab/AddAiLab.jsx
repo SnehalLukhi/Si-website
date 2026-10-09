@@ -1,12 +1,16 @@
 import { useState } from 'react'
+import { assetUrl } from '../../services/api'
 
-function AddAiLab({ onSave, onCancel }) {
+// Used for both "Add AI Lab" and "Edit AI Lab" (when an item is passed in)
+function AddAiLab({ item, onSave, onCancel, saving = false }) {
+  const isEdit = Boolean(item)
+
   const [form, setForm] = useState({
-    title: '',
-    description: '',
-    link: '',
+    title: item?.title || '',
+    description: item?.description || '',
+    link: item?.link || '',
     imageFile: null,
-    imagePreview: '',
+    imagePreview: item?.image ? assetUrl(item.image) : '',
   })
 
   const handleChange = (event) => {
@@ -45,8 +49,8 @@ function AddAiLab({ onSave, onCancel }) {
     <div className="ai-lab-form-page">
       <div className="ai-lab-form-header">
         <div>
-          <h1>Add AI Lab</h1>
-          <p>Add a new AI Lab item to the website</p>
+          <h1>{isEdit ? 'Edit AI Lab' : 'Add AI Lab'}</h1>
+          <p>{isEdit ? 'Update this AI Lab item on the website' : 'Add a new AI Lab item to the website'}</p>
         </div>
       </div>
 
@@ -119,8 +123,9 @@ function AddAiLab({ onSave, onCancel }) {
           <button
             type="submit"
             className="save-ai-lab-btn"
+            disabled={saving}
           >
-            Save AI Lab
+            {saving ? 'Saving...' : isEdit ? 'Save Changes' : 'Save AI Lab'}
           </button>
         </div>
       </form>

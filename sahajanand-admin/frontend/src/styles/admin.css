@@ -817,3 +817,6 @@ input[type='file']::file-selector-button:hover { background: var(--brand-100); }
   .data-table tbody tr.inquiry-detail-row { padding: 0 16px 14px; }
   .data-table td.cell-actions .inquiry-view-btn { width: 100%; }
 }
+
+/* Edit + Delete side by side in the Careers table */
+.data-table .cell-actions .card-actions .delete-job-btn { margin-left: 0; }

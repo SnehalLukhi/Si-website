@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import AddJob from './AddJob'
-import { PlusIcon, SearchIcon, TrashIcon } from '../../components/Icons'
+import { PencilIcon, PlusIcon, SearchIcon, TrashIcon } from '../../components/Icons'
 import { API_URL } from '../../services/api'
 import { authFetch } from '../../services/auth'
 
@@ -21,7 +21,9 @@ const emptyForm = {
 function Jobs() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const view = pathname.endsWith('/new') ? 'add' : 'list'
+  const editMatch = /^\/careers\/([^/]+)\/edit\/?$/.exec(pathname)
+  const editId = editMatch ? editMatch[1] : null
+  const view = editId ? 'edit' : pathname.endsWith('/new') ? 'add' : 'list'
   const setView = (nextView) =>
     navigate(nextView === 'add' ? '/careers/new' : '/careers')
   const [jobs, setJobs] = useState([])
@@ -55,6 +57,28 @@ function Jobs() {
   useEffect(() => {
     fetchJobs()
   }, [])
+
+  // Fill the form with the saved values when a job is opened for editing
+  useEffect(() => {
+    if (!editId) return
+
+    const editing = jobs.find((job) => job._id === editId)
+
+    if (editing) {
+      setForm({
+        title: editing.title || '',
+        experience: editing.experience || '',
+        type: editing.type || 'Full Time',
+        location: editing.location || '',
+        salary: editing.salary || '',
+        category: editing.category || '',
+        description: editing.description || '',
+        requirements: editing.requirements || '',
+        benefits: editing.benefits || '',
+        expirationDate: editing.expirationDate || '',
+      })
+    }
+  }, [editId, jobs.length])
 
   const handleChange = (e) => {
     setForm((prev) => ({
@@ -102,6 +126,45 @@ function Jobs() {
     }
   }
 
+  const handleEditJob = async (e) => {
+    e.preventDefault()
+
+    if (!form.title.trim()) {
+      alert('Please enter Job Title')
+      return
+    }
+
+    try {
+      setSaving(true)
+
+      const response = await authFetch(`${API_URL}/api/jobs/${editId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to update job')
+      }
+
+      setJobs((prev) => prev.map((job) => (job._id === editId ? data.job : job)))
+
+      setForm(emptyForm)
+      setView('list')
+
+      alert('Job updated successfully')
+    } catch (error) {
+      console.error('Failed to update job:', error)
+      alert('Failed to update job. Please check the backend.')
+    } finally {
+      setSaving(false)
+    }
+  }
+
   const handleDeleteJob = async (jobId) => {
     const confirmed = window.confirm(
       'Are you sure you want to delete this job? This action cannot be undone.',
@@ -133,6 +196,42 @@ function Jobs() {
     } finally {
       setDeletingId(null)
     }
+  }
+
+  if (view === 'edit') {
+    const editing = jobs.find((job) => job._id === editId)
+
+    if (!editing) {
+      return (
+        <div className="jobs-page">
+          <div className="no-products">
+            <h3>{loading ? 'Loading job...' : 'Job not found'}</h3>
+            <p>{loading ? 'Please wait.' : 'It may have been deleted.'}</p>
+
+            {!loading && (
+              <button type="button" className="cancel-btn" onClick={() => setView('list')}>
+                Back to jobs
+              </button>
+            )}
+          </div>
+        </div>
+      )
+    }
+
+    return (
+      <AddJob
+        key={editing._id}
+        isEdit
+        form={form}
+        onChange={handleChange}
+        onSubmit={handleEditJob}
+        onCancel={() => {
+          setForm(emptyForm)
+          setView('list')
+        }}
+        saving={saving}
+      />
+    )
   }
 
   if (view === 'add') {
@@ -234,15 +333,26 @@ function Jobs() {
                   <td data-label="Location">{job.location || '—'}</td>
                   <td data-label="Salary">{job.salary || '—'}</td>
                   <td className="cell-actions">
-                    <button
-                      type="button"
-                      className="delete-job-btn"
-                      onClick={() => handleDeleteJob(job._id)}
-                      disabled={deletingId === job._id}
-                    >
-                      <TrashIcon />
-                      {deletingId === job._id ? 'Deleting...' : 'Delete'}
-                    </button>
+                    <div className="card-actions">
+                      <button
+                        type="button"
+                        className="edit-product-btn"
+                        onClick={() => navigate(`/careers/${job._id}/edit`)}
+                      >
+                        <PencilIcon />
+                        Edit
+                      </button>
+
+                      <button
+                        type="button"
+                        className="delete-job-btn"
+                        onClick={() => handleDeleteJob(job._id)}
+                        disabled={deletingId === job._id}
+                      >
+                        <TrashIcon />
+                        {deletingId === job._id ? 'Deleting...' : 'Delete'}
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))

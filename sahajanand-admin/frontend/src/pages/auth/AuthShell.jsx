@@ -1,4 +1,4 @@
-import logo from '../../aseets/images/logo.png'
+import logo from '../../assets/images/logo.svg'
 
 // Shared frame for the login, forgot-password and reset-password pages
 export default function AuthShell({ title, subtitle, children }) {

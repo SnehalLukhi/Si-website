@@ -1,15 +1,16 @@
-function AddJob({ form, onChange, onSubmit, onCancel, saving }) {
+// Used for both "Add Job" and "Edit Job" (isEdit)
+function AddJob({ form, onChange, onSubmit, onCancel, saving, isEdit = false }) {
   return (
     <div className="jobs-page">
       <div className="jobs-header">
         <div>
-          <h1>Add Job</h1>
-          <p>Add a new job to Careers</p>
+          <h1>{isEdit ? 'Edit Job' : 'Add Job'}</h1>
+          <p>{isEdit ? 'Update this job on Careers' : 'Add a new job to Careers'}</p>
         </div>
       </div>
 
       <form className="job-form" onSubmit={onSubmit}>
-        <h2>Add New Job</h2>
+        <h2>{isEdit ? 'Edit Job' : 'Add New Job'}</h2>
 
         <div className="form-grid">
           <div className="form-group">
@@ -135,7 +136,7 @@ function AddJob({ form, onChange, onSubmit, onCancel, saving }) {
             className="save-btn"
             disabled={saving}
           >
-            {saving ? 'Saving...' : 'Save Job'}
+            {saving ? 'Saving...' : isEdit ? 'Save Changes' : 'Save Job'}
           </button>
         </div>
       </form>
