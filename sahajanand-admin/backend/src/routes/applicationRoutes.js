@@ -1,88 +1,66 @@
 import express from 'express'
-import multer from 'multer'
 import mongoose from 'mongoose'
 import Job from '../models/Job.js'
+import JobApplication from '../models/JobApplication.js'
 import { sendWithResend } from '../services/resendMailer.js'
 
 const router = express.Router()
 
-// Same CV types the Apply form accepts; the extension and the MIME type must both match
-const allowedCvTypes = new Map([
-  ['.pdf', 'application/pdf'],
-  ['.doc', 'application/msword'],
-  ['.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-  ['.png', 'image/png'],
-  ['.jpg', 'image/jpeg'],
-  ['.jpeg', 'image/jpeg'],
-])
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const COUNTRY_CODE_PATTERN = /^\+\d{1,4}$/
 
-// The CV stays in memory and is only attached to the email; nothing is written to disk or the database
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fileSize: 5 * 1024 * 1024,
-    files: 1,
-    fields: 8,
-    fieldSize: 100 * 1024,
-  },
-  fileFilter: (req, file, callback) => {
-    const extension = file.originalname.slice(file.originalname.lastIndexOf('.')).toLowerCase()
-    if (allowedCvTypes.get(extension) === file.mimetype) {
-      callback(null, true)
-      return
-    }
+const text = (value, max) => (typeof value === 'string' ? value.trim().slice(0, max) : '')
 
-    callback(new Error('Only PDF, DOC, DOCX, PNG, JPG, and JPEG files are allowed'))
-  },
-})
+// Optional: a link with or without https://. Returns '' for none, null for something that is not a web address.
+const cleanLink = (value) => {
+  if (!value) return ''
 
-const parseApplication = (req, res, next) => {
-  upload.single('cv')(req, res, (error) => {
-    if (!error) {
-      next()
-      return
-    }
+  try {
+    const url = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`)
 
-    if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
-      res.status(413).json({
-        success: false,
-        message: 'CV must be 5 MB or smaller',
-      })
-      return
-    }
-
-    res.status(400).json({
-      success: false,
-      message:
-        error instanceof multer.MulterError
-          ? 'The uploaded form or CV is invalid'
-          : error.message,
-    })
-  })
+    return url.hostname.includes('.') ? url.toString() : null
+  } catch {
+    return null
+  }
 }
 
-const text = (value) => (typeof value === 'string' ? value.trim() : '')
-
-router.post('/', parseApplication, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const name = text(req.body.name)
-    const email = text(req.body.email)
-    const phone = text(req.body.phone)
-    const countryCode = text(req.body.countryCode)
-    const coverLetter = text(req.body.coverLetter)
-    const jobId = text(req.body.jobId)
+    const name = text(req.body.name, 100)
+    const company = text(req.body.company, 150)
+    const country = text(req.body.country, 100)
+    const email = text(req.body.email, 254)
+    const countryCode = text(req.body.countryCode, 6)
+    const phone = text(req.body.phone, 30)
+    const portfolio = cleanLink(text(req.body.portfolio, 300))
+    const message = text(req.body.message, 5000)
+    const jobId = text(req.body.jobId, 40)
 
-    if (!name || !email || !phone || !req.file || !jobId) {
+    if (!name || !company || !country || !email || !phone || !jobId) {
       return res.status(400).json({
         success: false,
-        message: 'Please complete all required fields and upload your CV',
+        message: 'Please complete all required fields',
       })
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!EMAIL_PATTERN.test(email)) {
       return res.status(400).json({
         success: false,
         message: 'Please enter a valid email address',
+      })
+    }
+
+    if (!COUNTRY_CODE_PATTERN.test(countryCode) || !/^[\d\s()-]{4,20}$/.test(phone)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please enter a valid phone number',
+      })
+    }
+
+    if (portfolio === null) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please enter a valid portfolio or store link',
       })
     }
 
@@ -96,26 +74,48 @@ router.post('/', parseApplication, async (req, res) => {
       })
     }
 
-    await sendWithResend({
-      replyTo: email,
-      subject: `New Job Application - ${job.title}`.replace(/[\r\n]+/g, ' ').trim(),
-      text: [
-        `Applicant Name: ${name}`,
-        `Applicant Email: ${email}`,
-        `Applicant Phone: ${[countryCode, phone].filter(Boolean).join(' ')}`,
-        `Job Title: ${job.title}`,
-        `Job Category: ${job.category || 'Not specified'}`,
-        '',
-        'Cover Letter:',
-        coverLetter || 'Not provided',
-      ].join('\n'),
-      attachments: [
-        {
-          filename: req.file.originalname.split(/[\\/]/).pop(),
-          content: req.file.buffer,
-        },
-      ],
+    // Saved before emailing, so nothing is lost if the email fails
+    const application = await JobApplication.create({
+      job: job._id,
+      jobTitle: job.title,
+      jobCategory: job.category || '',
+      name,
+      company,
+      country,
+      email,
+      countryCode,
+      phone,
+      portfolio,
+      message,
     })
+
+    try {
+      await sendWithResend({
+        replyTo: email,
+        subject: `New Job Application - ${job.title}`.replace(/[\r\n]+/g, ' ').trim(),
+        text: [
+          `Full Name: ${name}`,
+          `Company Name: ${company}`,
+          `Country: ${country}`,
+          `Email: ${email}`,
+          `Phone Number: ${countryCode} ${phone}`,
+          `Portfolio / Store Link: ${portfolio || 'Not provided'}`,
+          `Job Title: ${job.title}`,
+          `Job Category: ${job.category || 'Not specified'}`,
+          '',
+          'Message:',
+          message || 'Not provided',
+        ].join('\n'),
+      })
+    } catch (emailError) {
+      await JobApplication.findByIdAndUpdate(application._id, {
+        emailStatus: 'failed',
+        emailError: String(emailError?.message || emailError).slice(0, 500),
+      }).catch(() => {})
+      throw emailError
+    }
+
+    await JobApplication.findByIdAndUpdate(application._id, { emailStatus: 'sent' }).catch(() => {})
 
     res.status(201).json({
       success: true,
