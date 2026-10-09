@@ -1,141 +1,111 @@
 import express from 'express'
-import multer from 'multer'
 import mongoose from 'mongoose'
 import ContactInquiry from '../models/ContactInquiry.js'
 import { sendWithResend } from '../services/resendMailer.js'
 import { requireAdmin } from '../middleware/auth.js'
 
 const router = express.Router()
-const allowedAttachments = new Map([
-  ['.pdf', 'application/pdf'],
-  ['.doc', 'application/msword'],
-  ['.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-  ['.png', 'image/png'],
-  ['.jpg', 'image/jpeg'],
-  ['.jpeg', 'image/jpeg'],
-])
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const COUNTRY_CODE_PATTERN = /^\+\d{1,4}$/
 
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fileSize: 5 * 1024 * 1024,
-    files: 1,
-    fields: 9,
-    fieldSize: 100 * 1024,
-  },
-  fileFilter: (req, file, callback) => {
-    const extension = file.originalname.slice(file.originalname.lastIndexOf('.')).toLowerCase()
-    if (allowedAttachments.get(extension) === file.mimetype) {
-      callback(null, true)
-      return
-    }
+const text = (value, max) => (typeof value === 'string' ? value.trim().slice(0, max) : '')
 
-    callback(new Error('Only PDF, DOC, DOCX, PNG, JPG, and JPEG attachments are allowed'))
-  },
-})
+// Optional: a LinkedIn address, with or without https://. Returns '' for none, null for something that is not LinkedIn.
+const cleanLinkedIn = (value) => {
+  if (!value) return ''
 
-const parseContactForm = (req, res, next) => {
-  upload.single('attachment')(req, res, (error) => {
-    if (!error) {
-      next()
-      return
-    }
+  try {
+    const url = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`)
+    const host = url.hostname.toLowerCase()
 
-    if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
-      res.status(413).json({
-        success: false,
-        message: 'Attachment must be 5 MB or smaller',
-      })
-      return
-    }
+    if (host !== 'linkedin.com' && !host.endsWith('.linkedin.com')) return null
 
-    res.status(400).json({
-      success: false,
-      message:
-        error instanceof multer.MulterError
-          ? 'The uploaded form or attachment is invalid'
-          : error.message,
-    })
-  })
+    return url.toString()
+  } catch {
+    return null
+  }
 }
 
-router.post('/', parseContactForm, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const form = Object.fromEntries(
-      [
-        'firstName',
-        'lastName',
-        'email',
-        'phone',
-        'service',
-        'experience',
-        'company',
-        'subject',
-        'message',
-      ].map((field) => [
-        field,
-        typeof req.body[field] === 'string' ? req.body[field].trim() : '',
-      ]),
-    )
-    const requiredFields = ['firstName', 'lastName', 'service', 'experience', 'message']
-    if (requiredFields.some((field) => !form[field])) {
+    const firstName = text(req.body.firstName, 100)
+    const lastName = text(req.body.lastName, 100)
+    const countryCode = text(req.body.countryCode, 6)
+    const phone = text(req.body.phone, 30)
+    const email = text(req.body.email, 254)
+    const linkedin = cleanLinkedIn(text(req.body.linkedin, 300))
+    const message = text(req.body.message, 5000)
+
+    if (!firstName || !lastName || !phone || !email || !message) {
       return res.status(400).json({
         success: false,
         message: 'Please complete all required fields',
       })
     }
 
-    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+    if (!EMAIL_PATTERN.test(email)) {
       return res.status(400).json({
         success: false,
         message: 'Please enter a valid email address',
       })
     }
 
+    if (!COUNTRY_CODE_PATTERN.test(countryCode) || !/^[\d\s()-]{4,20}$/.test(phone)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please enter a valid phone number',
+      })
+    }
+
+    if (linkedin === null) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please enter a valid LinkedIn profile link',
+      })
+    }
+
     const inquiry = await ContactInquiry.create({
-      ...form,
-      // Only the file name is stored (the file itself is emailed, not kept)
-      attachment: req.file ? req.file.originalname.split(/[\\/]/).pop() : '',
+      firstName,
+      lastName,
+      countryCode,
+      phone,
+      email,
+      linkedin,
+      message,
     })
 
     // The inquiry is already saved; if Resend fails the record stays and the error is logged by the catch below
-    const subjectLine = (form.subject || `${form.firstName} ${form.lastName}`)
-      .replace(/[\r\n]+/g, ' ')
-      .trim()
+    try {
+      await sendWithResend({
+        subject: `New Contact Us Inquiry - ${firstName} ${lastName}`.replace(/[\r\n]+/g, ' ').trim(),
+        // Replying to the notification goes straight to the visitor; the sender stays the verified address
+        replyTo: email,
+        text: [
+          'New Contact Us Inquiry',
+          '',
+          `Full Name: ${firstName}`,
+          `Last Name: ${lastName}`,
+          `Phone Number: ${countryCode} ${phone}`,
+          `Email: ${email}`,
+          `LinkedIn Profile: ${linkedin || 'Not provided'}`,
+          '',
+          'Message:',
+          message,
+        ].join('\n'),
+      })
+    } catch (emailError) {
+      await ContactInquiry.findByIdAndUpdate(inquiry._id, {
+        emailStatus: 'failed',
+        emailError: String(emailError?.message || emailError).slice(0, 500),
+      }).catch(() => {})
+      throw emailError
+    }
 
-    await sendWithResend({
-      subject: `New Contact Us Inquiry - ${subjectLine}`,
-      // Replying to the notification goes straight to the visitor
-      replyTo: form.email || undefined,
-      text: [
-        'New Contact Us Inquiry',
-        '',
-        `First Name: ${form.firstName}`,
-        `Last Name: ${form.lastName}`,
-        `Email: ${form.email || 'Not provided'}`,
-        `Phone: ${form.phone || 'Not provided'}`,
-        `Service: ${form.service}`,
-        `Experience: ${form.experience}`,
-        `Company: ${form.company || 'Not provided'}`,
-        `Subject: ${form.subject || 'Not provided'}`,
-        '',
-        'Message:',
-        form.message,
-      ].join('\n'),
-      attachments: req.file
-        ? [
-            {
-              filename: req.file.originalname.split(/[\\/]/).pop(),
-              content: req.file.buffer,
-            },
-          ]
-        : [],
-    })
+    await ContactInquiry.findByIdAndUpdate(inquiry._id, { emailStatus: 'sent' }).catch(() => {})
 
     res.status(201).json({
       success: true,
       message: 'Contact inquiry submitted successfully',
-      inquiry,
     })
   } catch (error) {
     console.error('Failed to submit contact inquiry:', error)

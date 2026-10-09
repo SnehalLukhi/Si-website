@@ -18,9 +18,21 @@ const contactInquirySchema = new mongoose.Schema(
       trim: true,
     },
 
+    countryCode: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+
     phone: {
       type: String,
       trim: true,
+    },
+
+    linkedin: {
+      type: String,
+      trim: true,
+      default: '',
     },
 
     service: {
@@ -58,6 +70,17 @@ const contactInquirySchema = new mongoose.Schema(
       type: String,
       enum: ['New', 'Read', 'Replied', 'Closed'],
       default: 'New',
+    },
+
+    emailStatus: {
+      type: String,
+      enum: ['pending', 'sent', 'failed'],
+      default: 'pending',
+    },
+
+    emailError: {
+      type: String,
+      default: '',
     },
   },
   {
