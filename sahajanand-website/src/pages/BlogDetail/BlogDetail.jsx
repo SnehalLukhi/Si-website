@@ -82,7 +82,7 @@ function BlogArticle({ blog }) {
 
   return (
     <div className="blog-detail">
-      <Header homePath="/" compactLogoLight />
+      <Header homePath="/" />
 
       <section className="blog-detail__hero" aria-label={blog.title}>
         <img className="blog-detail__hero-image" src={heroImage} alt={blog.title} />
@@ -240,7 +240,7 @@ function BlogDetail({ slug }) {
   if (state.slug !== slug) {
     return (
       <div className="blog-detail">
-        <Header homePath="/" compactLogoLight />
+        <Header homePath="/" />
         <main className="blog-detail__state" aria-busy="true" />
         <Footer />
       </div>
@@ -250,7 +250,7 @@ function BlogDetail({ slug }) {
   if (!state.blog) {
     return (
       <div className="blog-detail">
-        <Header homePath="/" compactLogoLight />
+        <Header homePath="/" />
         <main className="blog-detail__state">
           <h1 className="blog-detail__state-title">
             {state.failed ? 'Unable to load this blog' : 'Blog not found'}
