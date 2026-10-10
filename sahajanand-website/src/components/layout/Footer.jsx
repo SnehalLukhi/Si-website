@@ -7,9 +7,9 @@ const QUICK_LINKS = [
   // { label: 'Home', href: '/' },
   { label: 'About Us', href: '/#about' },
   { label: 'Our Products', href: '/#our-product' },
-  { label: 'Blog', href: '/#blog' },
-  { label: 'Careers', href: '/#careers' },
-  { label: 'Contact Us', href: '/#contact' },
+  { label: 'Blog', href: 'https://si-website-shzg.vercel.app/blog' },
+  { label: 'Careers', href: '/careers' },
+  { label: 'Contact Us', href: '/contact-us' },
 ]
 
 const SERVICE_LINKS = [

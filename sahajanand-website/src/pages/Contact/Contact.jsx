@@ -37,7 +37,6 @@ const CONTACT_ITEMS = [
       'Maruti Nandan Society, Mota Varachha,',
       'Surat, Gujarat 394101',
     ],
-    href: '/#about',
     icon: 'location',
   },
 ]
@@ -352,9 +351,13 @@ function Contact() {
                   if (definition === 'visible') setContactCardsDone(true)
                 }}
               >
-                {CONTACT_ITEMS.map((item) => (
+                {CONTACT_ITEMS.map((item) => {
+                  // The address is plain text (not a link); the email and phone cards stay links
+                  const Card = item.address ? 'div' : 'a'
+
+                  return (
                   <motion.li key={item.id} variants={contactCardVariants}>
-                    <a className="contact-page__info-card" href={item.href}>
+                    <Card className="contact-page__info-card" {...(item.address ? {} : { href: item.href })}>
                       <span className="contact-page__info-icon" aria-hidden="true">
                         <ContactIcon type={item.icon} />
                       </span>
@@ -371,9 +374,10 @@ function Contact() {
                           item.label
                         )}
                       </span>
-                    </a>
+                    </Card>
                   </motion.li>
-                ))}
+                  )
+                })}
               </motion.ul>
 
               <div className="contact-page__map-block">
