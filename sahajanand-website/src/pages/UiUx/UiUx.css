@@ -828,9 +828,9 @@
   }
 }
 
-/* Phones (576px and below): one shared 5% side gutter, the same as the Home page, so the page content lines up
-   with the header logo and menu button instead of sitting in a narrow centred column. */
-@media (max-width: 576px) {
+/* Phones and tablets (991px and below): one shared 5% side gutter, the same as the Home page, so the page content lines
+   up with the header logo and menu button instead of sitting in a narrow centred column. */
+@media (max-width: 991px) {
   .uiux__main,
   .uiux__skills {
     width: 90%;

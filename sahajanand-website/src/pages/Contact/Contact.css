@@ -1191,3 +1191,13 @@
 .contact-page__field select.contact-page__country-name option {
   color: #0f172a;
 }
+
+/* Phones and tablets (991px and below): one shared 5% side gutter, the same as the Home page, so the page content lines
+   up with the header logo and menu button instead of sitting in a narrow centred column. */
+@media (max-width: 991px) {
+  .contact-page__intro,
+  .contact-page__panel-inner {
+    width: 90%;
+    max-width: none;
+  }
+}
