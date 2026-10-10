@@ -549,3 +549,12 @@
 .blog-detail__state-link:hover {
   background: #1a92e9;
 }
+
+/* Phones (576px and below): one shared 5% side gutter, the same as the Home page, so the page content lines up
+   with the header logo and menu button instead of sitting in a narrow centred column. */
+@media (max-width: 576px) {
+  .blog-detail__body {
+    width: 90%;
+  }
+}
+

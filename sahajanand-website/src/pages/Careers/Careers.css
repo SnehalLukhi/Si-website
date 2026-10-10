@@ -1120,3 +1120,16 @@
     width: calc(70% - 2 * (3.8125rem + (10rem + 3.8125rem) * 0.1763));
   }
 }
+
+/* Phones (576px and below): one shared 5% side gutter, the same as the Home page, so the page content lines up
+   with the header logo and menu button instead of sitting in a narrow centred column. */
+@media (max-width: 576px) {
+  .careers-page__hero-copy,
+  .careers-page__jobs-title,
+  .careers-page__job-swiper,
+  .careers-page__culture-inner,
+  .careers-page__quote-frame {
+    width: 90%;
+    max-width: none;
+  }
+}

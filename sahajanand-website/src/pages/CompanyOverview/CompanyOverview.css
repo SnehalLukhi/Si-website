@@ -845,3 +845,12 @@
     padding-top: calc(3.25rem + 4.95rem);
   }
 }
+
+/* Phones (576px and below): one shared 5% side gutter, the same as the Home page, so the page content lines up
+   with the header logo and menu button instead of sitting in a narrow centred column. */
+@media (max-width: 576px) {
+  .cov__container {
+    width: 90%;
+  }
+}
+

@@ -797,3 +797,13 @@
     font-size: clamp(1.5rem, 2.1vw, 2rem);
   }
 }
+
+/* Phones (576px and below): one shared 5% side gutter, the same as the Home page, so the page content lines up
+   with the header logo and menu button instead of sitting in a narrow centred column. */
+@media (max-width: 576px) {
+  .appdev__main,
+  .appdev__skills {
+    width: 90%;
+  }
+}
+

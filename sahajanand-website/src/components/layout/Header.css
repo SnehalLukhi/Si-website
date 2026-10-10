@@ -1626,3 +1626,13 @@
     max-width: min(58vw, 13rem, calc(70vw - 3.5rem));
   }
 }
+
+/* Phones (576px and below): one shared 5% side gutter, the same as the Home page, so the page content lines up
+   with the header logo and menu button instead of sitting in a narrow centred column. */
+@media (max-width: 576px) {
+  .header.is-sticky {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+  }
+}
+
