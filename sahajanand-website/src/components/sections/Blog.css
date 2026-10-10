@@ -327,8 +327,10 @@
     font-size: 1.05rem;
   }
 
-  .blog__image {
-    aspect-ratio: 16 / 10;
+  /* Article images are 16:9: show the whole image instead of cropping its sides (Home blog section only) */
+  .blog .blog__image {
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
   }
 }
 
