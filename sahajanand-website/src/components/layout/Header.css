@@ -1,7 +1,7 @@
 .header {
   --header-text: #000000;
   --header-active: #0085e4;
-  --nav-bg: rgba(255, 255, 255, 0.94);
+  --nav-bg: rgba(255, 255, 255, 0.95);
   --nav-hover: #f1f5f9;
 
   position: fixed;
@@ -459,6 +459,8 @@
     max-width: calc(100% - 2rem);
     height: 68px;
     min-height: 68px;
+    /* Slightly see-through (desktop only; was solid #ffffff) */
+    background: rgba(255, 255, 255, 0.80);
   }
 
   .header.is-sticky .header__brand {
