@@ -224,20 +224,16 @@
   margin: 0;
   margin-bottom: -28%;
   transform-origin: center center;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  image-rendering: -webkit-optimize-contrast;
-  filter: drop-shadow(0 4px 8px rgba(15, 23, 42, 0.14));
   pointer-events: none;
   user-select: none;
 }
 
 .hero__icon-lane--down .hero__stream-icon {
-  transform: rotate(20deg) translateZ(0);
+  transform: rotate(20deg);
 }
 
 .hero__icon-lane--up .hero__stream-icon {
-  transform: rotate(20deg) translateZ(0);
+  transform: rotate(20deg);
 }
 
 @keyframes hero-marquee-scroll {
