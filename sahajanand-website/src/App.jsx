@@ -15,13 +15,13 @@ import CareersFull from './pages/CareersFull/CareersFull'
 import JobDetails from './pages/JobDetails/JobDetails'
 import Products from './pages/Products/Products'
 import AnimationPreview from './animation-preview/AnimationPreview'
-import BackToTop from './components/common/BackToTop'
+import ContactWidget from './components/common/ContactWidget'
 
 function App() {
   return (
     <>
       <CurrentPage />
-      <BackToTop />
+      <ContactWidget />
     </>
   )
 }
