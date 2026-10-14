@@ -6,7 +6,6 @@ const WHATSAPP_URL = 'https://wa.me/918140039454'
 const EMAIL_URL = 'mailto:career@sahajanandinfotech.com'
 const PHONE_URL = 'tel:+918140039454'
 const MEETING_URL = '/contact-us'
-const STORAGE_KEY = 'sahajanand-contact-widget-open'
 
 function CalendarIcon() {
   return (
@@ -81,40 +80,16 @@ const ACTIONS = [
   { id: 'call', label: 'Call Us', href: PHONE_URL, Icon: PhoneIcon },
 ]
 
-function readOpen() {
-  try {
-    return window.sessionStorage.getItem(STORAGE_KEY) !== '0'
-  } catch {
-    return true
-  }
-}
-
-function rememberOpen(open) {
-  try {
-    window.sessionStorage.setItem(STORAGE_KEY, open ? '1' : '0')
-  } catch {
-    /* storage unavailable: the widget simply opens again on the next page */
-  }
-}
-
-/* Floating contact widget, fixed at the bottom-right corner. The X folds it into a small round button
-   that opens it again. */
+/* Floating contact widget, fixed at the bottom-right corner. It is closed on every page load and refresh and
+   opens only when the round button is clicked; the X (or Esc) closes it again. */
 function ContactWidget() {
-  const [open, setOpen] = useState(readOpen)
-
-  const setWidgetOpen = (next) => {
-    setOpen(next)
-    rememberOpen(next)
-  }
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     if (!open) return undefined
 
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        setOpen(false)
-        rememberOpen(false)
-      }
+      if (event.key === 'Escape') setOpen(false)
     }
 
     window.addEventListener('keydown', onKeyDown)
@@ -147,7 +122,7 @@ function ContactWidget() {
           className="contact-widget__toggle contact-widget__toggle--close"
           type="button"
           aria-label="Close contact options"
-          onClick={() => setWidgetOpen(false)}
+          onClick={() => setOpen(false)}
         >
           <CloseIcon />
         </button>
@@ -157,7 +132,7 @@ function ContactWidget() {
           type="button"
           aria-label="Open contact options"
           aria-expanded="false"
-          onClick={() => setWidgetOpen(true)}
+          onClick={() => setOpen(true)}
         >
           <ChatIcon />
         </button>
