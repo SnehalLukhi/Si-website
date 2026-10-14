@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import './ContactWidget.css'
 
 /* Contact details already used on the Contact Us page and in the footer */
-const WHATSAPP_URL = 'https://wa.me/918140039454'
+const WHATSAPP_URL =
+  'https://wa.me/918140039454?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services.'
 const EMAIL_URL = 'mailto:career@sahajanandinfotech.com'
 const PHONE_URL = 'tel:+918140039454'
 const MEETING_URL = '/contact-us'
