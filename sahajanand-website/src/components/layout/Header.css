@@ -459,8 +459,10 @@
     max-width: calc(100% - 2rem);
     height: 68px;
     min-height: 68px;
-    /* Slightly see-through (desktop only; was solid #ffffff) */
-    background: rgba(255, 255, 255, 0.85);
+    /* Mostly white frosted glass (desktop only; was solid #ffffff) */
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .header.is-sticky .header__brand {
